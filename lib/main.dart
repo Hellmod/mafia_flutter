@@ -50,9 +50,50 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
-
-
+            Container(
+              margin: EdgeInsets.fromLTRB(15.5, 0, 15.5, 64),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    // mafiaYph (26:17176)
+                    margin: EdgeInsets.fromLTRB(0, 0, 13, 12),
+                    child: const Text(
+                      'Mafia',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2575,
+                        letterSpacing: -0.64,
+                        color: Color(0xffffffff),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    // wcielsiwroljednegozczonkwmafii (26:17270)
+                    child: Container(
+                      constraints: BoxConstraints(
+                        maxWidth: 327,
+                      ),
+                      child: const Text(
+                        'Wciel się w rolę jednego z członków mafii lub mieszkańca miasta, który za wszelką cenę chce pozbyć się gangsterów ',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          height: 1.5,
+                          letterSpacing: -0.48,
+                          color: Color(0xffa3a3a3),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             const Text(
               "You have pushed the button this many times:",
             ),

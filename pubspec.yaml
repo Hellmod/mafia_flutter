@@ -52,6 +52,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+    - family: Inter  # Nazwa, pod którą będziesz używać tej czcionki w kodzie
+      fonts:
+        - asset: fonts/Inter.ttf  # Ścieżka do pliku czcionki
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -88,3 +92,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+
+
