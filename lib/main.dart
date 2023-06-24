@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: const Border(),
                     image: const DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("assets/images/karta.png"),
+                      image: AssetImage("assets/images/card.png"),
                     ),
                   ),
                 ),
