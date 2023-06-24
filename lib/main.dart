@@ -58,94 +58,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           child: Stack(
             children: [
-              const Positioned(
-                // mafia4Rw (154:18152)
-                left: 6,
-                top: 0,
-                child: Align(
-                  child: SizedBox(
-                    width: 382,
-                    height: 213,
-                    child: Text(
-                      'Mafia',
-                      style: TextStyle(
-                        fontFamily: 'Clash Display Variable',
-                        fontSize: 169.3164520264,
-                        fontWeight: FontWeight.w600,
-                        height: 1.2575,
-                        letterSpacing: -3.3863290405,
-                      ),
-                    ),
-                  ),
-                ),
-              ),//MAFIA
-              const Positioned(
-                // mafiaX4d (154:18153)
-                left: 0,
-                top: 168,
-                child: Align(
-                  child: SizedBox(
-                    width: 382,
-                    height: 213,
-                    child: Text(
-                      'Mafia',
-                      style: TextStyle(
-                        fontFamily: 'Clash Display Variable',
-                        fontSize: 169.3164520264,
-                        fontWeight: FontWeight.w600,
-                        height: 1.2575,
-                        letterSpacing: -3.3863290405,
-                      ),
-                    ),
-                  ),
-                ),
-              ),//MAFIA
-              const Positioned(
-                // mafiaDi9 (154:18154)
-                left: 190,
-                top: 168,
-                child: Align(
-                  child: SizedBox(
-                    width: 382,
-                    height: 213,
-                    child: Text(
-                      'Mafia',
-                      style: TextStyle(
-                        fontFamily: 'Clash Display Variable',
-                        fontSize: 169.3164520264,
-                        fontWeight: FontWeight.w600,
-                        height: 1.2575,
-                        letterSpacing: -3.3863290405,
-                      ),
-                    ),
-                  ),
-                ),
-              ),//MAFIA
               Positioned(
                 // kartaL25 (154:18155)
-                left: 51.3134765625,
-                top: 215.958984375,
+                left: 52,
+                top: 216,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(58.92, 356.09, 58.92, 24.99),
-                  width: 290.18,
-                  height: 411.09,
+                  padding: const EdgeInsets.fromLTRB(58, 356, 58, 24),
+                  width: 290,
+                  height: 412,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.491060257),
+                    borderRadius: BorderRadius.circular(16),
                     border: const Border(),
                     image: const DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage("assets/images/karta.png"),
-                    ),
-                  ),
-                  child: const Text(
-                    'Mafia',
-                    style: TextStyle(
-                      fontFamily: 'Clash Display Variable',
-                      fontSize: 23.2365894318,
-                      fontWeight: FontWeight.w600,
-                      height: 1.2575,
-                      letterSpacing: -0.4647317886,
-                      color: Color(0x7fffffff),
                     ),
                   ),
                 ),
