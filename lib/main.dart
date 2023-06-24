@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Center(
                               // wcielsiwroljednegozczonkwmafii (154:18171)
                               child: Container(
-                                constraints: BoxConstraints(
+                                constraints: const BoxConstraints(
                                   maxWidth: 327,
                                 ),
                                 child: const Text(
@@ -257,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               decoration: BoxDecoration(
                                 color: Color(0x7f595959),
                                 borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: Color(0x192f2b43),
                                     offset: Offset(0, 1),
@@ -269,7 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 // containercKb (154:18200)
                                 width: 129,
                                 height: double.infinity,
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'Jak grać',
                                     textAlign: TextAlign.center,
@@ -293,7 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               decoration: BoxDecoration(
                                 color: Color(0x7f595959),
                                 borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: Color(0x192f2b43),
                                     offset: Offset(0, 1),
@@ -305,7 +305,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 // containerEbs (154:18205)
                                 width: 128.5,
                                 height: double.infinity,
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'Twórcy',
                                     textAlign: TextAlign.center,
@@ -332,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: BoxDecoration(
                           color: Color(0x7f595959),
                           borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: Color(0x192f2b43),
                               offset: Offset(0, 1),
