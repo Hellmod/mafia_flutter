@@ -211,6 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     body: "Obecność Game Mastera",
                                     details: "4-16 graczy",
                                     marginBottom: 12,
+                                    icon: "assets/images/SmileyWink.png",
                                   ),
                                   HomeScreanButton(
                                     title: "Brak moderacji",
@@ -218,6 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         "Rolę Game Mastera przejmuje aplikacja",
                                     details: "4-16 graczy",
                                     marginBottom: 0,
+                                    icon: "assets/images/DeviceMobile.png",
                                   ),
                                 ],
                               ),

@@ -1,14 +1,20 @@
 // custom_container.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HomeScreanButton extends StatelessWidget {
   final String title;
   final String body;
   final String details;
   final double marginBottom;
+  final String icon;
 
   HomeScreanButton(
-      {required this.title, required this.body, required this.details, required this.marginBottom});
+      {required this.title,
+      required this.body,
+      required this.details,
+      required this.marginBottom,
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +42,17 @@ class HomeScreanButton extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            /*Container(
-                                            // frame427320275UE5 (154:18177)
-                                            margin:  EdgeInsets.fromLTRB(0, 0, 0, 12),
-                                            width:  40,
-                                            height:  40,
-                                            child:
-                                            Image.network(
-                                              [Image url]
-                                              width:  40,
-                                              height:  40,
-                                            ),
-                                          ),*/
+            Container(
+              // frame427320275UE5 (154:18177)
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 12),
+              width: 40,
+              height: 40,
+              child: SvgPicture.asset(
+                icon,
+                width: 40,
+                height: 40,
+              ),
+            ),
             Container(
               // frame427320276mys (154:18180)
               width: double.infinity,
@@ -96,18 +101,17 @@ class HomeScreanButton extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        /*Container(
-                                                        // users5NH (154:18184)
-                                                        margin:  EdgeInsets.fromLTRB(0, 0, 8, 1),
-                                                        width:  16,
-                                                        height:  16,
-                                                        child:
-                                                        Image.network(
-                                                          [Image url]
-                                                          width:  16,
-                                                          height:  16,
-                                                        ),
-                                                      ),*/
+                        Container(
+                          // users5NH (154:18184)
+                          margin: EdgeInsets.fromLTRB(0, 0, 8, 1),
+                          width: 16,
+                          height: 16,
+                          child: SvgPicture.asset(
+                            'assets/images/Users.svg',
+                            width: 16,
+                            height: 16,
+                          ),
+                        ),
                         Text(
                           // graczy1Fw (154:18185)
                           details,
