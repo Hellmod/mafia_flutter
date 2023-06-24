@@ -5,15 +5,16 @@ class HomeScreanButton extends StatelessWidget {
   final String title;
   final String body;
   final String details;
+  final double marginBottom;
 
   HomeScreanButton(
-      {required this.title, required this.body, required this.details});
+      {required this.title, required this.body, required this.details, required this.marginBottom});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // buttonFcD (154:18175)
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 12),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, marginBottom),
       padding: const EdgeInsets.fromLTRB(75.5, 16, 75.5, 15),
       width: double.infinity,
       height: 162,
@@ -58,11 +59,11 @@ class HomeScreanButton extends StatelessWidget {
                     // moderowanarozgrywkaXTF (154:18181)
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(0, 0, 0, 4),
-                      child: const Text(
+                      child: Text(
                         //RM
-                        'Moderowana rozgrywka',
+                        title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Clash Display Variable',
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -76,10 +77,10 @@ class HomeScreanButton extends StatelessWidget {
                     //RM część
                     // obecnogamemasteraRYd (154:18182)
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 3),
-                    child: const Text(
-                      'Obecność Game Mastera',
+                    child: Text(
+                      body,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -92,7 +93,7 @@ class HomeScreanButton extends StatelessWidget {
                     // frame427320302jpD (154:18183)
                     margin: EdgeInsets.fromLTRB(51, 0, 51, 0),
                     width: double.infinity,
-                    child: const Row(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         /*Container(
@@ -109,9 +110,9 @@ class HomeScreanButton extends StatelessWidget {
                                                       ),*/
                         Text(
                           // graczy1Fw (154:18185)
-                          '4-16 graczy',
+                          details,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 14,
                             fontWeight: FontWeight.w500,

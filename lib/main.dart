@@ -266,8 +266,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Container(
                               // wybierztyprozgrywkiyub (154:18173)
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 11),
-                              child: Text(
+                              margin: const EdgeInsets.fromLTRB(0, 0, 0, 11),
+                              child: const Text(
                                 'Wybierz typ rozgrywki:',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -286,14 +286,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   HomeScreanButton(
-                                      title: "Moderowana rozgrywka",
-                                      body: "Obecność Game Mastera",
-                                      details: "4-16 graczy"),
+                                    title: "Moderowana rozgrywka",
+                                    body: "Obecność Game Mastera",
+                                    details: "4-16 graczy",
+                                    marginBottom: 12,
+                                  ),
                                   HomeScreanButton(
-                                      title: "Brak moderacji",
-                                      body:
-                                          "Rolę Game Mastera przejmuje aplikacja",
-                                      details: "4-16 graczy"),
+                                    title: "Brak moderacji",
+                                    body:
+                                        "Rolę Game Mastera przejmuje aplikacja",
+                                    details: "4-16 graczy",
+                                    marginBottom: 0,
+                                  ),
                                 ],
                               ),
                             ),
