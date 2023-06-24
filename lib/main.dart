@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'heomeScreanButton.dart';
 
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              ),
+              ),//MAFIA
               const Positioned(
                 // mafiaX4d (154:18153)
                 left: 0,
@@ -98,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              ),
+              ),//MAFIA
               const Positioned(
                 // mafiaDi9 (154:18154)
                 left: 190,
@@ -119,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              ),
+              ),//MAFIA
               Positioned(
                 // kartaL25 (154:18155)
                 left: 51.3134765625,
@@ -128,17 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: EdgeInsets.fromLTRB(58.92, 356.09, 58.92, 24.99),
                   width: 290.18,
                   height: 411.09,
-                  /*decoration:  BoxDecoration (
-                    borderRadius:  BorderRadius.circular(15.491060257),
-                    border:  const Border (
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.491060257),
+                    border: const Border(),
+                    image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/images/karta.png"),
                     ),
-                    image:  DecorationImage (
-                      fit:  BoxFit.cover,
-                      image:  NetworkImage (
-                          [Image url]
-                      ),
-                    ),
-                  ),*/
+                  ),
                   child: const Text(
                     'Mafia',
                     style: TextStyle(
@@ -151,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              ),
+              ),//KARTA
               Positioned(
                 // rectangle3848Keh (154:18163)
                 left: 0,
@@ -183,26 +181,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              ),
-              /* Positioned(
+              ),//GRADIENT
+              Positioned(
                 // backbuttonwRB (154:18164)
-                left:  330,
-                top:  52,
-                child:
-                Align(
-                  child:
-                  SizedBox(
-                    width:  44,
-                    height:  44,
-                    child:
-                    Image.network(
-                      [Image url]
-                      width:  44,
-                      height:  44,
+                left: 330,
+                top: 52,
+                child: Align(
+                  child: SizedBox(
+                    width: 44,
+                    height: 44,
+                    child: SvgPicture.asset(
+                      'assets/images/UserCircle.svg',
+                      width: 44,
+                      height: 44,
                     ),
                   ),
                 ),
-              ),*/
+              ),//UŻYTKOWNIK
               Positioned(
                 // frame427320286FRs (154:18166)
                 left: 17,
@@ -223,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Container(
                               // mafia6Bb (154:18170)
                               margin: EdgeInsets.fromLTRB(0, 0, 13, 12),
-                              child: Text(
+                              child: const Text(
                                 'Mafia',
                                 style: TextStyle(
                                   fontFamily: 'Clash Display Variable',
@@ -234,7 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   color: Color(0xffffffff),
                                 ),
                               ),
-                            ),
+                            ),//MAFIA
                             Center(
                               // wcielsiwroljednegozczonkwmafii (154:18171)
                               child: Container(
@@ -254,10 +249,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ),//Opis
                           ],
                         ),
-                      ),
+                      ),//NAGŁÓWEK
                       Container(
                         // frame427320279EBK (154:18172)
                         width: double.infinity,
@@ -278,7 +273,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   color: Color(0xffffffff),
                                 ),
                               ),
-                            ),
+                            ),//Wybierz typ rozgrywki
                             Container(
                               // frame427320278HvH (154:18174)
                               width: double.infinity,
@@ -300,14 +295,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ],
                               ),
-                            ),
+                            ),//Przyciski
                           ],
                         ),
-                      ),
+                      ),//PRZYCISK WYBORU GRY
                     ],
                   ),
                 ),
-              ),
+              ),//Opis
               Positioned(
                 // frame427320288G7K (154:18197)
                 left: 16,
@@ -401,54 +396,49 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                       ),
-                      /*Container(
-                  // buttonx25 (154:18209)
-                  padding: EdgeInsets.fromLTRB(13, 10, 0, 10),
-                  width: 44,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Color(0x7f595959),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x192f2b43),
-                        offset: Offset(0, 1),
-                        blurRadius: 1.5,
-                      ),
-                    ],
-                  ),
-                  child:
-                  Container(
-                    // containerfx5 (154:18210)
-                    padding: EdgeInsets.fromLTRB(0, 3, 0, 3.1),
-                    width: 126,
-                    height: double.infinity,
-                    child:
-                    Align(
-                      // facebookRRT (154:18211)
-                      alignment: Alignment.centerLeft,
-                      child:
-                      SizedBox(
-                          width: 18,
-                          height: 17.9,
-                          child:
-                          Container()
-                        Container(
-                                margin:  EdgeInsets.fromLTRB(0, 0, 108, 0),
-                                child:
-                                Image.network(
-                                  [Image url]
-                                  width:  18,
-                                  height:  17.9,
+                      Container(
+                        // buttonx25 (154:18209)
+                        padding: EdgeInsets.fromLTRB(13, 10, 0, 10),
+                        width: 44,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color(0x7f595959),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x192f2b43),
+                              offset: Offset(0, 1),
+                              blurRadius: 1.5,
+                            ),
+                          ],
+                        ),
+                        child: Container(
+                          // containerfx5 (154:18210)
+                          padding: EdgeInsets.fromLTRB(0, 3, 0, 3.1),
+                          width: 126,
+                          height: double.infinity,
+                          child: Align(
+                            // facebookRRT (154:18211)
+                            alignment: Alignment.centerLeft,
+                            child: SizedBox(
+                              width: 18,
+                              height: 17.9,
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(0, 0, 108, 0),
+                                child: SvgPicture.asset(
+                                  'assets/images/Facebook.svg',
+                                  width: 18,
+                                  height: 17.9,
                                 ),
-                      ),
-                    ),
-                  ),
-                ),*/
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
-              ),
+              ),//Jak grać, Twórcy, Facebook
             ],
           ),
         )),

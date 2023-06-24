@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: 2.0.7
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,7 +60,10 @@ flutter:
     - family: Clash Display Variable  # Nazwa drugiej czcionki
       fonts:
         - asset: fonts/ClashDisplayVariable.ttf  # Ścieżka do drugiej czcionki
-
+  assets:
+    - assets/images/card.png
+    - assets/images/Facebook.svg
+    - assets/images/UserCircle.svg
     # The following line ensures that the Material Icons font is
     # included with your application, so that you can use the icons in
     # the material Icons class.
