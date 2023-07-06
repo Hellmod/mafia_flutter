@@ -21,9 +21,7 @@ class HomeScreanButton extends StatelessWidget {
     return Container(
       // buttonFcD (154:18175)
       margin: EdgeInsets.fromLTRB(0, 0, 0, marginBottom),
-      padding: const EdgeInsets.fromLTRB(75.5, 16, 75.5, 15),
       width: double.infinity,
-      height: 162,
       decoration: BoxDecoration(
         color: Color(0x7f595959),
         borderRadius: BorderRadius.circular(12),
