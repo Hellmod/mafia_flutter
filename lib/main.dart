@@ -1,17 +1,15 @@
-import 'dart:developer';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import 'heomeScreanButton.dart';
-
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
     );
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -38,6 +36,34 @@ class _MyHomePageState extends State<MyHomePage> {
   bool background1 = false;
   bool background2 = false;
 
+  final _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _firestore
+        .collection('background_states')
+        .doc('state')
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        background1 = snapshot['background1'];
+        background2 = snapshot['background2'];
+      });
+    });
+  }
+
+  _updateBackgroundStates() async {
+    try {
+      await _firestore.collection('background_states').doc('state').set({
+        'background1': background1,
+        'background2': background2,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,54 +72,43 @@ class _MyHomePageState extends State<MyHomePage> {
         height: double.infinity,
         alignment: Alignment.center,
         child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
                 onPressed: () {
                   setState(() {
                     background1 = !background1;
                   });
+                  _updateBackgroundStates();
                 },
-                child: Text("elo zieloneee!! ")),
-            const SizedBox(height: 30),
-            Container(
-              color: background1 ? Colors.amber : Colors.black12,
-              width: double.infinity,
-              height: 34,
-            ),
-            const SizedBox(height: 30),
-            TextButton(
+                child: Text("elo zieloneee!!"),
+              ),
+              const SizedBox(height: 30),
+              Container(
+                color: background1 ? Colors.amber : Colors.black12,
+                width: double.infinity,
+                height: 34,
+              ),
+              const SizedBox(height: 30),
+              TextButton(
                 onPressed: () {
                   setState(() {
                     background2 = !background2;
                   });
+                  _updateBackgroundStates();
                 },
-                child: Text("elo czerwone!! ")),
-            const SizedBox(height: 30),
-            Container(
-              color: background2 ? Colors.yellow : Colors.red,
-              width: double.infinity,
-              height: 34,
-            ),
-          ],
-        )),
-      ),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Second Screen'),
-      ),
-      body: Center(
-        child: Text('Welcome to the Second Screen!'),
+                child: Text("elo czerwone!!"),
+              ),
+              const SizedBox(height: 30),
+              Container(
+                color: background2 ? Colors.yellow : Colors.red,
+                width: double.infinity,
+                height: 34,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

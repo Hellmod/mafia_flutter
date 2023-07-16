@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "891482198598",
+    "project_id": "mafia-17cad",
+    "storage_bucket": "mafia-17cad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891482198598:android:e1189d281b61b75aeb3047",
+        "android_client_info": {
+          "package_name": "com.example.mafia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891482198598-pcpgpo9sh3s5otbnphp7ijc37ukkj9hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn_bny3IQ3a4p52UdyMHo5bZ1V3I2o1Ao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891482198598-pcpgpo9sh3s5otbnphp7ijc37ukkj9hj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891482198598:android:4002e08be37e772beb3047",
+        "android_client_info": {
+          "package_name": "pl.mafia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891482198598-pcpgpo9sh3s5otbnphp7ijc37ukkj9hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn_bny3IQ3a4p52UdyMHo5bZ1V3I2o1Ao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891482198598-pcpgpo9sh3s5otbnphp7ijc37ukkj9hj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
