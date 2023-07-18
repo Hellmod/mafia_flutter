@@ -59,8 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
         'background1': background1,
         'background2': background2,
       });
+      print("RMRM ok");
     } catch (e) {
-      print(e);
+      print("RMRM: $e");
     }
   }
 
