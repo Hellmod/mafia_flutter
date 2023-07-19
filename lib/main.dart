@@ -2,12 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-import 'heomeScreanButton.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,18 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  _updateBackgroundStates() async {
-    try {
-      await _firestore.collection('background_states').doc('state').set({
-        'background1': background1,
-        'background2': background2,
-      });
-      print("RMRM ok");
-    } catch (e) {
-      print("RMRM: $e");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +92,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-
+                Positioned(
+                  top: 52.0,
+                  right: 16.0,
+                  child: Align(
+                    child: InkWell(
+                      onTap: () {
+                        Fluttertoast.showToast(
+                            msg: "Trwają prace nad funkcjonalnością",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      },
+                      child: Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 1), // Border o szerokości 1px
+                          borderRadius: BorderRadius.circular(12), // Dodaje zaokrąglenie 12px
+                        ),
+                        child: SvgPicture.asset(
+                          'assets/images/UserCircle.svg',
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             )
         )
