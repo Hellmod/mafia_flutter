@@ -1,7 +1,13 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
+
+import 'heomeScreanButton.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,10 +16,11 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -68,49 +75,40 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        alignment: Alignment.center,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    background1 = !background1;
-                  });
-                  _updateBackgroundStates();
-                },
-                child: Text("elo zieloneee!!"),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                color: background1 ? Colors.amber : Colors.black12,
-                width: double.infinity,
-                height: 34,
-              ),
-              const SizedBox(height: 30),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    background2 = !background2;
-                  });
-                  _updateBackgroundStates();
-                },
-                child: Text("elo czerwone!!"),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                color: background2 ? Colors.yellow : Colors.red,
-                width: double.infinity,
-                height: 34,
-              ),
-            ],
-          ),
-        ),
-      ),
+        body: Container(
+            decoration: const BoxDecoration(
+              color: Color(0xff1e1e1e),
+            ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  width: 319,
+                  height: 411,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/card.png"),
+                    ),
+                  ),
+                ),
+                BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 9,
+                    sigmaY: 9,
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: <Color>[Color(0xcc2f404b), Color(0xcc161a22)],
+                      ),
+                    ),
+                  ),
+                ),
+
+              ],
+            )
+        )
     );
   }
 }
