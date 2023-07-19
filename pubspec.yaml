@@ -75,6 +75,9 @@ flutter:
     - assets/images/card.png
     - assets/images/Facebook.svg
     - assets/images/UserCircle.svg
+    - assets/images/DeviceMobile.svg
+    - assets/images/SmileyWink.svg
+    - assets/images/Users.svg
     # The following line ensures that the Material Icons font is
     # included with your application, so that you can use the icons in
     # the material Icons class.
