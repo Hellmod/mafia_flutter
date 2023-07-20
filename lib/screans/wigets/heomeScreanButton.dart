@@ -1,32 +1,27 @@
 // custom_container.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreanButton extends StatelessWidget {
   final String title;
   final String body;
   final String details;
   final String icon;
+  final Function callback;
 
   HomeScreanButton(
       {required this.title,
       required this.body,
       required this.details,
-      required this.icon});
+      required this.icon,
+      required this.callback,
+      });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Fluttertoast.showToast(
-              msg: "Trwają prace nad funkcjonalnością",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.grey,
-              textColor: Colors.white,
-              fontSize: 16.0);
+          callback();
         },
         child: Container(
           margin: const EdgeInsets.fromLTRB(0, 12, 0, 0),

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mafia/screans/wigets/heomeScreanButton.dart';
 
+import 'lobby_many_phone_token.dart';
 import 'lobby_one_phone_add_user_screen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -24,6 +25,20 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.grey,
         textColor: Colors.white,
         fontSize: 16.0);
+  }
+
+  void navToLobby(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LobbyAddUserScreen()),
+    );
+  }
+
+  void navToToken(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LobbyTokenScreen()),
+    );
   }
 
   @override
@@ -65,12 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Align(
                     child: InkWell(
                       onTap: () {
-                        //workingOn();
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => LobbyAddUserScreen()),
-                        );
+                        workingOn();
                       },
                       child: Container(
                         width: 44,
@@ -145,12 +155,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           body: "Obecność Game Mastera",
                           details: "4-16 graczy",
                           icon: "assets/images/SmileyWink.svg",
+                          callback: navToLobby,
                         ),
                         HomeScreanButton(
                           title: "Brak moderacji",
                           body: "Rolę Game Mastera przejmuje aplikacja",
                           details: "4-16 graczy",
                           icon: "assets/images/DeviceMobile.svg",
+                          callback: navToToken,
                         ),
                       ],
                     ),
