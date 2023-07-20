@@ -119,15 +119,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           border: Border.all(color: Colors.white, width: 1),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: SvgPicture.asset(
-                          width: 24,
-                          height: 24,
-                          'assets/images/UserCircle.svg',
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/images/UserCircle.svg',
+                            width: 24,
+                            height: 24,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ), //UserButton
+                )
+                , //UserButton
                 Positioned(
                   // frame427320286FRs (154:18166)
                   left: 18,
@@ -192,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                ),
+                ),//main content
                 Positioned(
                   bottom: 32.0,
                   left: 16.0,
@@ -203,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         child: Container(
                             height: 44,
-                            margin: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                            margin: const EdgeInsets.fromLTRB(1, 0, 1, 0),
                             padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                             decoration: BoxDecoration(
                               color: const Color(0x7f595959),
@@ -233,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         child: Container(
                             height: 44,
-                            margin: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                            margin: const EdgeInsets.fromLTRB(1, 0, 1, 0),
                             padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                             decoration: BoxDecoration(
                               color: const Color(0x7f595959),
@@ -258,7 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             )))),
                   ]),
-                ),
+                ),//about, creators
                 Positioned(
                   bottom: 32.0,
                   right: 16.0,
