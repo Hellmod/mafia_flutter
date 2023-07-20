@@ -60,181 +60,233 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void workingOn(){
+    Fluttertoast.showToast(
+        msg: "Trwają prace nad funkcjonalnością",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: /*HomeScreanButton(
-          title: "Moderowana rozgrywka",
-          body: "Obecność Game Mastera",
-          details: "4-16 graczy",
-          marginBottom: 12,
-          icon: "assets/images/SmileyWink.png",
-        ),*/
-
-            Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xff1e1e1e),
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: 319,
-                      height: 411,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/card.png"),
-                        ),
+        body: Container(
+            decoration: const BoxDecoration(
+              color: Color(0xff1e1e1e),
+            ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  width: 319,
+                  height: 411,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/card.png"),
+                    ),
+                  ),
+                ), //Karta
+                BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 9,
+                    sigmaY: 9,
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: <Color>[Color(0xcc2f404b), Color(0xcc161a22)],
                       ),
-                    ), //Karta
-                    BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 9,
-                        sigmaY: 9,
-                      ),
+                    ),
+                  ),
+                ), //rozmazanie Karty
+                Positioned(
+                  top: 52.0,
+                  right: 16.0,
+                  child: Align(
+                    child: InkWell(
+                      onTap: () {
+                        workingOn();
+                      },
                       child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: RadialGradient(
-                            colors: <Color>[
-                              Color(0xcc2f404b),
-                              Color(0xcc161a22)
-                            ],
-                          ),
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 1),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                      ),
-                    ), //rozmazanie Karty
-                    Positioned(
-                      top: 52.0,
-                      right: 16.0,
-                      child: Align(
-                        child: InkWell(
-                          onTap: () {
-                            Fluttertoast.showToast(
-                                msg: "Trwają prace nad funkcjonalnością",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.grey,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                          },
-                          child: Container(
-                            width: 44,
-                            height: 44,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white, width: 1),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: SvgPicture.asset(
-                              width: 24,
-                              height: 24,
-                              'assets/images/UserCircle.svg',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ), //UserButton
-                    Positioned(
-                      // frame427320286FRs (154:18166)
-                      left: 18,
-                      right: 18,
-                      top: 104,
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: const Text(
-                                'Mafia',
-                                style: TextStyle(
-                                  fontFamily: 'Clash Display Variable',
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: -0.64,
-                                  color: Color(0xffffffff),
-                                ),
-                              ),
-                            ), //MAFIA
-                            Container(
-                              // wybierztyprozgrywkiyub (154:18173)
-                              margin: const EdgeInsets.fromLTRB(0, 12, 0, 0),
-                              child: const Text(
-                                "Wciel się w rolę jednego z członków mafii lub mieszkańca miasta, który za wszelką cenę chce pozbyć się gangsterów ",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xffA4A4A4),
-                                ),
-                              ),
-                            ), //Description
-                            Container(
-                              // wybierztyprozgrywkiyub (154:18173)
-                              margin: const EdgeInsets.fromLTRB(0, 64, 0, 0),
-                              child: const Text(
-                                'Wybierz typ rozgrywki:',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xffffffff),
-                                ),
-                              ),
-                            ), //Zachęta
-                            HomeScreanButton(
-                              title: "Moderowana rozgrywka",
-                              body: "Obecność Game Mastera",
-                              details: "4-16 graczy",
-                              icon: "assets/images/SmileyWink.svg",
-                            ),
-                            HomeScreanButton(
-                              title: "Brak moderacji",
-                              body: "Rolę Game Mastera przejmuje aplikacja",
-                              details: "4-16 graczy",
-                              icon: "assets/images/DeviceMobile.svg",
-                            ),
-                          ],
+                        child: SvgPicture.asset(
+                          width: 24,
+                          height: 24,
+                          'assets/images/UserCircle.svg',
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 32.0,
-                      right: 16.0,
-                      child: InkWell(
-                        onTap: () {
-                          Fluttertoast.showToast(
-                              msg: "Trwają prace nad funkcjonalnością",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.grey,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
+                  ),
+                ), //UserButton
+                Positioned(
+                  // frame427320286FRs (154:18166)
+                  left: 18,
+                  right: 18,
+                  top: 104,
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          child: const Text(
+                            'Mafia',
+                            style: TextStyle(
+                              fontFamily: 'Clash Display Variable',
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: -0.64,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                        ), //MAFIA
+                        Container(
+                          // wybierztyprozgrywkiyub (154:18173)
+                          margin: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                          child: const Text(
+                            "Wciel się w rolę jednego z członków mafii lub mieszkańca miasta, który za wszelką cenę chce pozbyć się gangsterów ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xffA4A4A4),
+                            ),
+                          ),
+                        ), //Description
+                        Container(
+                          // wybierztyprozgrywkiyub (154:18173)
+                          margin: const EdgeInsets.fromLTRB(0, 64, 0, 0),
+                          child: const Text(
+                            'Wybierz typ rozgrywki:',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                        ), //Zachęta
+                        HomeScreanButton(
+                          title: "Moderowana rozgrywka",
+                          body: "Obecność Game Mastera",
+                          details: "4-16 graczy",
+                          icon: "assets/images/SmileyWink.svg",
+                        ),
+                        HomeScreanButton(
+                          title: "Brak moderacji",
+                          body: "Rolę Game Mastera przejmuje aplikacja",
+                          details: "4-16 graczy",
+                          icon: "assets/images/DeviceMobile.svg",
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 32.0,
+                  left: 16.0,
+                  child: Row(children: [
+                    TextButton(
+                        onPressed: () {
+                          workingOn();
                         },
                         child: Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 12),
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            color: Color(0x1AFFFFFF),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
+                            height: 44,
+                            margin: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0x7f595959),
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x192f2b43),
+                                  blurRadius: 2,
+                                ),
+                              ],
                             ),
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/images/Facebook.svg',
-                              width: 24,
-                              height: 24,
+                            child: const Center(
+                                child: Text(
+                              'Jak grać',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: -0.14,
+                                color: Color(0xffffffff),
+                              ),
+                            )))),
+                    TextButton(
+                        onPressed: () {
+                          workingOn();
+                        },
+                        child: Container(
+                            height: 44,
+                            margin: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0x7f595959),
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x192f2b43),
+                                  blurRadius: 2,
+                                ),
+                              ],
                             ),
-                          ),
+                            child: const Center(
+                                child: Text(
+                              'Twórcy',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: -0.14,
+                                color: Color(0xffffffff),
+                              ),
+                            )))),
+                  ]),
+                ),
+                Positioned(
+                  bottom: 32.0,
+                  right: 16.0,
+                  child: InkWell(
+                    onTap: () {
+                      workingOn();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 12),
+                      width: 44,
+                      height: 44,
+                      decoration: const BoxDecoration(
+                        color: Color(0x1AFFFFFF),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
                         ),
                       ),
-                    ), //FacebookButton
-                  ],
-                )));
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/images/Facebook.svg',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                    ),
+                  ),
+                ), //FacebookButton
+              ],
+            )));
   }
 }
