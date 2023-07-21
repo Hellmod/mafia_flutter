@@ -6,31 +6,6 @@ class LobbyTokenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* appBar: AppBar(
-        elevation: 0,
-        bottomOpacity: 0.0,
-        backgroundColor: Color(0xff1e1e1e),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), // ikona do cofania
-          onPressed: () {
-            // funkcja wywołana po naciśnięciu przycisku
-          },
-        ),
-        title: Text('Rozgrywka niemoderowana'),
-        // tytuł w centrum
-        centerTitle: true,
-        // wymusza wyśrodkowanie tytułu
-        actions: [
-          IconButton(
-            icon: Icon(Icons.qr_code), // ikona kodu QR
-            onPressed: () {
-              // funkcja wywołana po naciśnięciu przycisku
-            },
-          ),
-        ],
-      ),
-      // reszta twojego kod
-*/
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -170,25 +145,36 @@ class LobbyTokenScreen extends StatelessWidget {
                 left: 16,
                 right: 16,
                 bottom: 32,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.orange),
-                    padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(16)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
+                child: Material(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      // Tu umieść swoją funkcję do wykonania po naciśnięciu przycisku
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xFFFFB445), Color(0xFFD85C30)],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                    ),
-                  ),
-                  onPressed: () {}, // replace with your function
-                  child: const Text(
-                    'Dalej',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'Dalej',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
