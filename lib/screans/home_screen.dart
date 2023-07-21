@@ -16,7 +16,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void workingOn(){
+  void workingOn() {
     Fluttertoast.showToast(
         msg: "Trwają prace nad funkcjonalnością",
         toastLength: Toast.LENGTH_SHORT,
@@ -27,14 +27,16 @@ class _MyHomePageState extends State<MyHomePage> {
         fontSize: 16.0);
   }
 
-  void navToLobby(){
+  void navToLobby() {
+    //TODO: change name
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => LobbyAddUserScreen()),
     );
   }
 
-  void navToToken(){
+  void navToToken() {
+    //TODO: change name
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => LobbyTokenScreen()),
@@ -99,8 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                )
-                , //UserButton
+                ), //UserButton
                 Positioned(
                   // frame427320286FRs (154:18166)
                   left: 18,
@@ -167,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                ),//main content
+                ), //main content
                 Positioned(
                   bottom: 32.0,
                   left: 16.0,
@@ -192,16 +193,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: const Center(
                                 child: Text(
-                                  'Jak grać',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: -0.14,
-                                    color: Color(0xffffffff),
-                                  ),
-                                )))),
+                              'Jak grać',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: -0.14,
+                                color: Color(0xffffffff),
+                              ),
+                            )))),
                     TextButton(
                         onPressed: () {
                           workingOn();
@@ -222,18 +223,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: const Center(
                                 child: Text(
-                                  'Twórcy',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: -0.14,
-                                    color: Color(0xffffffff),
-                                  ),
-                                )))),
+                              'Twórcy',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: -0.14,
+                                color: Color(0xffffffff),
+                              ),
+                            )))),
                   ]),
-                ),//about, creators
+                ), //about, creators
                 Positioned(
                   bottom: 32.0,
                   right: 16.0,
@@ -265,4 +266,3 @@ class _MyHomePageState extends State<MyHomePage> {
             )));
   }
 }
-
