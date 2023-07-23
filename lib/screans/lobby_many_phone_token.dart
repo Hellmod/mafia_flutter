@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 
 class LobbyTokenScreen extends StatelessWidget {
-  const LobbyTokenScreen({super.key});
+  LobbyTokenScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,25 +86,10 @@ class LobbyTokenScreen extends StatelessWidget {
                       const SizedBox(height: 23),
                       Container(
                         width: double.infinity,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            tokenBox('_'),
-                            tokenBox('_'),
-                            tokenBox('_'),
-                            const SizedBox(
-                              width: 20,
-                              height: 1,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: Color(0x33d9d9d9),
-                                ),
-                              ),
-                            ),
-                            tokenBox('_'),
-                            tokenBox('_'),
-                            tokenBox('_'),
-                          ],
+                        child: Pinput(
+                          onCompleted: (pin) => print(pin),
+                          length: 6,
+                          defaultPinTheme: defaultPinTheme,
                         ),
                       ),
                       const SizedBox(height: 32),
@@ -154,16 +140,16 @@ class LobbyTokenScreen extends StatelessWidget {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           colors: [Color(0xFFFFB445), Color(0xFFD85C30)],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0),
                           child: Text(
                             'Dalej',
                             style: TextStyle(
@@ -185,6 +171,19 @@ class LobbyTokenScreen extends StatelessWidget {
       ),
     );
   }
+
+  final defaultPinTheme = PinTheme(
+    width: 56,
+    height: 56,
+    textStyle: const TextStyle(
+        fontSize: 20,
+        color: Color.fromRGBO(30, 60, 87, 1),
+        fontWeight: FontWeight.w600),
+    decoration: BoxDecoration(
+      border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+      borderRadius: BorderRadius.circular(20),
+    ),
+  );
 
   Widget tokenBox(String text) {
     return Container(
