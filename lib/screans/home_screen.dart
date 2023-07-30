@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mafia/screans/wigets/heomeScreanButton.dart';
-
-import 'lobby_many_phone_token.dart';
+import '../presentation/lobby_many_phone/view/lobby_many_phone_token_page.dart';
 import 'lobby_one_phone_add_user_screen.dart';
 
 class MyHomePage extends StatefulWidget {

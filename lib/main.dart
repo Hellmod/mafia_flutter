@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:mafia/screans/lobby_many_phone_lobby_user_list.dart';
-
-
+import 'package:mafia/presentation/lobby_many_phone/block/lobby_many_phone_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +20,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         primarySwatch: Colors.blue,
       ),
-      //home: MyHomePage(),
 
-      home: LobbyManyPhoneLobbyUserList(),
+      home: LobbyManyPhonePage(),
     );
   }
 }
