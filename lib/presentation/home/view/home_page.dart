@@ -2,10 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mafia/screans/wigets/heomeScreanButton.dart';
-import '../../lobby_many_phone/view/lobby_many_phone_token_page.dart';
-import '../../../screans/lobby_one_phone_add_user_screen.dart';
+import '../../../utils/Utility.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -15,31 +13,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void workingOn() {
-    Fluttertoast.showToast(
-        msg: "Trwają prace nad funkcjonalnością",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 
-  void navToLobby() {
-    //TODO: change name
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LobbyAddUserScreen()),
-    );
-  }
-
-  void navToToken() {
-    //TODO: change name
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LobbyTokenScreen()),
-    );
+  void navManyPhone() {
+    Navigator.pushNamed(context, '/many_phone');
   }
 
   @override
@@ -81,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Align(
                     child: InkWell(
                       onTap: () {
-                        workingOn();
+                        Utility.workingOn();
                       },
                       child: Container(
                         width: 44,
@@ -155,14 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           body: "Obecność Game Mastera",
                           details: "4-16 graczy",
                           icon: "assets/images/SmileyWink.svg",
-                          callback: navToLobby,
+                          callback: Utility.workingOn,
                         ),
                         HomeScreanButton(
                           title: "Brak moderacji",
                           body: "Rolę Game Mastera przejmuje aplikacja",
                           details: "4-16 graczy",
                           icon: "assets/images/DeviceMobile.svg",
-                          callback: navToToken,
+                          callback: navManyPhone,
                         ),
                       ],
                     ),
@@ -174,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(children: [
                     TextButton(
                         onPressed: () {
-                          workingOn();
+                          Utility.workingOn();
                         },
                         child: Container(
                             height: 44,
@@ -204,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             )))),
                     TextButton(
                         onPressed: () {
-                          workingOn();
+                          Utility.workingOn();
                         },
                         child: Container(
                             height: 44,
@@ -239,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   right: 16.0,
                   child: InkWell(
                     onTap: () {
-                      workingOn();
+                      Utility.workingOn();
                     },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 12),

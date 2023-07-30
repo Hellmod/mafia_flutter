@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../utils/Utility.dart';
+
 class LobbyTokenScreen extends StatelessWidget {
   LobbyTokenScreen({super.key});
 
@@ -32,7 +34,7 @@ class LobbyTokenScreen extends StatelessWidget {
                             ),
                             child: IconButton(
                               icon: Icon(Icons.arrow_back, color: Colors.white),
-                              onPressed: () {},
+                              onPressed: () {Utility.workingOn();},
                             ),
                           ),
                           const Text(
@@ -56,7 +58,7 @@ class LobbyTokenScreen extends StatelessWidget {
                             child: IconButton(
                               icon: const Icon(Icons.qr_code,
                                   color: Colors.white),
-                              onPressed: () {},
+                              onPressed: () {Utility.workingOn();},
                             ),
                           ),
                         ],
@@ -106,7 +108,7 @@ class LobbyTokenScreen extends StatelessWidget {
                           padding: MaterialStateProperty.all(
                               EdgeInsets.fromLTRB(16, 12, 16, 16)),
                         ),
-                        onPressed: () {}, // replace with your function
+                        onPressed: () {Utility.workingOn();},
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
