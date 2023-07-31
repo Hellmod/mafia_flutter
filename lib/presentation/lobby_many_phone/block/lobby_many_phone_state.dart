@@ -10,7 +10,7 @@ class LobbyManyPhoneInitial extends LobbyManyPhoneState {
   List<Object> get props => [];
 }
 
-class LobbyManyPhoneUserList extends LobbyManyPhoneState {
+class LobbyManyPhoneUserListState extends LobbyManyPhoneState {
   @override
   List<Object> get props => [];
 }

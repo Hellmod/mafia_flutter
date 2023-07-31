@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../utils/Utility.dart';
+import '../block/lobby_many_phone_bloc.dart';
 
 class LobbyTokenScreen extends StatelessWidget {
   LobbyTokenScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LobbyManyPhoneBloc(),
+      child: MyScreen(),
+    );
+  }
+}
+
+class MyScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -34,7 +47,9 @@ class LobbyTokenScreen extends StatelessWidget {
                             ),
                             child: IconButton(
                               icon: Icon(Icons.arrow_back, color: Colors.white),
-                              onPressed: () {Utility.workingOn();},
+                              onPressed: () {
+                                Utility.workingOn();
+                              },
                             ),
                           ),
                           const Text(
@@ -58,7 +73,9 @@ class LobbyTokenScreen extends StatelessWidget {
                             child: IconButton(
                               icon: const Icon(Icons.qr_code,
                                   color: Colors.white),
-                              onPressed: () {Utility.workingOn();},
+                              onPressed: () {
+                                Utility.workingOn();
+                              },
                             ),
                           ),
                         ],
@@ -108,7 +125,9 @@ class LobbyTokenScreen extends StatelessWidget {
                           padding: MaterialStateProperty.all(
                               EdgeInsets.fromLTRB(16, 12, 16, 16)),
                         ),
-                        onPressed: () {Utility.workingOn();},
+                        onPressed: () {
+                          myBloc.add(OnNewGameClick());
+                        },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -125,7 +144,7 @@ class LobbyTokenScreen extends StatelessWidget {
                             Icon(Icons.add, size: 20)
                           ],
                         ),
-                      ),
+                      )
                     ],
                   )),
               Positioned(
