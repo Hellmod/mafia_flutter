@@ -49,7 +49,7 @@ class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
                             child: IconButton(
                               icon: Icon(Icons.arrow_back, color: Colors.white),
                               onPressed: () {
-                                Utility.workingOn();
+                                Navigator.pop(context);
                               },
                             ),
                           ),

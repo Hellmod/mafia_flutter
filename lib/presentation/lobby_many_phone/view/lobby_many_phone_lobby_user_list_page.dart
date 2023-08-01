@@ -33,7 +33,7 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                             ),
                             child: IconButton(
                               icon: Icon(Icons.arrow_back, color: Colors.white),
-                              onPressed: () {Utility.workingOn();},
+                              onPressed: () {Navigator.pop(context);},
                             ),
                           ),
                           const Text(
@@ -120,7 +120,7 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                       const SizedBox(height: 24),
                       GestureDetector(
                     onTap: () {
-                      print('Container clicked');
+                      Utility.workingOn();
                     },
                     child: Container(
                       width: double.infinity,
