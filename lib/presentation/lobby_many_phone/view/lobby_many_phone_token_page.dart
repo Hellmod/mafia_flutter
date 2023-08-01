@@ -5,22 +5,23 @@ import 'package:pinput/pinput.dart';
 import '../../../utils/Utility.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
-class LobbyTokenScreen extends StatelessWidget {
-  LobbyTokenScreen({super.key});
+class LobbyTokenScreen extends StatefulWidget {
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LobbyManyPhoneBloc(),
-      child: MyScreen(),
-    );
-  }
+  _LobbyTokenScreen createState() => _LobbyTokenScreen();
 }
 
-class MyScreen extends StatelessWidget {
+class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
+  LobbyManyPhoneBloc? myBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -126,7 +127,7 @@ class MyScreen extends StatelessWidget {
                               EdgeInsets.fromLTRB(16, 12, 16, 16)),
                         ),
                         onPressed: () {
-                          myBloc.add(OnNewGameClick());
+                          myBloc!.add(OnNewGameClick());
                         },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
