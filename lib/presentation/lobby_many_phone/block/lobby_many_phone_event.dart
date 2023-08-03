@@ -9,3 +9,12 @@ class OnNewGameClick extends LobbyManyPhoneEvent {
   @override
   List<Object> get props => [];
 }
+
+class CheckIdExists extends LobbyManyPhoneEvent {
+  final String idgame;
+
+  const CheckIdExists({required this.idgame});
+
+  @override
+  List<Object> get props => [idgame];
+}
