@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mafia/screans/wigets/heomeScreanButton.dart';
 import '../../../utils/Utility.dart';
+import '../../../utils/wigets/heomeScreanButton.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
