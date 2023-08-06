@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+import 'package:equatable/equatable.dart';
+
+class User extends Equatable {
   final String name;
   final String email;
 
@@ -13,5 +15,7 @@ class User {
         email: data['email'] ?? ''
     );
   }
+
+  @override
+  List<Object> get props => [name, email];
 }
-// Compare this snippet from lib/presentation/lobby_many_phone/block/lobby_many_phone_state.dart:

@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../models/User.dart';
 import '../../../utils/Utility.dart';
+import '../block/lobby_many_phone_bloc.dart';
 
-class LobbyManyPhoneLobbyUserList extends StatelessWidget {
-  LobbyManyPhoneLobbyUserList({super.key});
+class LobbyManyPhoneLobbyUserList extends StatefulWidget {
+  final List<User> users;
+
+  LobbyManyPhoneLobbyUserList({Key? key, required this.users})
+      : super(key: key);
+
+  @override
+  _LobbyManyPhoneLobbyUserList createState() =>
+      _LobbyManyPhoneLobbyUserList(users);
+}
+
+class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
+  LobbyManyPhoneBloc? myBloc;
+
+  final List<User> users;
+
+  _LobbyManyPhoneLobbyUserList(this.users);
+
+  @override
+  void initState() {
+    super.initState();
+    myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +57,9 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                             ),
                             child: IconButton(
                               icon: Icon(Icons.arrow_back, color: Colors.white),
-                              onPressed: () {Navigator.pop(context);},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                             ),
                           ),
                           const Text(
@@ -57,7 +83,9 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                             child: IconButton(
                               icon: const Icon(Icons.qr_code,
                                   color: Colors.white),
-                              onPressed: () {Utility.workingOn();},
+                              onPressed: () {
+                                Utility.workingOn();
+                              },
                             ),
                           ),
                         ],
@@ -86,7 +114,7 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                               decoration: BoxDecoration(
                                 border: Border.all(color: Color(0x33ffffff)),
                                 color: Color(0x07ffffff),
-                                borderRadius: BorderRadius.circular(8 ),
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Center(
                                 child: Text(
@@ -111,7 +139,9 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                               child: IconButton(
                                 icon:
                                     const Icon(Icons.copy, color: Colors.white),
-                                onPressed: () {Utility.workingOn();},
+                                onPressed: () {
+                                  Utility.workingOn();
+                                },
                               ),
                             ),
                           ],
@@ -119,51 +149,48 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       GestureDetector(
-                    onTap: () {
-                      Utility.workingOn();
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: Color(0x7f595959),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x192f2b43),
-                            offset: Offset(0, 1),
-                            blurRadius: 1.5,
+                        onTap: () {
+                          Utility.workingOn();
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: Color(0x7f595959),
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x192f2b43),
+                                offset: Offset(0, 1),
+                                blurRadius: 1.5,
+                              ),
+                            ],
                           ),
-                        ],
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Udostępnij  ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                                child: Icon(Icons.share, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Udostępnij  ',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                            child: Icon(
-                                Icons.share,
-                                color: Colors.white
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                       const SizedBox(height: 24),
                       Container(
                         width: double.infinity,
-                        height: 1 ,
+                        height: 1,
                         decoration: const BoxDecoration(
                           color: Color(0x33ffffff),
                         ),
@@ -178,18 +205,20 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                           color: Color(0xffffffff),
                         ),
                       ),
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       Container(
                           width: double.infinity,
                           height: 52,
                           decoration: BoxDecoration(
                             border: Border.all(color: Color(0x4cffffff)),
-                            borderRadius: BorderRadius.circular(12 ),
+                            borderRadius: BorderRadius.circular(12),
                             boxShadow: const [
                               BoxShadow(
                                 color: Color(0x192f2b43),
-                                offset: Offset(0 , 1 ),
-                                blurRadius: 1.5 ,
+                                offset: Offset(0, 1),
+                                blurRadius: 1.5,
                               ),
                             ],
                           ),
@@ -213,7 +242,7 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                           alignment: Alignment.bottomCenter,
                           child: SizedBox(
                             width: double.infinity,
-                            height: 1 ,
+                            height: 1,
                             child: Container(
                               decoration: const BoxDecoration(
                                 color: Color(0x33ffffff),
@@ -241,9 +270,9 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              '1.',
-                              style: TextStyle(
+                            Text(
+                              "1. $users",
+                              style: const TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -261,7 +290,9 @@ class LobbyManyPhoneLobbyUserList extends StatelessWidget {
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete, color: Colors.red),
-                              onPressed: () {Utility.workingOn();},
+                              onPressed: () {
+                                Utility.workingOn();
+                              },
                             ),
                           ],
                         ),

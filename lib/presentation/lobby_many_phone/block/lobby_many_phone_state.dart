@@ -9,8 +9,12 @@ class LobbyManyPhoneInitial extends LobbyManyPhoneState {
   @override
   List<Object> get props => [];
 }
-
 class LobbyManyPhoneUserListState extends LobbyManyPhoneState {
+  final List<User> users;
+
+  LobbyManyPhoneUserListState({required this.users});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [users];
 }
+

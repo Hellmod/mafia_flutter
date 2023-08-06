@@ -24,4 +24,5 @@ class FirebaseService {
       throw Exception(e);
     }
   }
+
 }
