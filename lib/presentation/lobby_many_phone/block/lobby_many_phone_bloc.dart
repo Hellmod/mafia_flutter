@@ -15,28 +15,17 @@ class LobbyManyPhoneBloc extends Bloc<LobbyManyPhoneEvent, LobbyManyPhoneState> 
     on<LobbyManyPhoneEvent>((event, emit) async {
       if (event is OnNewGameClick) {
         debugPrint("RMRM1");
-        //emit(LobbyManyPhoneUserListState());
       } else if (event is CheckIdExists) {
-        await loadRoom(event.idgame); // zmiana na await, bo loadRoom jest asynchroniczne
+        await loadRoom(event.idgame);
       }
     });
   }
 
   Future<void> loadRoom(String idRoom) async {  // poprawka w definicji funkcji
-    try {
-      List<User> users = await _firebaseService.getUsersFromGameRoom(idRoom);
-      if(users.isNotEmpty) {
-        emit(LobbyManyPhoneUserListState(users: users));
-        debugPrint("RMRM2 ${users}");
-        //emit(LobbyManyPhoneUsersLoaded(users: users));
-      } else {
-        debugPrint("RMRM3");
-        //emit(LobbyManyPhoneNoUsersFound());
-      }
-    } catch(e) {
-      debugPrint("RMRM4");
-
-      //emit(LobbyManyPhoneErrorState());
-    }
+    _firebaseService.streamUsersFromGameRoom(idRoom).listen(
+            (updatedUsers) {
+          debugPrint("RMRM5 ${updatedUsers}");
+          emit(LobbyManyPhoneUserListState(users: updatedUsers));
+        });
   }
 }

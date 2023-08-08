@@ -25,4 +25,14 @@ class FirebaseService {
     }
   }
 
+  // FirebaseService(this._firestore);
+
+  Stream<List<User>> streamUsersFromGameRoom(String gameId) {
+    return _firebase
+        .collection('rooms')
+        .doc(gameId)
+        .collection('users')
+        .snapshots()
+        .map((QuerySnapshot snapshot) => snapshot.docs.map((doc) => User.fromDocument(doc)).toList());
+  }
 }

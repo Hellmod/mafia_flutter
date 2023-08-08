@@ -29,8 +29,23 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
     myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
   }
 
+  Widget yourUserListWidget(List<User> users) {
+    return Text(
+      "1. ${users.join(", ")}",
+      style: const TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Color(0x99ffffff),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    debugPrint("users: $users");
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -270,14 +285,14 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "1. $users",
-                              style: const TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0x99ffffff),
-                              ),
+                            BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
+                                builder: (context, state) {
+                                  if (state is LobbyManyPhoneUserListState) {
+                                    return yourUserListWidget(state.users);
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                }
                             ),
                             const Text(
                               'Marek',
@@ -297,6 +312,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                           ],
                         ),
                       ),
+
                     ],
                   )),
               Positioned(
@@ -345,3 +361,4 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
     );
   }
 }
+
