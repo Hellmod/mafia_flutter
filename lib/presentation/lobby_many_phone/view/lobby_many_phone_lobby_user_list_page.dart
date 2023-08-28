@@ -31,7 +31,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
 
   Widget yourUserListWidget(List<User> users) {
     return Container(
-        height: 50, // Ustal konkretną wysokość
+        height: 50,
         child: ListView.builder(
           itemCount: users.length,
           itemBuilder: (BuildContext context, int index) {
@@ -42,7 +42,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "${index + 1}.", // Numeracja zaczyna się od 1
+                    "${index + 1}.",
                     style: const TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 16,
@@ -51,7 +51,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                     ),
                   ),
                   Text(
-                    users[index].name, // Wstawianie nazwy użytkownika z listy
+                    users[index].name,
                     style: const TextStyle(
                       fontFamily: 'Clash Display Variable',
                       fontSize: 20,
@@ -283,7 +283,6 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                       Container(
                         width: double.infinity,
                         child: Align(
-                          // rectangle3870ubm (267:21477)
                           alignment: Alignment.bottomCenter,
                           child: SizedBox(
                             width: double.infinity,
@@ -331,7 +330,6 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                     ],
                   )),
               Positioned(
-                // frame427320286FRs (154:18166)
                 left: 16,
                 right: 16,
                 bottom: 32,

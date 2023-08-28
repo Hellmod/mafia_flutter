@@ -13,7 +13,7 @@ class LobbyManyPhonePage extends StatelessWidget {
     return BlocProvider(
         create: (context) => LobbyManyPhoneBloc(
           FirebaseService(),
-        ), // Przekazujemy instancję Firestore do Bloc
+        ),
         child: LobbyManyPhoneNavigator()
     );
   }

@@ -25,8 +25,6 @@ class FirebaseService {
     }
   }
 
-  // FirebaseService(this._firestore);
-
   Stream<List<User>> streamUsersFromGameRoom(String gameId) {
     return _firebase
         .collection('rooms')

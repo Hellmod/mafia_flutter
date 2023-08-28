@@ -9,22 +9,21 @@ part 'lobby_many_phone_event.dart';
 part 'lobby_many_phone_state.dart';
 
 class LobbyManyPhoneBloc extends Bloc<LobbyManyPhoneEvent, LobbyManyPhoneState> {
-  final FirebaseService _firebaseService;  // dodane
+  final FirebaseService _firebaseService;
 
   LobbyManyPhoneBloc(this._firebaseService) : super(LobbyManyPhoneInitial()) {
     on<LobbyManyPhoneEvent>((event, emit) async {
       if (event is OnNewGameClick) {
-        debugPrint("RMRM1");
+        debugPrint("RMRM OnNewGameClick");
       } else if (event is CheckIdExists) {
         await loadRoom(event.idgame);
       }
     });
   }
 
-  Future<void> loadRoom(String idRoom) async {  // poprawka w definicji funkcji
+  Future<void> loadRoom(String idRoom) async {
     _firebaseService.streamUsersFromGameRoom(idRoom).listen(
             (updatedUsers) {
-          debugPrint("RMRM5 ${updatedUsers}");
           emit(LobbyManyPhoneUserListState(users: updatedUsers));
         });
   }
