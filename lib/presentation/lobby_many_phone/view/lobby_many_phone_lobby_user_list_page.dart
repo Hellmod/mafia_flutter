@@ -30,17 +30,47 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
   }
 
   Widget yourUserListWidget(List<User> users) {
-    return Text(
-      "1. ${users.join(", ")}",
-      style: const TextStyle(
-        fontFamily: 'Inter',
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: Color(0x99ffffff),
-      ),
-    );
+    return Container(
+        height: 50, // Ustal konkretną wysokość
+        child: ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (BuildContext context, int index) {
+            return SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${index + 1}.", // Numeracja zaczyna się od 1
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0x99ffffff),
+                    ),
+                  ),
+                  Text(
+                    users[index].name, // Wstawianie nazwy użytkownika z listy
+                    style: const TextStyle(
+                      fontFamily: 'Clash Display Variable',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      Utility.workingOn();
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -282,37 +312,22 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                       SizedBox(
                         width: double.infinity,
                         height: 108,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
                           children: [
                             BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
-                                builder: (context, state) {
-                                  if (state is LobbyManyPhoneUserListState) {
-                                    return yourUserListWidget(state.users);
-                                  } else {
-                                    return const CircularProgressIndicator();
-                                  }
+                              builder: (context, state) {
+                                if (state is LobbyManyPhoneUserListState) {
+                                  return Expanded(
+                                    child: yourUserListWidget(state.users),
+                                  );
+                                } else {
+                                  return const CircularProgressIndicator();
                                 }
-                            ),
-                            const Text(
-                              'Marek',
-                              style: TextStyle(
-                                fontFamily: 'Clash Display Variable',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffffffff),
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete, color: Colors.red),
-                              onPressed: () {
-                                Utility.workingOn();
                               },
                             ),
                           ],
-                        ),
+                        )
                       ),
-
                     ],
                   )),
               Positioned(
@@ -361,4 +376,3 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
     );
   }
 }
-
