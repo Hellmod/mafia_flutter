@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mafia/services/FirebaseService.dart';
 
 import '../../../unit/navigation/lobby_many_phone_navigation.dart';
 import 'lobby_many_phone_bloc.dart';
@@ -10,8 +11,10 @@ class LobbyManyPhonePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LobbyManyPhoneBloc(),
-      child: LobbyManyPhoneNavigator()
+        create: (context) => LobbyManyPhoneBloc(
+          FirebaseService(),
+        ),
+        child: LobbyManyPhoneNavigator()
     );
   }
 }

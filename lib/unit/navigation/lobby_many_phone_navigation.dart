@@ -12,11 +12,10 @@ class LobbyManyPhoneNavigator extends StatelessWidget {
     return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
       builder: (context, state) {
         if (state is LobbyManyPhoneInitial) {
-          debugPrint("RMRM2");
           return LobbyTokenScreen();
         } else if (state is LobbyManyPhoneUserListState) {
-          debugPrint("RMRM3");
-          return LobbyManyPhoneLobbyUserList();
+          debugPrint("RMRM6 ${state.users}");
+          return LobbyManyPhoneLobbyUserList(users: state.users);
         } else {
           return Container(child: const Center(child: CircularProgressIndicator()));
         }

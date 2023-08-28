@@ -158,7 +158,7 @@ class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      // Tu umieść swoją funkcję do wykonania po naciśnięciu przycisku
+                      myBloc!.add(CheckIdExists(idgame: '123123'));
                     },
                     child: Container(
                       decoration: BoxDecoration(
