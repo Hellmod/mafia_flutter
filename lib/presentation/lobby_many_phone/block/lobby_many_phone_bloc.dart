@@ -1,4 +1,7 @@
+
+import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,11 +37,29 @@ class LobbyManyPhoneBloc
   }
 
   Future<void> addUser(String userName) async {
-    User user = User(name: userName, id: "id zalogowanego użytkownika"); //ToDo dodać id zalogowanego użytkownika
+    String? deviceIdentifier = await getDeviceIdentifier();
+    if (deviceIdentifier == null) {
+      Utility.somethingWentWrong();
+      return;
+    }
+
+    User user = User(name: userName, id: deviceIdentifier);
     try {
       await _firebaseService.addUser(user);
     } catch (e) {
       Utility.somethingWentWrong();
     }
+  }
+
+  Future<String?> getDeviceIdentifier() async {
+    final deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.id;
+    } else if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.identifierForVendor;
+    }
+    return 'unknown';
   }
 }
