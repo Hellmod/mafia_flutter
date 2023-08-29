@@ -12,4 +12,15 @@ class Utility {
         textColor: Colors.white,
         fontSize: 16.0);
   }
+
+  static void somethingWentWrong() {
+    Fluttertoast.showToast(
+        msg: "Coś poszło nie tak",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 }

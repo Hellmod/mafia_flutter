@@ -14,9 +14,7 @@ class FirebaseService {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        return querySnapshot.docs
-            .map((doc) => User.fromDocument(doc))
-            .toList();
+        return querySnapshot.docs.map((doc) => User.fromDocument(doc)).toList();
       }
 
       return [];
@@ -31,6 +29,20 @@ class FirebaseService {
         .doc(gameId)
         .collection('users')
         .snapshots()
-        .map((QuerySnapshot snapshot) => snapshot.docs.map((doc) => User.fromDocument(doc)).toList());
+        .map((QuerySnapshot snapshot) =>
+            snapshot.docs.map((doc) => User.fromDocument(doc)).toList());
+  }
+
+  Future<void> addUser(User user, [String gameId = "123123"]) async {
+    try {
+      await _firebase
+          .collection('rooms')
+          .doc(gameId)
+          .collection('users')
+          .add(user.toMap());
+    } catch (e) {
+      print(e.toString());
+      return;
+    }
   }
 }

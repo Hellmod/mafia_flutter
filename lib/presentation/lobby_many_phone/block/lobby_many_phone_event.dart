@@ -27,3 +27,12 @@ class CheckIdExists extends LobbyManyPhoneEvent {
   @override
   List<Object> get props => [idgame];
 }
+
+class AddUser extends LobbyManyPhoneEvent {
+  final User user;
+
+  const AddUser({required this.user});
+
+  @override
+  List<Object> get props => [user];
+}

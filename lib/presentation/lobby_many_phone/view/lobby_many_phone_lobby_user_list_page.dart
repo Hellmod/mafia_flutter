@@ -308,8 +308,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                             ),
                           ],
                         ),
-                      )
-                      ,
+                      )                      ,
                       const SizedBox(height: 24),
                       Container(
                         width: double.infinity,
@@ -341,7 +340,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                       const SizedBox(height: 24),
                       SizedBox(
                           width: double.infinity,
-                          height: 108,
+                          height: 200,
                           child: Column(
                             children: [
                               BlocBuilder<LobbyManyPhoneBloc,
