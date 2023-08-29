@@ -10,6 +10,15 @@ class OnNewGameClick extends LobbyManyPhoneEvent {
   List<Object> get props => [];
 }
 
+class OnSaveUserClick extends LobbyManyPhoneEvent {
+  final String userName;
+
+  const OnSaveUserClick({required this.userName});
+
+  @override
+  List<Object> get props => [userName];
+}
+
 class CheckIdExists extends LobbyManyPhoneEvent {
   final String idgame;
 

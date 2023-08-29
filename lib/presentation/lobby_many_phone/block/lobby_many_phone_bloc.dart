@@ -15,6 +15,8 @@ class LobbyManyPhoneBloc extends Bloc<LobbyManyPhoneEvent, LobbyManyPhoneState> 
     on<LobbyManyPhoneEvent>((event, emit) async {
       if (event is OnNewGameClick) {
         debugPrint("RMRM OnNewGameClick");
+      } else if (event is OnSaveUserClick) {
+        debugPrint("RMRM OnSaveUserClick ${event.userName}");
       } else if (event is CheckIdExists) {
         await loadRoom(event.idgame);
       }

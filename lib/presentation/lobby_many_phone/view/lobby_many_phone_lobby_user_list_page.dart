@@ -20,6 +20,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
   LobbyManyPhoneBloc? myBloc;
 
   final List<User> users;
+  String userNick = '';
 
   _LobbyManyPhoneLobbyUserList(this.users);
 
@@ -254,31 +255,61 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                         height: 8,
                       ),
                       Container(
-                          width: double.infinity,
-                          height: 52,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0x4cffffff)),
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0x192f2b43),
-                                offset: Offset(0, 1),
-                                blurRadius: 1.5,
+                        width: double.infinity,
+                        height: 56,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 52,
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0x4cffffff)),
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color(0x192f2b43),
+                                      offset: Offset(0, 1),
+                                      blurRadius: 1.5,
+                                    ),
+                                  ],
+                                ),
+                                child: TextField(
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    hintText: 'Twój nick',
+                                    hintStyle: TextStyle(color: Colors.white54),
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (text) {
+                                    userNick = text;
+                                  },
+                                ),
                               ),
-                            ],
-                          ),
-                          child: TextField(
-                            style: const TextStyle(
-                              color: Colors.white,
                             ),
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Twój nick',
+                            SizedBox(width: 8.0),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: IconButton(
+                                icon: const Icon(Icons.check, color: Colors.white),
+                                onPressed: () {
+                                  myBloc!.add(OnSaveUserClick(userName: userNick));
+                                },
+                              ),
                             ),
-                            onChanged: (text) {
-                              print("Text Field: $text");
-                            },
-                          )),
+                          ],
+                        ),
+                      )
+                      ,
                       const SizedBox(height: 24),
                       Container(
                         width: double.infinity,
@@ -309,24 +340,24 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                       ),
                       const SizedBox(height: 24),
                       SizedBox(
-                        width: double.infinity,
-                        height: 108,
-                        child: Column(
-                          children: [
-                            BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
-                              builder: (context, state) {
-                                if (state is LobbyManyPhoneUserListState) {
-                                  return Expanded(
-                                    child: yourUserListWidget(state.users),
-                                  );
-                                } else {
-                                  return const CircularProgressIndicator();
-                                }
-                              },
-                            ),
-                          ],
-                        )
-                      ),
+                          width: double.infinity,
+                          height: 108,
+                          child: Column(
+                            children: [
+                              BlocBuilder<LobbyManyPhoneBloc,
+                                  LobbyManyPhoneState>(
+                                builder: (context, state) {
+                                  if (state is LobbyManyPhoneUserListState) {
+                                    return Expanded(
+                                      child: yourUserListWidget(state.users),
+                                    );
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
                     ],
                   )),
               Positioned(
