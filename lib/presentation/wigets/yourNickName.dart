@@ -12,11 +12,14 @@ class UserInputOrDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isUserInGame = myBloc?.state.isUserInGame ?? false;
+    LobbyManyPhoneUserListState? state = myBloc?.state as LobbyManyPhoneUserListState?;
+    bool isUserInGame = state?.isUserInGame ?? false;
+
+
     if (isUserInGame) {
       return Center(
         child: Text(
-          myBloc?.state.user.name ?? "Nieznany",
+          state?.user.name ?? "Nieznany",
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,

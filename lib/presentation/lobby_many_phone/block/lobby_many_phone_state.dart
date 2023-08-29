@@ -4,10 +4,6 @@ part of 'lobby_many_phone_bloc.dart';
 abstract class LobbyManyPhoneState extends Equatable {
   const LobbyManyPhoneState();
 
-  get user => null;
-  get isUserInGame => null;
-
-  get users => null;
 }
 
 class LobbyManyPhoneInitial extends LobbyManyPhoneState {
