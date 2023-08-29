@@ -1,4 +1,4 @@
-
+import 'dart:ffi';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -31,8 +31,22 @@ class LobbyManyPhoneBloc
   }
 
   Future<void> loadRoom(String idRoom) async {
-    _firebaseService.streamUsersFromGameRoom(idRoom).listen((updatedUsers) {
-      emit(LobbyManyPhoneUserListState(users: updatedUsers));
+    _firebaseService
+        .streamUsersFromGameRoom(idRoom)
+        .listen((updatedUsers) async {
+      bool isUserInGame = await checkIsYourIdIsInGame(updatedUsers);
+      if (isUserInGame) {
+        String? deviceIdentifier = await getDeviceIdentifier();
+        User user = updatedUsers
+            .firstWhere((element) => element.id == deviceIdentifier);
+        emit(LobbyManyPhoneUserListState(
+            users: updatedUsers, user: user, isUserInGame: isUserInGame));
+      } else {
+        emit(LobbyManyPhoneUserListState(
+            users: updatedUsers,
+            user: User(name: '', id: ''),
+            isUserInGame: isUserInGame));
+      }
     });
   }
 
@@ -61,5 +75,15 @@ class LobbyManyPhoneBloc
       return iosInfo.identifierForVendor;
     }
     return 'unknown';
+  }
+
+  Future<bool> checkIsYourIdIsInGame(List<User> userList) async {
+    String? deviceIdentifier = await getDeviceIdentifier();
+    if (deviceIdentifier == null) {
+      Utility.somethingWentWrong();
+      return false;
+    }
+
+    return userList.any((element) => element.id == deviceIdentifier);
   }
 }

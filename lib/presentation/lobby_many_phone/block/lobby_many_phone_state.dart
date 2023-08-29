@@ -3,6 +3,11 @@ part of 'lobby_many_phone_bloc.dart';
 @immutable
 abstract class LobbyManyPhoneState extends Equatable {
   const LobbyManyPhoneState();
+
+  get user => null;
+  get isUserInGame => null;
+
+  get users => null;
 }
 
 class LobbyManyPhoneInitial extends LobbyManyPhoneState {
@@ -12,10 +17,12 @@ class LobbyManyPhoneInitial extends LobbyManyPhoneState {
 
 class LobbyManyPhoneUserListState extends LobbyManyPhoneState {
   final List<User> users;
+  final User user;
+  final bool isUserInGame;
 
-  LobbyManyPhoneUserListState({required this.users});
+  LobbyManyPhoneUserListState(
+      {required this.users, required this.user, required this.isUserInGame});
 
   @override
-  List<Object> get props => [users];
+  List<Object> get props => [users, user, isUserInGame];
 }
-

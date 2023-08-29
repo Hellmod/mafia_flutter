@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/User.dart';
 import '../../../utils/Utility.dart';
+import '../../wigets/yourNickName.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
 class LobbyManyPhoneLobbyUserList extends StatefulWidget {
@@ -75,8 +76,6 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("users: $users");
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -254,61 +253,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                       const SizedBox(
                         height: 8,
                       ),
-                      Container(
-                        width: double.infinity,
-                        height: 56,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 52,
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0x4cffffff)),
-                                  borderRadius: BorderRadius.circular(12),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Color(0x192f2b43),
-                                      offset: Offset(0, 1),
-                                      blurRadius: 1.5,
-                                    ),
-                                  ],
-                                ),
-                                child: TextField(
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    hintText: 'Twój nick',
-                                    hintStyle: TextStyle(color: Colors.white54),
-                                    border: InputBorder.none,
-                                  ),
-                                  onChanged: (text) {
-                                    userNick = text;
-                                  },
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 8.0),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: IconButton(
-                                icon: const Icon(Icons.check, color: Colors.white),
-                                onPressed: () {
-                                  myBloc!.add(OnSaveUserClick(userName: userNick));
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      )                      ,
+                      UserInputOrDisplay(myBloc: myBloc),
                       const SizedBox(height: 24),
                       Container(
                         width: double.infinity,
