@@ -25,12 +25,12 @@ class OnSaveUserClick extends LobbyManyPhoneEvent {
 }
 
 class CheckIdExists extends LobbyManyPhoneEvent {
-  final String idgame;
+  final String idRoom;
 
-  const CheckIdExists({required this.idgame});
+  const CheckIdExists({required this.idRoom});
 
   @override
-  List<Object> get props => [idgame];
+  List<Object> get props => [idRoom];
 }
 
 class AddUser extends LobbyManyPhoneEvent {

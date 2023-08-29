@@ -27,9 +27,18 @@ class LobbyManyPhoneBloc
       } else if (event is OnRemoveUserClick) {
         removeUser();
       } else if (event is CheckIdExists) {
-        await loadRoom(event.idgame);
+        await doesRoomExist(event.idRoom);
       }
     });
+  }
+
+  Future<void> doesRoomExist(String idRoom) async {
+    bool isRoomExist = await _firebaseService.doesRoomExist(idRoom);
+    if(isRoomExist){
+      loadRoom(idRoom);
+    }else{
+      Utility.missingRoom();
+    }
   }
 
   Future<void> loadRoom(String idRoom) async {

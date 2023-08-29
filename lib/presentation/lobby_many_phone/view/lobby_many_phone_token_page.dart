@@ -14,6 +14,8 @@ class LobbyTokenScreen extends StatefulWidget {
 class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
   LobbyManyPhoneBloc? myBloc;
 
+  String roomId = '';
+
   @override
   void initState() {
     super.initState();
@@ -107,7 +109,12 @@ class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
                       Container(
                         width: double.infinity,
                         child: Pinput(
-                          onCompleted: (pin) => print(pin),
+                          onCompleted: (pin) => {
+                            myBloc!.add(CheckIdExists(idRoom: pin))
+                          },
+                          onChanged: (value) => {
+                              roomId = value
+                          },
                           length: 6,
                           defaultPinTheme: defaultPinTheme,
                         ),
@@ -158,7 +165,7 @@ class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      myBloc!.add(CheckIdExists(idgame: '123123'));
+                      myBloc!.add(CheckIdExists(idRoom: roomId));
                     },
                     child: Container(
                       decoration: BoxDecoration(

@@ -56,4 +56,14 @@ class FirebaseService {
         .doc(userId)
         .delete();
   }
+
+  Future<bool> doesRoomExist(String roomId) async {
+    try {
+      DocumentSnapshot roomSnapshot = await _firebase.collection('rooms').doc(roomId).get();
+      return roomSnapshot.exists;
+    } catch (e) {
+      print("Error checking room existence: $e");
+      return false;
+    }
+  }
 }
