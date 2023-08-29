@@ -21,7 +21,7 @@ class LobbyManyPhoneBloc
   LobbyManyPhoneBloc(this._firebaseService) : super(LobbyManyPhoneInitial()) {
     on<LobbyManyPhoneEvent>((event, emit) async {
       if (event is OnNewGameClick) {
-        debugPrint("RMRM OnNewGameClick");
+        createNewRoom();
       } else if (event is OnSaveUserClick) {
         addUser(event.userName);
       } else if (event is OnRemoveUserClick) {
@@ -34,11 +34,16 @@ class LobbyManyPhoneBloc
 
   Future<void> doesRoomExist(String idRoom) async {
     bool isRoomExist = await _firebaseService.doesRoomExist(idRoom);
-    if(isRoomExist){
+    if (isRoomExist) {
       loadRoom(idRoom);
-    }else{
+    } else {
       Utility.missingRoom();
     }
+  }
+
+  Future<void> createNewRoom() async {
+    String roomId = await _firebaseService.createNewRoom();
+    loadRoom(roomId);
   }
 
   Future<void> loadRoom(String idRoom) async {
@@ -51,17 +56,22 @@ class LobbyManyPhoneBloc
         User user = updatedUsers
             .firstWhere((element) => element.id == deviceIdentifier);
         emit(LobbyManyPhoneUserListState(
-            users: updatedUsers, user: user, isUserInGame: isUserInGame, roomId: idRoom));
+            users: updatedUsers,
+            user: user,
+            isUserInGame: isUserInGame,
+            roomId: idRoom));
       } else {
         emit(LobbyManyPhoneUserListState(
             users: updatedUsers,
             user: User(name: '', id: ''),
-            isUserInGame: isUserInGame, roomId: idRoom));
+            isUserInGame: isUserInGame,
+            roomId: idRoom));
       }
     });
   }
 
   Future<void> addUser(String userName) async {
+    LobbyManyPhoneUserListState _state = state as LobbyManyPhoneUserListState;
     String? deviceIdentifier = await getDeviceIdentifier();
     if (deviceIdentifier == null) {
       Utility.somethingWentWrong();
@@ -70,13 +80,14 @@ class LobbyManyPhoneBloc
 
     User user = User(name: userName, id: deviceIdentifier);
     try {
-      await _firebaseService.addUser(user);
+      await _firebaseService.addUser(user, _state.roomId);
     } catch (e) {
       Utility.somethingWentWrong();
     }
   }
 
   Future<void> removeUser() async {
+    LobbyManyPhoneUserListState _state = state as LobbyManyPhoneUserListState;
     String? deviceIdentifier = await getDeviceIdentifier();
     if (deviceIdentifier == null) {
       Utility.somethingWentWrong();
@@ -84,7 +95,7 @@ class LobbyManyPhoneBloc
     }
 
     try {
-      await _firebaseService.removeUser(deviceIdentifier);
+      await _firebaseService.removeUser(deviceIdentifier, _state.roomId);
     } catch (e) {
       Utility.somethingWentWrong();
     }
