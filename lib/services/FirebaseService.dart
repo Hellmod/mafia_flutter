@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/User.dart';
@@ -39,10 +40,20 @@ class FirebaseService {
           .collection('rooms')
           .doc(gameId)
           .collection('users')
-          .add(user.toMap());
+          .doc(user.id)
+          .set(user.toMap());
     } catch (e) {
       print(e.toString());
       return;
     }
+  }
+
+  Future<void> removeUser(String userId, [String gameId = "123123"]) async {
+    await FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(gameId)
+        .collection('users')
+        .doc(userId)
+        .delete();
   }
 }

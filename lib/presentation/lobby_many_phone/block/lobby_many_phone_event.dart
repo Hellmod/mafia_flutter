@@ -10,6 +10,11 @@ class OnNewGameClick extends LobbyManyPhoneEvent {
   List<Object> get props => [];
 }
 
+class OnRemoveUserClick extends LobbyManyPhoneEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class OnSaveUserClick extends LobbyManyPhoneEvent {
   final String userName;
 

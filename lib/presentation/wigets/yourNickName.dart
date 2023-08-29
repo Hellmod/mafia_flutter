@@ -12,19 +12,30 @@ class UserInputOrDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LobbyManyPhoneUserListState? state = myBloc?.state as LobbyManyPhoneUserListState?;
+    LobbyManyPhoneUserListState? state =
+        myBloc?.state as LobbyManyPhoneUserListState?;
     bool isUserInGame = state?.isUserInGame ?? false;
 
-
     if (isUserInGame) {
-      return Center(
-        child: Text(
-          state?.user.name ?? "Nieznany",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            state?.user.name ?? "Nieznany",
+            style: const TextStyle(
+              fontFamily: 'Clash Display Variable',
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Color(0xffffffff),
+            ),
           ),
-        ),
+          IconButton(
+            icon: const Icon(Icons.delete, color: Colors.red),
+            onPressed: () {
+              myBloc?.add(OnRemoveUserClick());
+            },
+          ),
+        ],
       );
     } else {
       String userNick = ""; // lokalna zmienna

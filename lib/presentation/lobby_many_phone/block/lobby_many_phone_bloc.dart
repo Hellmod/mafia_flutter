@@ -24,6 +24,8 @@ class LobbyManyPhoneBloc
         debugPrint("RMRM OnNewGameClick");
       } else if (event is OnSaveUserClick) {
         addUser(event.userName);
+      } else if (event is OnRemoveUserClick) {
+        removeUser();
       } else if (event is CheckIdExists) {
         await loadRoom(event.idgame);
       }
@@ -60,6 +62,20 @@ class LobbyManyPhoneBloc
     User user = User(name: userName, id: deviceIdentifier);
     try {
       await _firebaseService.addUser(user);
+    } catch (e) {
+      Utility.somethingWentWrong();
+    }
+  }
+
+  Future<void> removeUser() async {
+    String? deviceIdentifier = await getDeviceIdentifier();
+    if (deviceIdentifier == null) {
+      Utility.somethingWentWrong();
+      return;
+    }
+
+    try {
+      await _firebaseService.removeUser(deviceIdentifier);
     } catch (e) {
       Utility.somethingWentWrong();
     }
