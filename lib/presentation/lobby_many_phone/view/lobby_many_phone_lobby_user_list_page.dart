@@ -31,6 +31,12 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
     myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
   }
 
+  String formatRoomId(String? roomId) {
+    if (roomId == null) return "000 - 000";
+    if (roomId.length != 6) return roomId;
+    return roomId.substring(0, 3) + " - " + roomId.substring(3, 6);
+  }
+
   Widget yourUserListWidget(List<User> users) {
     return Container(
         height: 50,
@@ -62,6 +68,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                     ),
                   ),
                   IconButton(
+                    //ToDo usuń
                     icon: const Icon(Icons.delete, color: Colors.red),
                     onPressed: () {
                       Utility.workingOn();
@@ -76,6 +83,9 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
 
   @override
   Widget build(BuildContext context) {
+    LobbyManyPhoneUserListState? state =
+        myBloc?.state as LobbyManyPhoneUserListState?;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -161,10 +171,10 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                                 color: Color(0x07ffffff),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
-                                  '000 - 000',
-                                  style: TextStyle(
+                                  formatRoomId(state?.roomId),
+                                  style: const TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 38,
                                     fontWeight: FontWeight.w600,

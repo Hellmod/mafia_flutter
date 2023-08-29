@@ -42,12 +42,12 @@ class LobbyManyPhoneBloc
         User user = updatedUsers
             .firstWhere((element) => element.id == deviceIdentifier);
         emit(LobbyManyPhoneUserListState(
-            users: updatedUsers, user: user, isUserInGame: isUserInGame));
+            users: updatedUsers, user: user, isUserInGame: isUserInGame, roomId: idRoom));
       } else {
         emit(LobbyManyPhoneUserListState(
             users: updatedUsers,
             user: User(name: '', id: ''),
-            isUserInGame: isUserInGame));
+            isUserInGame: isUserInGame, roomId: idRoom));
       }
     });
   }
