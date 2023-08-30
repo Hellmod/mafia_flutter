@@ -15,6 +15,11 @@ class OnRemoveUserClick extends LobbyManyPhoneEvent {
   List<Object> get props => [];
 }
 
+class OnNextInLobbyClick extends LobbyManyPhoneEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class OnSaveUserClick extends LobbyManyPhoneEvent {
   final String userName;
 

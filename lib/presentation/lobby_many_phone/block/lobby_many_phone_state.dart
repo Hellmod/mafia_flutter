@@ -25,3 +25,13 @@ class LobbyManyPhoneUserListState extends LobbyManyPhoneState {
   @override
   List<Object> get props => [users, user, roomId, isUserInGame];
 }
+
+class LobbyManyPhoneCharacterChooseState extends LobbyManyPhoneState {
+  final List<Character> characters;
+
+  LobbyManyPhoneCharacterChooseState(
+      {required this.characters,});
+
+  @override
+  List<Object> get props => [characters];
+}

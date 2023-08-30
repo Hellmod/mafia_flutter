@@ -323,7 +323,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      // Tu umieść swoją funkcję do wykonania po naciśnięciu przycisku
+                      myBloc?.add(OnNextInLobbyClick());
                     },
                     child: Container(
                       decoration: BoxDecoration(

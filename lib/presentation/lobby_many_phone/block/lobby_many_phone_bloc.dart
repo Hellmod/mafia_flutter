@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 import '../../../models/User.dart';
 import '../../../services/FirebaseService.dart';
 import '../../../utils/Utility.dart';
+import '../../../utils/character/Character.dart';
 
 part 'lobby_many_phone_event.dart';
 
@@ -24,6 +25,8 @@ class LobbyManyPhoneBloc
         createNewRoom();
       } else if (event is OnSaveUserClick) {
         addUser(event.userName);
+      }else if (event is OnNextInLobbyClick) {
+        emit(LobbyManyPhoneCharacterChooseState(characters: []));
       } else if (event is OnRemoveUserClick) {
         removeUser();
       } else if (event is CheckIdExists) {

@@ -30,11 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: 4.8.2
+  cloud_firestore: 4.9.1
   cached_network_image: ^3.2.3
   shared_preferences: ^2.0.20
   get_it: ^7.2.0
-  image_picker: ^0.8.5
+  image_picker: ^1.0.3
   image: ^4.0.15
   animations: ^2.0.7
   equatable: ^2.0.3
@@ -43,7 +43,7 @@ dependencies:
   provider: ^6.0.1
   intl: ^0.18.0
   fluttertoast: ^8.0.7
-  pinput: ^2.2.31
+  pinput: ^3.0.1
   device_info_plus: ^9.0.3
 
   # The following adds the Cupertino Icons font to your application.
@@ -75,6 +75,7 @@ flutter:
         - asset: fonts/ClashDisplayVariable.ttf  # Ścieżka do drugiej czcionki
   assets:
     - assets/images/card.png
+    - assets/images/character_sailor.png
     - assets/images/Facebook.svg
     - assets/images/UserCircle.svg
     - assets/images/DeviceMobile.svg
