@@ -10,12 +10,12 @@ class LobbyManyPhonePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return Scaffold(body:  BlocProvider(
         create: (context) => LobbyManyPhoneBloc(
           FirebaseService(),
         ),
         child: LobbyManyPhoneNavigator()
-    );
+    ));
   }
 }
 

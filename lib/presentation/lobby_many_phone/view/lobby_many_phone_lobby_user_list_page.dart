@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +30,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
   @override
   void initState() {
     super.initState();
-    myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
+    myBloc = context.read<LobbyManyPhoneBloc>();
   }
 
   String formatRoomId(String? roomId) {
@@ -83,279 +85,286 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
 
   @override
   Widget build(BuildContext context) {
-    LobbyManyPhoneUserListState? state =
-        myBloc?.state as LobbyManyPhoneUserListState?;
+    debugPrint("RMRM1 state $users");
 
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          color: const Color(0xff1e1e1e),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
+      bloc: myBloc,
+      builder: (context, state) {
+        if (state is LobbyManyPhoneUserListState) {
+          return Container(
+              width: double.infinity,
+              color: const Color(0xff1e1e1e),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.0),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 1.0,
-                              ),
-                            ),
-                            child: IconButton(
-                              icon: Icon(Icons.arrow_back, color: Colors.white),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
-                          const Text(
-                            'Lobby gry',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              height: 1.5999999728,
-                              color: Color(0xffa3a3a3),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.0),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 1.0,
-                              ),
-                            ),
-                            child: IconButton(
-                              icon: const Icon(Icons.qr_code,
-                                  color: Colors.white),
-                              onPressed: () {
-                                Utility.workingOn();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 40),
-                      const Text(
-                        'Udostępnij swój token rozgrywki aby inni gracze mogli wziąć udział w rozgrywce',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          height: 1.6,
-                          color: Color(0xffa3a3a3),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      Container(
-                        width: double.infinity,
-                        height: 56,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 294,
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Color(0x33ffffff)),
-                                color: Color(0x07ffffff),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  formatRoomId(state?.roomId),
-                                  style: const TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 38,
-                                    fontWeight: FontWeight.w600,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
                                     color: Colors.white,
+                                    width: 1.0,
                                   ),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 1.0,
+                                child: IconButton(
+                                  icon: Icon(
+                                      Icons.arrow_back, color: Colors.white),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
                                 ),
                               ),
-                              child: IconButton(
-                                icon:
-                                    const Icon(Icons.copy, color: Colors.white),
-                                onPressed: () {
-                                  Utility.workingOn();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      GestureDetector(
-                        onTap: () {
-                          Utility.workingOn();
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: Color(0x7f595959),
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0x192f2b43),
-                                offset: Offset(0, 1),
-                                blurRadius: 1.5,
-                              ),
-                            ],
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Udostępnij  ',
-                                textAlign: TextAlign.center,
+                              const Text(
+                                'Lobby gry',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xffffffff),
+                                  height: 1.5999999728,
+                                  color: Color(0xffa3a3a3),
                                 ),
                               ),
-                              SizedBox(
-                                height: 20,
-                                child: Icon(Icons.share, color: Colors.white),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.qr_code,
+                                      color: Colors.white),
+                                  onPressed: () {
+                                    Utility.workingOn();
+                                  },
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      Container(
-                        width: double.infinity,
-                        height: 1,
-                        decoration: const BoxDecoration(
-                          color: Color(0x33ffffff),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      const Text(
-                        'Twój nick:',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      UserInputOrDisplay(myBloc: myBloc),
-                      const SizedBox(height: 24),
-                      Container(
-                        width: double.infinity,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
+                          const SizedBox(height: 40),
+                          const Text(
+                            'Udostępnij swój token rozgrywki aby inni gracze mogli wziąć udział w rozgrywce',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              height: 1.6,
+                              color: Color(0xffa3a3a3),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          Container(
                             width: double.infinity,
-                            height: 1,
+                            height: 56,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 294,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color(0x33ffffff)),
+                                    color: Color(0x07ffffff),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      formatRoomId(state.roomId), //ToDo
+                                      style: const TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 38,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: IconButton(
+                                    icon:
+                                    const Icon(Icons.copy, color: Colors.white),
+                                    onPressed: () {
+                                      Utility.workingOn();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          GestureDetector(
+                            onTap: () {
+                              Utility.workingOn();
+                            },
                             child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0x33ffffff),
+                              width: double.infinity,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                color: Color(0x7f595959),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0x192f2b43),
+                                    offset: Offset(0, 1),
+                                    blurRadius: 1.5,
+                                  ),
+                                ],
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Udostępnij  ',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xffffffff),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                    child: Icon(
+                                        Icons.share, color: Colors.white),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      Container(
-                        child: const Text(
-                          'Lista graczy',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xffffffff),
+                          const SizedBox(height: 24),
+                          Container(
+                            width: double.infinity,
+                            height: 1,
+                            decoration: const BoxDecoration(
+                              color: Color(0x33ffffff),
+                            ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      SizedBox(
-                          width: double.infinity,
-                          height: 200,
-                          child: Column(
-                            children: [
-                              BlocBuilder<LobbyManyPhoneBloc,
-                                  LobbyManyPhoneState>(
-                                builder: (context, state) {
-                                  if (state is LobbyManyPhoneUserListState) {
-                                    return Expanded(
-                                      child: yourUserListWidget(state.users),
-                                    );
-                                  } else {
-                                    return const CircularProgressIndicator();
-                                  }
-                                },
-                              ),
-                            ],
-                          )),
-                    ],
-                  )),
-              Positioned(
-                left: 16,
-                right: 16,
-                bottom: 32,
-                child: Material(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      myBloc?.add(OnNextInLobbyClick());
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFFFFB445), Color(0xFFD85C30)],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Text(
-                            'rozpocznij rozgrywkę',
+                          const SizedBox(height: 24),
+                          const Text(
+                            'Twój nick:',
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          UserInputOrDisplay(myBloc: myBloc),
+                          const SizedBox(height: 24),
+                          Container(
+                            width: double.infinity,
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: 1,
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Color(0x33ffffff),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          Container(
+                            child: const Text(
+                              'Lista graczy',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          SizedBox(
+                              width: double.infinity,
+                              height: 200,
+                              child: Column(
+                                children: [
+                                  BlocBuilder<
+                                      LobbyManyPhoneBloc,
+                                      LobbyManyPhoneState>(
+                                    builder: (context, state) {
+                                      if (state is LobbyManyPhoneUserListState) {
+                                        return Expanded(
+                                          child: yourUserListWidget(
+                                              state.users),
+                                        );
+                                      } else {
+                                        return const CircularProgressIndicator();
+                                      }
+                                    },
+                                  ),
+                                ],
+                              )),
+                        ],
+                      )),
+                  Positioned(
+                    left: 16,
+                    right: 16,
+                    bottom: 32,
+                    child: Material(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          myBloc?.add(OnNextInLobbyClick());
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFFFB445), Color(0xFFD85C30)],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Text(
+                                'rozpocznij rozgrywkę',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ), //Dalej button
-            ],
-          ),
-        ),
-      ),
-    );
+                  ), //Dalej button
+                ],
+              ),
+            );
+        }
+        return const CircularProgressIndicator();
+      });
   }
 }

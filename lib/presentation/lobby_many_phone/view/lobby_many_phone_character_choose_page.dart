@@ -29,7 +29,7 @@ class _LobbyManyPhoneCharacterChoose
   @override
   void initState() {
     super.initState();
-    myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
+    myBloc = context.read<LobbyManyPhoneBloc>();
   }
 
   String formatRoomId(String? roomId) {
@@ -179,8 +179,6 @@ class _LobbyManyPhoneCharacterChoose
 
   @override
   Widget build(BuildContext context) {
-    LobbyManyPhoneUserListState? state =
-        myBloc?.state as LobbyManyPhoneUserListState?;
 
     return Scaffold(
       body: SafeArea(

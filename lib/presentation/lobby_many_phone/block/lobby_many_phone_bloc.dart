@@ -19,6 +19,8 @@ class LobbyManyPhoneBloc
     extends Bloc<LobbyManyPhoneEvent, LobbyManyPhoneState> {
   final FirebaseService _firebaseService;
 
+  String? roomId;
+
   LobbyManyPhoneBloc(this._firebaseService) : super(LobbyManyPhoneInitial()) {
     on<LobbyManyPhoneEvent>((event, emit) async {
       if (event is OnNewGameClick) {
@@ -29,14 +31,17 @@ class LobbyManyPhoneBloc
         emit(LobbyManyPhoneCharacterChooseState(characters: []));
       } else if (event is OnRemoveUserClick) {
         removeUser();
-      } else if (event is CheckIdExists) {
-        await doesRoomExist(event.idRoom);
       }
+    });
+
+    on<CheckIdExists>((event, emit) async {
+      await doesRoomExist(event.idRoom);
     });
   }
 
   Future<void> doesRoomExist(String idRoom) async {
     bool isRoomExist = await _firebaseService.doesRoomExist(idRoom);
+    roomId = idRoom;
     if (isRoomExist) {
       loadRoom(idRoom);
     } else {

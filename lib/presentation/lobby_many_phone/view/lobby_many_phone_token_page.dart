@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -19,14 +21,13 @@ class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
   @override
   void initState() {
     super.initState();
-    myBloc = BlocProvider.of<LobbyManyPhoneBloc>(context);
+    myBloc = context.read<LobbyManyPhoneBloc>();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
+      body: Container(
           width: double.infinity,
           color: const Color(0xff1e1e1e),
           child: Stack(
@@ -165,7 +166,7 @@ class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      myBloc!.add(CheckIdExists(idRoom: roomId));
+                      myBloc?.add(CheckIdExists(idRoom: roomId));
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -197,7 +198,6 @@ class _LobbyTokenScreen extends State<LobbyTokenScreen>  {
             ],
           ),
         ),
-      ),
     );
   }
 
