@@ -4,6 +4,8 @@ import 'package:mafia/utils/character/Character.dart';
 
 import '../../../utils/AppTextStyles.dart';
 import '../../../utils/Utility.dart';
+import '../../../utils/character/CharacterRepository.dart';
+import '../../../utils/character/Pirates.dart';
 import '../../wigets/RoleCard.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
@@ -145,14 +147,7 @@ class _LobbyManyPhoneCharacterChoose
                       const SizedBox(height: 24),
                       villageSeparator(),
                       const SizedBox(height: 24),
-                      RoleCardWidget(
-                        imageUrl: 'assets/images/character_sailor.png',
-                        roleName: 'Szeryf',
-                      ),
-                      const SizedBox(height: 16),
-                      RoleCardWidget(
-                          imageUrl: 'assets/images/character_sailor.png',
-                          roleName: 'Marynarz'),
+                      Expanded(child: CharacterGrid()),
                     ],
                   )),
               Positioned(
@@ -197,7 +192,18 @@ class _LobbyManyPhoneCharacterChoose
   }
 }
 
+class CharacterGrid extends StatelessWidget {
+  final characters = CharacterRepository.instance.getCharacters();
 
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 10, // odstęp pomiędzy widgetami w poziomie
+      runSpacing: 10, // odstęp pomiędzy liniami (rzędami) widgetów
+      children: characters.map((character) => RoleCardWidget(character: character)).toList(),
+    );
+  }
+}
 
 
 

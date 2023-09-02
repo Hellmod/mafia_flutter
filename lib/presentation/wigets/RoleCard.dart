@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/AppTextStyles.dart';
+import '../../utils/character/Character.dart';
 
 class RoleCardWidget extends StatefulWidget {
-  final String imageUrl;
-  final String roleName;
+  final Character character;
 
   const RoleCardWidget(
-      {super.key, required this.imageUrl, required this.roleName});
+      {super.key, required this.character});
 
   @override
-  State<RoleCardWidget> createState() => _RoleCardState(imageUrl, roleName);
+  State<RoleCardWidget> createState() => _RoleCardState(character);
 }
 
 class _RoleCardState extends State<RoleCardWidget> {
-  String imageUrl = "assets/images/character_sailor.png";
-  String roleName = "Żeglarz";
+  final Character character;
   int amount = 1;
 
-  _RoleCardState(this.imageUrl, this.roleName);
+  _RoleCardState(this.character);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +51,7 @@ class _RoleCardState extends State<RoleCardWidget> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
-                        imageUrl,
+                        character.cardPath,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -97,7 +96,7 @@ class _RoleCardState extends State<RoleCardWidget> {
                             Container(
                               margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                               child: Text(
-                                roleName,
+                                character.name,
                                 style: AppTextStyles.amountInCard,
                               ),
                             ),
@@ -144,7 +143,7 @@ class _RoleCardState extends State<RoleCardWidget> {
                           width: 65,
                           height: 21,
                           child: Text(
-                            roleName,
+                            character.name,
                             style: AppTextStyles.amountInCard,
                           ),
                         ),

@@ -15,6 +15,8 @@ class Pirates extends Character {
   double get priority => 1.0;
   @override
   String get instruction => "Wybierz gracza, którego chcesz zabić.";
+  @override
+  String get cardPath => "assets/images/character_sailor.png";
 
   @override
   bool makeSpecialAction(List<int> idSelectedUsers) {
