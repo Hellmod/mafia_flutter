@@ -35,6 +35,103 @@ class _LobbyManyPhoneCharacterChoose
     myBloc = context.read<LobbyManyPhoneBloc>();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    //dodaj listener do blocu
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          color: const Color(0xff1e1e1e),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Stack(
+                    fit: StackFit.loose,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            toolBar(),
+                            const SizedBox(height: 40),
+                            pageTitle(),
+                            const SizedBox(height: 24),
+                            villageSeparator(),
+                            const SizedBox(height: 24),
+                            CharacterGrid(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              bottomBar(5),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget bottomBar(int amount) => Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0x00343F00), Color(0xFF161A22)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Expanded(
+              flex: 3,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    amount.toString()+'  ',
+                    style: AppTextStyles.textInter(
+                        fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    'Pozostałych\n wyborów',
+                    style: AppTextStyles.textInter(
+                        fontSize: 10, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+                flex: 7,
+                child: InkWell(
+                  onTap: () {
+                    Utility.workingOn();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: AppTextStyles.goldGradient,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text(
+                          'Dalej',
+                          style: AppTextStyles.text16_600,
+                        ),
+                      ),
+                    ),
+                  ),
+                )),
+          ]),
+        ),
+      );
+
   Widget toolBar() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -125,71 +222,6 @@ class _LobbyManyPhoneCharacterChoose
           ),
         ],
       );
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          color: const Color(0xff1e1e1e),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      toolBar(),
-                      const SizedBox(height: 40),
-                      pageTitle(),
-                      const SizedBox(height: 24),
-                      villageSeparator(),
-                      const SizedBox(height: 24),
-                      Expanded(child: CharacterGrid()),
-                    ],
-                  )),
-              Positioned(
-                left: 16,
-                right: 16,
-                bottom: 32,
-                child: Material(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      Utility.workingOn();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: AppTextStyles.goldGradient,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Text(
-                            'Dalej',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ), //Dalej button
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class CharacterGrid extends StatelessWidget {
@@ -198,15 +230,11 @@ class CharacterGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 10, // odstęp pomiędzy widgetami w poziomie
-      runSpacing: 10, // odstęp pomiędzy liniami (rzędami) widgetów
-      children: characters.map((character) => RoleCardWidget(character: character)).toList(),
+      spacing: 10,
+      runSpacing: 10,
+      children: characters
+          .map((character) => RoleCardWidget(character: character))
+          .toList(),
     );
   }
 }
-
-
-
-
-
-
