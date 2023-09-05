@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/AppTextStyles.dart';
 import '../../utils/character/Character.dart';
+import '../lobby_many_phone/block/lobby_many_phone_bloc.dart';
 
 class RoleCardWidget extends StatefulWidget {
   final Character character;
@@ -16,10 +18,26 @@ class RoleCardWidget extends StatefulWidget {
 }
 
 class _RoleCardState extends State<RoleCardWidget> {
+  LobbyManyPhoneBloc? myBloc;
+
   final Character character;
-  int amount = 1;
+  int amount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    myBloc = context.read<LobbyManyPhoneBloc>();
+  }
 
   _RoleCardState(this.character);
+
+  void increaseAmount(){
+    ++amount;
+    myBloc?.add(OnImctoseAmountCharacterClick(
+        amount: amount,
+        character: character
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +45,7 @@ class _RoleCardState extends State<RoleCardWidget> {
         onTap: () {
           if (amount == 0) {
             setState(() {
-              amount++;
+              increaseAmount();
             });
           }
         },
@@ -121,10 +139,8 @@ class _RoleCardState extends State<RoleCardWidget> {
                                   //SizedBox(width: 16),
                                   IncreaseAmountButton(
                                     onPressed: () {
-                                      debugPrint(
-                                          "RMRM increase amount $amount");
                                       setState(() {
-                                        amount++;
+                                        increaseAmount();
                                       });
                                     },
                                   ),

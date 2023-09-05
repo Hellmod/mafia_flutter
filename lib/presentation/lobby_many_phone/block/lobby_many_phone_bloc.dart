@@ -21,6 +21,7 @@ class LobbyManyPhoneBloc
 
   String? roomId;
   List<User> users = [];
+  Map<Character, int> characterAmountMap = {};
 
   LobbyManyPhoneBloc(this._firebaseService) : super(LobbyManyPhoneInitial()) {
     on<LobbyManyPhoneEvent>((event, emit) async {
@@ -39,6 +40,20 @@ class LobbyManyPhoneBloc
     on<CheckIdExists>((event, emit) async {
       await doesRoomExist(event.idRoom);
     });
+
+    on<OnImctoseAmountCharacterClick>((event, emit) async {
+      incriseAmount(event.amount, event.character);
+    });
+  }
+
+  int sumAmountOfCharacterMap() {
+    return characterAmountMap.values.reduce((a, b) => a + b);
+  }
+
+  Future<void> incriseAmount(int amount, Character character) async {
+    characterAmountMap[character] = amount;
+    emit(LobbyManyPhoneCharacterChooseState(
+        characters: [], charactersToChoose: users.length - sumAmountOfCharacterMap()));
   }
 
   Future<void> doesRoomExist(String idRoom) async {

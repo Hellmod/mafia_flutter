@@ -34,5 +34,5 @@ class LobbyManyPhoneCharacterChooseState extends LobbyManyPhoneState {
       {required this.characters, required this.charactersToChoose});
 
   @override
-  List<Object> get props => [characters];
+  List<Object> get props => [characters, charactersToChoose];
 }
