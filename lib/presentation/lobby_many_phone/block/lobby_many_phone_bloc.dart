@@ -20,6 +20,7 @@ class LobbyManyPhoneBloc
   final FirebaseService _firebaseService;
 
   String? roomId;
+  List<User> users = [];
 
   LobbyManyPhoneBloc(this._firebaseService) : super(LobbyManyPhoneInitial()) {
     on<LobbyManyPhoneEvent>((event, emit) async {
@@ -27,8 +28,9 @@ class LobbyManyPhoneBloc
         createNewRoom();
       } else if (event is OnSaveUserClick) {
         addUser(event.userName);
-      }else if (event is OnNextInLobbyClick) {
-        emit(LobbyManyPhoneCharacterChooseState(characters: []));
+      } else if (event is OnNextInLobbyClick) {
+        emit(LobbyManyPhoneCharacterChooseState(
+            characters: [], charactersToChoose: users.length));
       } else if (event is OnRemoveUserClick) {
         removeUser();
       }
@@ -58,6 +60,7 @@ class LobbyManyPhoneBloc
     _firebaseService
         .streamUsersFromGameRoom(idRoom)
         .listen((updatedUsers) async {
+      users = updatedUsers;
       bool isUserInGame = await checkIsYourIdIsInGame(updatedUsers);
       if (isUserInGame) {
         String? deviceIdentifier = await getDeviceIdentifier();
