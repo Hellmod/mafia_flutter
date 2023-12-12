@@ -33,7 +33,15 @@ class _RoleCardState extends State<RoleCardWidget> {
 
   void increaseAmount(){
     ++amount;
-    myBloc?.add(OnImctoseAmountCharacterClick(
+    myBloc?.add(OnIncreaseAmountCharacterClick(
+        amount: amount,
+        character: character
+    ));
+  }
+
+  void decreaseAmount(){
+    --amount;
+    myBloc?.add(OnIncreaseAmountCharacterClick(
         amount: amount,
         character: character
     ));
@@ -127,8 +135,9 @@ class _RoleCardState extends State<RoleCardWidget> {
                                 children: [
                                   DecreaseAmountButton(
                                     onPressed: () {
-                                      amount--;
-                                      setState(() {});
+                                      setState(() {
+                                        decreaseAmount();
+                                      });
                                     },
                                   ),
                                   //SizedBox(width: 16),

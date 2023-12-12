@@ -29,11 +29,11 @@ class OnSaveUserClick extends LobbyManyPhoneEvent {
   List<Object> get props => [userName];
 }
 
-class OnImctoseAmountCharacterClick extends LobbyManyPhoneEvent {
+class OnIncreaseAmountCharacterClick extends LobbyManyPhoneEvent {
   final int amount;
   final Character character;
 
-  const OnImctoseAmountCharacterClick({required this.amount, required this.character});
+  const OnIncreaseAmountCharacterClick({required this.amount, required this.character});
 
   @override
   List<Object> get props => [amount, character];

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ffi';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
@@ -41,16 +42,18 @@ class LobbyManyPhoneBloc
       await doesRoomExist(event.idRoom);
     });
 
-    on<OnImctoseAmountCharacterClick>((event, emit) async {
+    on<OnIncreaseAmountCharacterClick>((event, emit) async {
       incriseAmount(event.amount, event.character);
     });
   }
 
   int sumAmountOfCharacterMap() {
-    return characterAmountMap.values.reduce((a, b) => a + b);
+    debugPrint("RMRM1 amount: ${characterAmountMap.values.fold(0, (prev, element) => prev + element)}");
+    return characterAmountMap.values.fold(0, (prev, element) => prev + element);
   }
 
   Future<void> incriseAmount(int amount, Character character) async {
+    debugPrint("RMRM1 amount: $amount, character: $character");
     characterAmountMap[character] = amount;
     emit(LobbyManyPhoneCharacterChooseState(
         characters: [], charactersToChoose: users.length - sumAmountOfCharacterMap()));
