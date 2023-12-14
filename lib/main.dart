@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: GamePage(),
       routes: {
         '/dashboard': (context) => HomePage(),
         '/many_phone': (context) => LobbyManyPhonePage(),
