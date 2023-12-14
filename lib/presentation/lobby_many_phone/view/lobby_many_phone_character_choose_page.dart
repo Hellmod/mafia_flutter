@@ -24,6 +24,10 @@ class _LobbyManyPhoneCharacterChoose
     extends State<LobbyManyPhoneCharacterChoose> {
   LobbyManyPhoneBloc? myBloc;
 
+  void navGame() {
+    Navigator.pushNamed(context, '/game');
+  }
+
   final List<Character> characters;
   String userNick = '';
 
@@ -112,7 +116,9 @@ class _LobbyManyPhoneCharacterChoose
                 flex: 7,
                 child: InkWell(
                   onTap: () {
-                    Utility.workingOn();
+                    //RM
+                    navGame();
+                   // Utility.workingOn();
                   },
                   child: Container(
                     decoration: BoxDecoration(

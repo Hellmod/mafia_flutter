@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:mafia/presentation/game/block/game_page.dart';
 import 'package:mafia/presentation/home/block/home_page.dart';
 import 'package:mafia/presentation/lobby_many_phone/block/lobby_many_phone_page.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/dashboard': (context) => HomePage(),
         '/many_phone': (context) => LobbyManyPhonePage(),
+        '/game': (context) => GamePage(),
       },
     );
   }

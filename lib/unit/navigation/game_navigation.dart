@@ -12,9 +12,9 @@ import '../../presentation/lobby_many_phone/view/lobby_many_phone_token_page.dar
 class GameNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
+    return BlocBuilder<GameBloc, GameState>(
       builder: (context, state) {
-        if (state is GameRevealCardState) {
+        if (state is GameInitialState) {
           return GameRevealCard(characters: []);
         } else {
           return Container(child: const Center(child: CircularProgressIndicator()));
