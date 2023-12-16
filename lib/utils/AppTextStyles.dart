@@ -8,6 +8,20 @@ class AppTextStyles {
     color: Colors.white,
   );
 
+  static const text12_500 = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+
+  static const text_C_14_600 = TextStyle(
+    fontFamily: 'Clash Display Variable',
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: Color(0xffffffff),
+  );
+
   static const text16_500 = TextStyle(
     fontFamily: 'Inter',
     fontSize: 16,
@@ -44,5 +58,5 @@ class AppTextStyles {
     );
   }
 
-  //static mainColor Color(0xff1e1e1e);
+//static mainColor Color(0xff1e1e1e);
 }

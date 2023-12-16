@@ -46,6 +46,7 @@ class _GameRevealCard extends State<GameRevealCard> {
                   Expanded(
                     child: SingleChildScrollView(
                       child: Stack(
+                        //RM
                         fit: StackFit.loose,
                         children: [
                           Padding(
@@ -54,11 +55,11 @@ class _GameRevealCard extends State<GameRevealCard> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 MainWidget.toolBar(
-                                    "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"
-                                ),
+                                    "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"),
                                 const SizedBox(height: 40),
                                 pageTitle(),
                                 const SizedBox(height: 24),
+                                card(),
                               ],
                             ),
                           ),
@@ -91,4 +92,80 @@ class _GameRevealCard extends State<GameRevealCard> {
         ),
       );
 
+  Widget card() => AspectRatio(
+        aspectRatio: 4 / 6,
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Color(0xFF1E1E1E),
+            borderRadius: BorderRadius.circular(24.0),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.2),
+              width: 16.0,
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xFF1E1E1E),
+                borderRadius: BorderRadius.circular(24.0),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1.0,
+                ),
+              ),
+              child: Stack(
+                fit: StackFit.expand, // Zmień StackFit.loose na StackFit.expand
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // Dodano, aby rozłożyć dzieci równomiernie
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // Zmieniono na CrossAxisAlignment.start
+                      children: [
+                        const Text(
+                          'Mafia',
+                          style: AppTextStyles.text_C_14_600,
+                        ),
+                        Center(
+                            child: Column(children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF4b4b4b),
+                              shape: BoxShape.circle,
+                            ),
+                            padding: EdgeInsets.all(8),
+                            child: const Icon(
+                              Icons.fingerprint,
+                              size: 32,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Naciśnij i przytrzymaj,\naby odsłonić rolę',
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.text12_500,
+                          ),
+                        ])),
+                        const Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            'Mafia',
+                            style: AppTextStyles.text_C_14_600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 }
