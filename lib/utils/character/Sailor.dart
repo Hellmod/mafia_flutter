@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'Character.dart'; // Jeśli chcesz używać logów w stylu Fluttera.
@@ -17,6 +16,12 @@ class Sailor extends Character {
   String get instruction => "Marynarz nie ma specjalnej akcji.";
   @override
   String get cardPath => "assets/images/character_sailor.png";
+  @override
+  String get description => "Sobry marynarz";
+  @override
+  int get rarity => 3;
+  @override
+  String get team => "Miasto";
 
   @override
   bool makeSpecialAction(List<int> idSelectedUsers) {

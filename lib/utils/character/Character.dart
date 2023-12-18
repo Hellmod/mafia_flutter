@@ -5,6 +5,9 @@ abstract class Character {
   double get priority;
   String get instruction;
   String get cardPath;
+  String get team;
+  int get rarity;
+  String get description;
 
   bool makeSpecialAction(List<int> idSelectedUsers);
 }
