@@ -25,8 +25,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   GameBloc(this._firebaseService) : super(GameInitialState()) {
     on<GameEvent>((event, emit) async {
-      if (event is OnNewGameClick) {
-        //createNewRoom();
+      if (event is OnRevealCardClicked) {
+        debugPrint("RMRM OnRevealCardClicked clicked!!!");
       }
     });
   }

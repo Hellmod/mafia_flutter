@@ -30,13 +30,22 @@ class _GameRevealCard extends State<GameRevealCard>
   _GameRevealCard(this.characters);
 
   void startLoading() {
-    controller.forward().then((_) {
-      onLoadingComplete();
-    });
+    controller.forward().then(
+          (_) {
+        if (controller.status == AnimationStatus.completed) {
+          onLoadingComplete();
+        }
+      },
+    );
+  }
+
+  void stopLoadingAndReset() {
+    controller.stop();
+    controller.reset();
   }
 
   void onLoadingComplete() {
-    print("Loading complete!");
+    myBloc?.add(OnRevealCardClicked());
   }
 
   @override
@@ -46,7 +55,7 @@ class _GameRevealCard extends State<GameRevealCard>
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 3),
-    )..repeat();
+    );
   }
 
   @override
@@ -112,7 +121,8 @@ class _GameRevealCard extends State<GameRevealCard>
   Widget card() => AspectRatio(
         aspectRatio: 4 / 6,
         child: GestureDetector(
-          onTap: startLoading, // Rozpoczęcie ładowania po kliknięciu
+          onLongPressStart: (_) => startLoading(),
+          onLongPressEnd: (_) => stopLoadingAndReset(),
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -137,7 +147,6 @@ class _GameRevealCard extends State<GameRevealCard>
                 ),
                 child: Stack(
                   fit: StackFit.expand,
-                  // Zmień StackFit.loose na StackFit.expand
                   children: [
                     Padding(
                       padding: EdgeInsets.all(16),
@@ -209,7 +218,7 @@ class CircleProgressPainter extends CustomPainter {
       ..strokeWidth = 8
       ..style = PaintingStyle.stroke;
 
-    double progress = (1.0 - animation.value) * 2 * math.pi;
+    double progress = animation.value * 2 * math.pi;
     canvas.drawArc(
       Rect.fromCircle(
           center: Offset(size.width / 2, size.height / 2),
@@ -223,7 +232,6 @@ class CircleProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    throw UnimplementedError();
+    return true;
   }
 }

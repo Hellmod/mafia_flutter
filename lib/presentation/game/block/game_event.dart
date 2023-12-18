@@ -5,7 +5,7 @@ abstract class GameEvent extends Equatable {
   const GameEvent();
 }
 
-class OnNewGameClick extends GameEvent {
+class OnRevealCardClicked extends GameEvent {
   @override
   List<Object> get props => [];
 }
