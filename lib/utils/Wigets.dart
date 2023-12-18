@@ -39,4 +39,41 @@ class MainWidget {
           SizedBox(width: 16), // Spacja po prawej stronie tekstu
         ],
       );
+
+  static Widget orangeButton({
+     required String text,
+     required VoidCallback callback,
+   }) =>
+       Material(
+         borderRadius: BorderRadius.circular(12),
+         color: Colors.transparent,
+         child: InkWell(
+           onTap: callback,
+           // Używamy parametru callback zamiast Utility.workingOn()
+           child: Container(
+             decoration: BoxDecoration(
+               gradient: const LinearGradient(
+                 colors: [Color(0xFFFFB445), Color(0xFFD85C30)],
+                 begin: Alignment.topCenter,
+                 end: Alignment.bottomCenter,
+               ),
+               borderRadius: BorderRadius.circular(12),
+             ),
+             child: Center(
+               child: Padding(
+                 padding: const EdgeInsets.all(16.0),
+                 child: Text(
+                   text, // Używamy parametru text zamiast stałego ciągu znaków
+                   style: const TextStyle(
+                     fontFamily: 'Inter',
+                     fontSize: 16,
+                     fontWeight: FontWeight.w600,
+                     color: Colors.white,
+                   ),
+                 ),
+               ),
+             ),
+           ),
+         ),
+       );
 }

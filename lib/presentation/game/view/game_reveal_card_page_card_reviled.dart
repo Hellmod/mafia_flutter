@@ -5,10 +5,7 @@ import 'package:mafia/utils/character/Character.dart';
 import '../../../utils/AppTextStyles.dart';
 import '../../../utils/Utility.dart';
 import '../../../utils/Wigets.dart';
-import '../../../utils/character/CharacterRepository.dart';
-import '../../wigets/RoleCard.dart';
 import '../block/game_bloc.dart';
-import 'dart:math' as math;
 
 class GameRevealCardReviled extends StatefulWidget {
   final Character character;
@@ -67,35 +64,32 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
             return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Stack(
-                        //RM
-                        fit: StackFit.loose,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                MainWidget.toolBar(
-                                    "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"),
-                                const SizedBox(height: 40),
-                                pageTitle(),
-                                const SizedBox(height: 24),
-                                card(),
-                              ],
-                            ),
+              child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              MainWidget.toolBar(
+                                  "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"),
+                              const SizedBox(height: 40),
+                              pageTitle(),
+                              const SizedBox(height: 24),
+                              card(),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  // bottomBar(state.charactersToChoose),
-                ],
-              ),
+                      MainWidget.orangeButton(
+                          text: 'Dalej',
+                          callback: () {
+                            Utility.workingOn();
+                          }),
+                    ],
+                  )),
             );
           }
           return const CircularProgressIndicator();
@@ -183,4 +177,5 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
           ),
         ),
       );
+
 }
