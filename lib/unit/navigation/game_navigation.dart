@@ -5,9 +5,11 @@ import 'package:mafia/presentation/game/view/game_reveal_card_page.dart';
 import 'package:mafia/presentation/lobby_many_phone/block/lobby_many_phone_bloc.dart';
 
 import '../../presentation/game/block/game_bloc.dart';
+import '../../presentation/game/view/game_reveal_card_page_card_reviled.dart';
 import '../../presentation/lobby_many_phone/view/lobby_many_phone_character_choose_page.dart';
 import '../../presentation/lobby_many_phone/view/lobby_many_phone_lobby_user_list_page.dart';
 import '../../presentation/lobby_many_phone/view/lobby_many_phone_token_page.dart';
+import '../../utils/character/Pirates.dart';
 
 class GameNavigator extends StatelessWidget {
   @override
@@ -15,9 +17,11 @@ class GameNavigator extends StatelessWidget {
     return BlocBuilder<GameBloc, GameState>(
       builder: (context, state) {
         if (state is GameInitialState) {
-          return GameRevealCard(characters: []);
+          return GameRevealCardReviled(character: Pirates(),);
+          //return GameRevealCard(characters: []);
         } else {
-          return Container(child: const Center(child: CircularProgressIndicator()));
+          return Container(
+              child: const Center(child: CircularProgressIndicator()));
         }
       },
     );
