@@ -16,13 +16,12 @@ class GameActionPage extends StatefulWidget {
   _GameActionPage createState() => _GameActionPage(users);
 }
 
-class _GameActionPage extends State<GameActionPage>
-    with SingleTickerProviderStateMixin {
+class _GameActionPage extends State<GameActionPage>{
   GameBloc? myBloc;
   late AnimationController controller;
 
   final List<User> users;
-  String userNick = '';
+  String? _selectedUserName;
 
   _GameActionPage(this.users);
 
@@ -49,10 +48,7 @@ class _GameActionPage extends State<GameActionPage>
   void initState() {
     super.initState();
     myBloc = context.read<GameBloc>();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 3),
-    );
+
   }
 
   @override
@@ -109,13 +105,69 @@ class _GameActionPage extends State<GameActionPage>
   }
 
 
-  Widget userList() => Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        child: const Text(
-          'Marek',
-          textAlign: TextAlign.left,
-          style: AppTextStyles.text20_600,
+  Widget userList() {
+    return Container(
+      width: double.infinity,
+      height: 50,// Otocz ListView widgetem Expanded
+      child: ListView(
+        children: widget.users.map((User user) {
+          return UserRadioListTile(
+            user: user,
+            selectedUserName: _selectedUserName,
+            onSelectedUserChanged: (newSelectedUserName) {
+              setState(() {
+                _selectedUserName = newSelectedUserName;
+              });
+            },
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+}
+
+class UserRadioListTile extends StatelessWidget {
+  final User user;
+  final String? selectedUserName;
+  final ValueChanged<String?> onSelectedUserChanged;
+
+  UserRadioListTile({
+    Key? key,
+    required this.user,
+    required this.selectedUserName,
+    required this.onSelectedUserChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onSelectedUserChanged(user.name),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        decoration: BoxDecoration(
+          // Dodaj dowolne dekoracje, które chcesz zastosować do elementu listy
         ),
-      );
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage("assets/images/card.png"), // Zastąp ścieżkę obrazka avatarem użytkownika
+            ),
+            SizedBox(width: 16.0),
+            Expanded(
+              child: Text(
+                user.name,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Radio<String>(
+              value: user.name,
+              groupValue: selectedUserName,
+              onChanged: (value) => onSelectedUserChanged(value),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
