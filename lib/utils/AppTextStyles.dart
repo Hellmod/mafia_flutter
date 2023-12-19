@@ -15,6 +15,13 @@ class AppTextStyles {
     color: Colors.white,
   );
 
+  static const text20_600 = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+
   static const text_C_14_600 = TextStyle(
     fontFamily: 'Clash Display Variable',
     fontSize: 14,
