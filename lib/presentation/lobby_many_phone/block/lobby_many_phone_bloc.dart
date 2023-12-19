@@ -1,5 +1,4 @@
-import 'dart:developer';
-import 'dart:ffi';
+import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -23,6 +22,7 @@ class LobbyManyPhoneBloc
   String? roomId;
   List<User> users = [];
   Map<Character, int> characterAmountMap = {};
+  StreamSubscription? _usersSubscription;
 
   LobbyManyPhoneBloc(this._firebaseService) : super(LobbyManyPhoneInitial()) {
     on<LobbyManyPhoneEvent>((event, emit) async {
@@ -52,6 +52,12 @@ class LobbyManyPhoneBloc
     return characterAmountMap.values.fold(0, (prev, element) => prev + element);
   }
 
+  @override
+  Future<void> close() {
+    _usersSubscription?.cancel();
+    return super.close();
+  }
+
   Future<void> incriseAmount(int amount, Character character) async {
     debugPrint("RMRM1 amount: $amount, character: $character");
     characterAmountMap[character] = amount;
@@ -75,10 +81,12 @@ class LobbyManyPhoneBloc
   }
 
   Future<void> loadRoom(String idRoom) async {
-    _firebaseService
+    await _usersSubscription?.cancel();
+    _usersSubscription = _firebaseService
         .streamUsersFromGameRoom(idRoom)
         .listen((updatedUsers) async {
       users = updatedUsers;
+
       bool isUserInGame = await checkIsYourIdIsInGame(updatedUsers);
       if (isUserInGame) {
         String? deviceIdentifier = await getDeviceIdentifier();
