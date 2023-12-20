@@ -11,7 +11,7 @@ class GameNavigator extends StatelessWidget {
     return BlocBuilder<GameBloc, GameState>(
       builder: (context, state) {
         if (state is GameInitialState) {
-          return GameActionPage(users: [User(name: 'Ala', id: '1')],);
+          return GameActionPage(users: [User(name: 'Ala', id: '1'),User(name: 'Mietek', id: '2')],);
           //return GameRevealCardReviled(character: Pirates(),);
           //return GameRevealCard(characters: []);
         } else {

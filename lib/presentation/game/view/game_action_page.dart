@@ -16,7 +16,7 @@ class GameActionPage extends StatefulWidget {
   _GameActionPage createState() => _GameActionPage(users);
 }
 
-class _GameActionPage extends State<GameActionPage>{
+class _GameActionPage extends State<GameActionPage> {
   GameBloc? myBloc;
   late AnimationController controller;
 
@@ -48,7 +48,6 @@ class _GameActionPage extends State<GameActionPage>{
   void initState() {
     super.initState();
     myBloc = context.read<GameBloc>();
-
   }
 
   @override
@@ -72,7 +71,7 @@ class _GameActionPage extends State<GameActionPage>{
                               MainWidget.toolBar(
                                   "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"),
                               const SizedBox(height: 32),
-                              const  Align(
+                              const Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   "Wybież ofiarę tej nocy ",
@@ -104,27 +103,32 @@ class _GameActionPage extends State<GameActionPage>{
         });
   }
 
-
   Widget userList() {
     return Container(
-      width: double.infinity,
-      height: 50,// Otocz ListView widgetem Expanded
-      child: ListView(
-        children: widget.users.map((User user) {
-          return UserRadioListTile(
-            user: user,
-            selectedUserName: _selectedUserName,
-            onSelectedUserChanged: (newSelectedUserName) {
-              setState(() {
-                _selectedUserName = newSelectedUserName;
-              });
-            },
-          );
-        }).toList(),
-      ),
-    );
+        width: double.infinity,
+        height: 150, //ToDo rozszeż rodzica do max
+        child: ListView.separated(
+          itemCount: widget.users.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              color: Color(0x44d9d9d9),
+              height: 1,
+            );
+          },
+          itemBuilder: (BuildContext context, int index) {
+            final user = widget.users[index];
+            return UserRadioListTile(
+              user: user,
+              selectedUserName: _selectedUserName,
+              onSelectedUserChanged: (newSelectedUserName) {
+                setState(() {
+                  _selectedUserName = newSelectedUserName;
+                });
+              },
+            );
+          },
+        ));
   }
-
 }
 
 class UserRadioListTile extends StatelessWidget {
@@ -146,12 +150,13 @@ class UserRadioListTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         decoration: BoxDecoration(
-          // Dodaj dowolne dekoracje, które chcesz zastosować do elementu listy
-        ),
+            // Dodaj dowolne dekoracje, które chcesz zastosować do elementu listy
+            ),
         child: Row(
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage("assets/images/card.png"), // Zastąp ścieżkę obrazka avatarem użytkownika
+              backgroundImage: AssetImage(
+                  "assets/images/card.png"),
             ),
             SizedBox(width: 16.0),
             Expanded(
