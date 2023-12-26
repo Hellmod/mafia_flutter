@@ -86,8 +86,21 @@ class FirebaseService {
     await _firebase.collection('rooms').doc(roomId).set({
       "createdOn": FieldValue.serverTimestamp(),
       "deviceId":  await getDeviceIdentifier(),
+      "isGameStarted":  false,
     });
     return roomId;
+  }
+
+  Future<void> startGame(String roomId) async {
+    try {
+      DocumentReference roomRef = _firebase.collection('rooms').doc(roomId);
+
+      await roomRef.update({
+        'isGameStarted': true,
+      });
+    } catch (e) {
+      print("Błąd przy aktualizacji stanu gry: $e");
+    }
   }
 
   String _generateRoomId() {
@@ -107,4 +120,22 @@ class FirebaseService {
     }
     return 'unknown';
   }
+
+  Future<void> updateUsersWithCharacters(String gameId, List<User> users) async {
+    WriteBatch batch = _firebase.batch();
+
+    for (User user in users) {
+      DocumentReference userRef = _firebase
+          .collection('rooms')
+          .doc(gameId)
+          .collection('users')
+          .doc(user.id);
+
+      batch.update(userRef, {'character': user.character?.toMap()});
+    }
+
+    await batch.commit();
+  }
+
+
 }

@@ -11,7 +11,9 @@ import '../../../models/User.dart';
 import '../../../services/FirebaseService.dart';
 import '../../../utils/Utility.dart';
 import '../../../utils/character/Character.dart';
+
 part 'lobby_many_phone_event.dart';
+
 part 'lobby_many_phone_state.dart';
 
 class LobbyManyPhoneBloc
@@ -63,14 +65,15 @@ class LobbyManyPhoneBloc
   Future<void> incriseAmount(int amount, Character character) async {
     characterAmountMap[character] = amount;
     emit(LobbyManyPhoneCharacterChooseState(
-        characters: [], charactersToChoose: users.length - sumAmountOfCharacterMap()));
+        characters: [],
+        charactersToChoose: users.length - sumAmountOfCharacterMap()));
   }
 
   Future<void> onStartClick(int amount, String character) async {
-
-    List<User> test = users;
-    assignCharactersToUsersRandomly(test, characterAmountMap);
-    debugPrint("RMRM1 ${test.toString()}");
+    List<User> usersWitchCharacter = users;
+    assignCharactersToUsersRandomly(usersWitchCharacter, characterAmountMap);
+    _firebaseService.updateUsersWithCharacters(roomId!, users);
+    _firebaseService.startGame(roomId!);
   }
 
   Future<void> doesRoomExist(String idRoom) async {
@@ -168,7 +171,8 @@ class LobbyManyPhoneBloc
     return userList.any((element) => element.id == deviceIdentifier);
   }
 
-  void assignCharactersToUsersRandomly(List<User> users, Map<Character, int> characterAmountMap) {
+  void assignCharactersToUsersRandomly(
+      List<User> users, Map<Character, int> characterAmountMap) {
     Random random = Random();
     List<Character> availableCharacters = [];
 

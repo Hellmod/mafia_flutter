@@ -15,7 +15,7 @@ class User extends Equatable {
     return User(
       name: data['name'] ?? '',
       id: data['id'] ?? '',
-      character: data['character'],
+      character: data['character'] != null ? Character.fromMap(data['character']) : null,
     );
   }
 
