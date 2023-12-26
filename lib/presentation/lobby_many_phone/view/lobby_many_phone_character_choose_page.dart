@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/utils/character/Character.dart';
-
 import '../../../utils/AppTextStyles.dart';
-import '../../../utils/Utility.dart';
 import '../../../utils/character/CharacterRepository.dart';
-import '../../../utils/character/Pirates.dart';
 import '../../wigets/RoleCard.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
@@ -26,7 +23,8 @@ class _LobbyManyPhoneCharacterChoose
 
   void navGame() {
     myBloc?.add(OnStartClick(amount: 1, jakistekst: 'jakis tekst'));
-    //Navigator.pushNamed(context, '/game');
+    Navigator.pushNamed(context, '/game',
+        arguments: {'roomId': myBloc?.roomId});
   }
 
   final List<Character> characters;
@@ -119,7 +117,7 @@ class _LobbyManyPhoneCharacterChoose
                   onTap: () {
                     //RM
                     navGame();
-                   // Utility.workingOn();
+                    // Utility.workingOn();
                   },
                   child: Container(
                     decoration: BoxDecoration(

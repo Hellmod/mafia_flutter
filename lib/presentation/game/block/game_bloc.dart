@@ -1,33 +1,33 @@
-import 'dart:developer';
-import 'dart:ffi';
-import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../models/User.dart';
-import '../../../services/FirebaseService.dart';
-import '../../../utils/character/Character.dart';
-import '../../lobby_many_phone/block/lobby_many_phone_bloc.dart';
+import '../../../services/FirebaseGameService.dart';
 
 part 'game_event.dart';
 
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
-  final FirebaseService _firebaseService;
+  final FirebaseGameService _firebaseGameService;
 
-  String? roomId;
   List<User> users = [];
-  Map<Character, int> characterAmountMap = {};
+  User? user;
 
-  GameBloc(this._firebaseService) : super(GameInitialState()) {
+  GameBloc(this._firebaseGameService) : super(GameInitialState()) {
     on<GameEvent>((event, emit) async {
       if (event is OnRevealCardClicked) {
         debugPrint("RMRM OnRevealCardClicked clicked!!!");
       }
     });
+
+    _init();
+  }
+
+  Future<void> _init() async {
+    users = await _firebaseGameService.getUsers();
+    debugPrint("RMRM users: $users");
   }
 }

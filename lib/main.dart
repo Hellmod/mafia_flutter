@@ -26,7 +26,12 @@ class MyApp extends StatelessWidget {
       routes: {
         '/dashboard': (context) => HomePage(),
         '/many_phone': (context) => LobbyManyPhonePage(),
-        '/game': (context) => GamePage(),
+        '/game': (context) {
+          final routeArgs = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+          return GamePage(
+            roomId: routeArgs?['roomId'],
+          );
+        },
       },
     );
   }
