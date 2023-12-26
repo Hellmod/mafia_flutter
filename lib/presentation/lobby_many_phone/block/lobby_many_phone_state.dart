@@ -36,3 +36,12 @@ class LobbyManyPhoneCharacterChooseState extends LobbyManyPhoneState {
   @override
   List<Object> get props => [characters, charactersToChoose];
 }
+
+class NavigateToGamePageState extends LobbyManyPhoneState {
+  final String roomId;
+
+  NavigateToGamePageState(this.roomId);
+
+  @override
+  List<Object> get props => [roomId];
+}

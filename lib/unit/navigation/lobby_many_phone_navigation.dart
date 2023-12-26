@@ -10,18 +10,27 @@ import '../../presentation/lobby_many_phone/view/lobby_many_phone_token_page.dar
 class LobbyManyPhoneNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
-      builder: (context, state) {
-        if (state is LobbyManyPhoneInitial) {
-          return LobbyTokenScreen();
-        } else if (state is LobbyManyPhoneUserListState) {
-          return LobbyManyPhoneLobbyUserList(users: state.users);
-        } else if (state is LobbyManyPhoneCharacterChooseState) {
-          return LobbyManyPhoneCharacterChoose(characters: []);
-        } else {
-          return Container(child: const Center(child: CircularProgressIndicator()));
+    return BlocListener<LobbyManyPhoneBloc, LobbyManyPhoneState>(
+      listener: (context, state) {
+        if (state is NavigateToGamePageState) {
+          Navigator.pushNamed(context, '/game', arguments: {'roomId': state.roomId});
         }
       },
+      child: BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
+        builder: (context, state) {
+          if (state is LobbyManyPhoneInitial) {
+            return LobbyTokenScreen();
+          } else if (state is LobbyManyPhoneUserListState) {
+            return LobbyManyPhoneLobbyUserList(users: state.users);
+          } else if (state is LobbyManyPhoneCharacterChooseState) {
+            return LobbyManyPhoneCharacterChoose(characters: []);
+          } else {
+            return Container(
+                child: const Center(child: CircularProgressIndicator()));
+          }
+        },
+      ),
     );
   }
 }
+

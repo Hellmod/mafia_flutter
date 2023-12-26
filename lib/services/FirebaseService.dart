@@ -137,5 +137,18 @@ class FirebaseService {
     await batch.commit();
   }
 
+  Future<bool> isGameStarted(String roomId) async {
+    try {
+      DocumentSnapshot roomSnapshot = await _firebase.collection('rooms').doc(roomId).get();
+      if (roomSnapshot.exists && roomSnapshot.data() != null) {
+        Map<String, dynamic> roomData = roomSnapshot.data() as Map<String, dynamic>;
+        return roomData['isGameStarted'] ?? false;
+      }
+      return false;
+    } catch (e) {
+      print("Błąd podczas sprawdzania, czy gra się rozpoczęła: $e");
+      return false;
+    }
+  }
 
 }

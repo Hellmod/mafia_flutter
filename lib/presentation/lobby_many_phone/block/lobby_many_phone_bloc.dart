@@ -99,7 +99,15 @@ class LobbyManyPhoneBloc
       users = updatedUsers;
 
       bool isUserInGame = await checkIsYourIdIsInGame(updatedUsers);
+      bool isGameStarted = await _firebaseService.isGameStarted(idRoom);
       if (isUserInGame) {
+        if (isGameStarted) {
+          //TUTAJ NAWIGUJ DO GAME
+          emit(NavigateToGamePageState(
+            idRoom,
+          ));
+          return;
+        }
         String? deviceIdentifier = await getDeviceIdentifier();
         User user = updatedUsers
             .firstWhere((element) => element.id == deviceIdentifier);
