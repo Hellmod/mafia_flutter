@@ -25,7 +25,8 @@ class _LobbyManyPhoneCharacterChoose
   LobbyManyPhoneBloc? myBloc;
 
   void navGame() {
-    Navigator.pushNamed(context, '/game');
+    myBloc?.add(OnStartClick(amount: 1, jakistekst: 'jakis tekst'));
+    //Navigator.pushNamed(context, '/game');
   }
 
   final List<Character> characters;

@@ -10,9 +10,7 @@ import '../../../models/User.dart';
 import '../../../services/FirebaseService.dart';
 import '../../../utils/Utility.dart';
 import '../../../utils/character/Character.dart';
-
 part 'lobby_many_phone_event.dart';
-
 part 'lobby_many_phone_state.dart';
 
 class LobbyManyPhoneBloc
@@ -45,10 +43,13 @@ class LobbyManyPhoneBloc
     on<OnIncreaseAmountCharacterClick>((event, emit) async {
       incriseAmount(event.amount, event.character);
     });
+
+    on<OnStartClick>((event, emit) async {
+      onStartClick(event.amount, event.jakistekst);
+    });
   }
 
   int sumAmountOfCharacterMap() {
-    debugPrint("RMRM1 amount: ${characterAmountMap.values.fold(0, (prev, element) => prev + element)}");
     return characterAmountMap.values.fold(0, (prev, element) => prev + element);
   }
 
@@ -59,10 +60,15 @@ class LobbyManyPhoneBloc
   }
 
   Future<void> incriseAmount(int amount, Character character) async {
-    debugPrint("RMRM1 amount: $amount, character: $character");
     characterAmountMap[character] = amount;
     emit(LobbyManyPhoneCharacterChooseState(
         characters: [], charactersToChoose: users.length - sumAmountOfCharacterMap()));
+  }
+
+  Future<void> onStartClick(int amount, String character) async {
+
+    debugPrint("RMRM characterAmountMap= $characterAmountMap ");
+//    emit(LobbyManyPhoneCharacterChooseState(characters: [], charactersToChoose: users.length - sumAmountOfCharacterMap()));
   }
 
   Future<void> doesRoomExist(String idRoom) async {

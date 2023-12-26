@@ -16,10 +16,6 @@ class CharacterRepository {
   // Lista obiektów Character.
   List<Character> characters = [
     Pirates(),
-    Pirates(),
-    Pirates(),
-    Pirates(),
-    Pirates(),
     Sailor(),
   ];
 

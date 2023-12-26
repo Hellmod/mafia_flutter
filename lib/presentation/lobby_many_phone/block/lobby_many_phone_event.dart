@@ -56,3 +56,14 @@ class AddUser extends LobbyManyPhoneEvent {
   @override
   List<Object> get props => [user];
 }
+
+//Character choose page
+class OnStartClick extends LobbyManyPhoneEvent {
+  final int amount;
+  final String jakistekst;
+
+  const OnStartClick({required this.amount, required this.jakistekst});
+
+  @override
+  List<Object> get props => [amount, jakistekst];
+}
