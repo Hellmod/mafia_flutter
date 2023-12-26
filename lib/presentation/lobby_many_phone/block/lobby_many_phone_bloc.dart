@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
@@ -67,8 +68,9 @@ class LobbyManyPhoneBloc
 
   Future<void> onStartClick(int amount, String character) async {
 
-    debugPrint("RMRM characterAmountMap= $characterAmountMap ");
-//    emit(LobbyManyPhoneCharacterChooseState(characters: [], charactersToChoose: users.length - sumAmountOfCharacterMap()));
+    List<User> test = users;
+    assignCharactersToUsersRandomly(test, characterAmountMap);
+    debugPrint("RMRM1 ${test.toString()}");
   }
 
   Future<void> doesRoomExist(String idRoom) async {
@@ -164,5 +166,26 @@ class LobbyManyPhoneBloc
     }
 
     return userList.any((element) => element.id == deviceIdentifier);
+  }
+
+  void assignCharactersToUsersRandomly(List<User> users, Map<Character, int> characterAmountMap) {
+    Random random = Random();
+    List<Character> availableCharacters = [];
+
+    characterAmountMap.forEach((character, amount) {
+      for (int i = 0; i < amount; i++) {
+        availableCharacters.add(character);
+      }
+    });
+
+    availableCharacters.shuffle(random);
+
+    for (User user in users) {
+      if (availableCharacters.isNotEmpty) {
+        user.character = availableCharacters.removeLast();
+      } else {
+        user.character = null;
+      }
+    }
   }
 }
