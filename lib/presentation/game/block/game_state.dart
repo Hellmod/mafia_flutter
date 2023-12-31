@@ -22,3 +22,19 @@ class GameRealCardState extends GameState {
         user,
       ];
 }
+
+class GameNightState extends GameState {
+  final User user;
+  final List<User> users;
+
+  GameNightState({
+    required this.user,
+    required this.users,
+  });
+
+  @override
+  List<Object> get props => [
+        user,
+        users,
+      ];
+}

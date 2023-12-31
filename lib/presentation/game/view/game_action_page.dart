@@ -8,22 +8,16 @@ import '../../../utils/Wigets.dart';
 import '../block/game_bloc.dart';
 
 class GameActionPage extends StatefulWidget {
-  final List<User> users;
-
-  GameActionPage({Key? key, required this.users}) : super(key: key);
+  GameActionPage({Key? key}) : super(key: key);
 
   @override
-  _GameActionPage createState() => _GameActionPage(users);
+  _GameActionPage createState() => _GameActionPage();
 }
 
 class _GameActionPage extends State<GameActionPage> {
   GameBloc? myBloc;
   late AnimationController controller;
-
-  final List<User> users;
   String? _selectedUserName;
-
-  _GameActionPage(this.users);
 
   void startLoading() {
     controller.forward().then(
@@ -55,7 +49,7 @@ class _GameActionPage extends State<GameActionPage> {
     return BlocBuilder<GameBloc, GameState>(
         bloc: myBloc,
         builder: (context, state) {
-          if (state is GameInitialState) {
+          if (state is GameNightState) {
             return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
@@ -85,7 +79,7 @@ class _GameActionPage extends State<GameActionPage> {
                                 ),
                               ),
                               const SizedBox(height: 32),
-                              userList(),
+                              userList(state.users),
                             ],
                           ),
                         ),
@@ -103,12 +97,12 @@ class _GameActionPage extends State<GameActionPage> {
         });
   }
 
-  Widget userList() {
+  Widget userList(List<User> users) {
     return Container(
         width: double.infinity,
-        height: 150, //ToDo rozszeż rodzica do max
+        height: 850, //ToDo rozszeż rodzica do max
         child: ListView.separated(
-          itemCount: widget.users.length,
+          itemCount: users.length,
           separatorBuilder: (BuildContext context, int index) {
             return const Divider(
               color: Color(0x44d9d9d9),
@@ -116,7 +110,7 @@ class _GameActionPage extends State<GameActionPage> {
             );
           },
           itemBuilder: (BuildContext context, int index) {
-            final user = widget.users[index];
+            final user = users[index];
             return UserRadioListTile(
               user: user,
               selectedUserName: _selectedUserName,
@@ -155,8 +149,7 @@ class UserRadioListTile extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage(
-                  "assets/images/card.png"),
+              backgroundImage: AssetImage("assets/images/card.png"),
             ),
             SizedBox(width: 16.0),
             Expanded(

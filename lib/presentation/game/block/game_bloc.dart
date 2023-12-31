@@ -23,6 +23,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       }
     });
 
+    on<OnRevealNextRevealCardClicked>((event, emit) async {
+      emit(GameNightState(user: user!, users: users));
+    });
+
     _init();
   }
 

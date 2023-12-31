@@ -41,6 +41,10 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
     myBloc?.add(OnRevealCardClicked());
   }
 
+  void onNextCLick() {
+    myBloc?.add(OnRevealNextRevealCardClicked());
+  }
+
   @override
   void initState() {
     super.initState();
@@ -82,7 +86,7 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
                       MainWidget.orangeButton(
                           text: 'Dalej',
                           callback: () {
-                            Utility.workingOn();
+                            onNextCLick();
                           }),
                     ],
                   )),

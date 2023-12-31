@@ -10,3 +10,8 @@ class OnRevealCardClicked extends GameEvent {
   List<Object> get props => [];
 }
 
+class OnRevealNextRevealCardClicked extends GameEvent {
+  @override
+  List<Object> get props => [];
+}
+

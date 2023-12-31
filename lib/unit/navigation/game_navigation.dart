@@ -20,6 +20,8 @@ class GameNavigator extends StatelessWidget {
           //return GameRevealCard(characters: []);
         } else if (state is GameRealCardState) {
           return GameRevealCardReviled();
+        } else if (state is GameNightState) {
+          return GameActionPage();
         } else {
           return Container(
               child: const Center(child: CircularProgressIndicator()));
