@@ -38,4 +38,25 @@ class FirebaseGameService {
     }
     return 'unknown';
   }
+
+  Future<int> getCurrentDayNightNumber() async {
+    try {
+      QuerySnapshot querySnapshot = await _firebase
+          .collection('rooms')
+          .doc(gameId)
+          .collection('player_actions')
+          .orderBy('number', descending: true) // Sortowanie w odwrotnej kolejności
+          .limit(1) // Pobranie tylko jednego dokumentu
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        int currentDayNightNumber = querySnapshot.docs.first.get('number');
+        return currentDayNightNumber;
+      }
+
+      return 0; // Domyślna wartość, jeśli kolekcja jest pusta
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

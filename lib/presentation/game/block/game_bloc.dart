@@ -15,6 +15,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   List<User> users = [];
   User? user;
+  int currentDayNightNumber = 0;
 
   GameBloc(this._firebaseGameService) : super(GameInitialState()) {
     on<GameEvent>((event, emit) async {
@@ -28,7 +29,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<OnMakeActionClicked>((event, emit) async {
-      debugPrint("RMRM OnMakeActionClicked clicked!!! ${event.user}");
+      makeAction(event.user);
+      debugPrint("RMRM6 OnMakeActionClicked  user = ${event.user} currentDayNightNumber = $currentDayNightNumber");
     });
 
     _init();
@@ -37,8 +39,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   Future<void> _init() async {
     users = await _firebaseGameService.getUsers();
     var deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
+    currentDayNightNumber = await _firebaseGameService.getCurrentDayNightNumber();
     user = users.firstWhere((element) => element.id == deviceIdentifier);
-    debugPrint("RMRM5 user: $user");
     emit(GameRealCardState(user: user!));
+  }
+
+  Future<void> makeAction(User selectedUser) async {
+
   }
 }
