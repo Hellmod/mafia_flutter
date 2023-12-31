@@ -5,15 +5,14 @@ import 'package:mafia/utils/character/Character.dart';
 import '../../../utils/AppTextStyles.dart';
 import '../../../utils/Utility.dart';
 import '../../../utils/Wigets.dart';
+import '../../../utils/character/Sailor.dart';
 import '../block/game_bloc.dart';
 
 class GameRevealCardReviled extends StatefulWidget {
-  final Character character;
-
-  GameRevealCardReviled({Key? key, required this.character}) : super(key: key);
+  GameRevealCardReviled({Key? key}) : super(key: key);
 
   @override
-  _GameRevealCardReviled createState() => _GameRevealCardReviled(character);
+  _GameRevealCardReviled createState() => _GameRevealCardReviled();
 }
 
 class _GameRevealCardReviled extends State<GameRevealCardReviled>
@@ -21,10 +20,7 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
   GameBloc? myBloc;
   late AnimationController controller;
 
-  final Character character;
   String userNick = '';
-
-  _GameRevealCardReviled(this.character);
 
   void startLoading() {
     controller.forward().then(
@@ -60,7 +56,7 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
     return BlocBuilder<GameBloc, GameState>(
         bloc: myBloc,
         builder: (context, state) {
-          if (state is GameInitialState) {
+          if (state is GameRealCardState) {
             return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
@@ -76,9 +72,9 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
                               MainWidget.toolBar(
                                   "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"),
                               const SizedBox(height: 40),
-                              pageTitle(myBloc?.user?.name ?? 'Marek'),
+                              pageTitle(state.user.name),
                               const SizedBox(height: 24),
-                              card(),
+                              card(state.user.character ?? Sailor()),
                             ],
                           ),
                         ),
@@ -112,7 +108,7 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
         ),
       );
 
-  Widget card() => AspectRatio(
+  Widget card(Character character) => AspectRatio(
         aspectRatio: 4 / 6,
         child: GestureDetector(
           onLongPressStart: (_) => startLoading(),

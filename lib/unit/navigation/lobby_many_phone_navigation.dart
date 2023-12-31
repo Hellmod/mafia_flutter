@@ -23,7 +23,7 @@ class LobbyManyPhoneNavigator extends StatelessWidget {
           } else if (state is LobbyManyPhoneUserListState) {
             return LobbyManyPhoneLobbyUserList(users: state.users);
           } else if (state is LobbyManyPhoneCharacterChooseState) {
-            return LobbyManyPhoneCharacterChoose(characters: []);
+            return LobbyManyPhoneCharacterChoose();
           } else {
             return Container(
                 child: const Center(child: CircularProgressIndicator()));

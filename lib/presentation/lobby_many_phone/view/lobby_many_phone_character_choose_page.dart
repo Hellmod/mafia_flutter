@@ -7,14 +7,11 @@ import '../../wigets/RoleCard.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
 class LobbyManyPhoneCharacterChoose extends StatefulWidget {
-  final List<Character> characters;
-
-  LobbyManyPhoneCharacterChoose({Key? key, required this.characters})
-      : super(key: key);
+  LobbyManyPhoneCharacterChoose({Key? key}) : super(key: key);
 
   @override
   _LobbyManyPhoneCharacterChoose createState() =>
-      _LobbyManyPhoneCharacterChoose(characters);
+      _LobbyManyPhoneCharacterChoose();
 }
 
 class _LobbyManyPhoneCharacterChoose
@@ -27,10 +24,7 @@ class _LobbyManyPhoneCharacterChoose
         arguments: {'roomId': myBloc?.roomId});
   }
 
-  final List<Character> characters;
   String userNick = '';
-
-  _LobbyManyPhoneCharacterChoose(this.characters);
 
   @override
   void initState() {

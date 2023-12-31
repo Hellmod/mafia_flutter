@@ -5,6 +5,8 @@ import '../../models/User.dart';
 import '../../presentation/game/block/game_bloc.dart';
 import '../../presentation/game/view/game_action_page.dart';
 import '../../presentation/game/view/game_reveal_card_page.dart';
+import '../../presentation/game/view/game_reveal_card_page_card_reviled_page.dart';
+import '../../utils/character/Pirates.dart';
 
 class GameNavigator extends StatelessWidget {
   @override
@@ -16,6 +18,8 @@ class GameNavigator extends StatelessWidget {
           //return GameActionPage(users: [User(name: 'Ala', id: '1'),User(name: 'Mietek', id: '2')],);
           //return GameRevealCardReviled(character: Pirates(),);
           //return GameRevealCard(characters: []);
+        } else if (state is GameRealCardState) {
+          return GameRevealCardReviled();
         } else {
           return Container(
               child: const Center(child: CircularProgressIndicator()));

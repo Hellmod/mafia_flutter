@@ -31,5 +31,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     var deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
     user = users.firstWhere((element) => element.id == deviceIdentifier);
     debugPrint("RMRM5 user: $user");
+    emit(GameRealCardState(user: user!));
   }
 }

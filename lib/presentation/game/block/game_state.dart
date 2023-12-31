@@ -10,3 +10,15 @@ class GameInitialState extends GameState {
   List<Object> get props => [];
 }
 
+class GameRealCardState extends GameState {
+  final User user;
+
+  GameRealCardState({
+    required this.user,
+  });
+
+  @override
+  List<Object> get props => [
+        user,
+      ];
+}
