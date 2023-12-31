@@ -63,14 +63,14 @@ class _GameActionPage extends State<GameActionPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               MainWidget.toolBar(
-                                  "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"),
+                                  "Wybierz gracza"),
                               const SizedBox(height: 32),
-                              const Align(
+                              Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "Wybież ofiarę tej nocy ",
+                                  state.user.character.instruction,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,

@@ -2,20 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:mafia/utils/character/Character.dart';
+import 'package:mafia/utils/character/Sailor.dart';
+import '../utils/character/Unknown.dart';
 
 class User extends Equatable {
   final String name;
   final String id;
-  Character? character;
+  Character character;
 
-  User({required this.name, required this.id, this.character});
+  User({required this.name, required this.id, required this.character});
 
   factory User.fromDocument(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
     return User(
       name: data['name'] ?? '',
       id: data['id'] ?? '',
-      character: data['character'] != null ? Character.fromMap(data['character']) : null,
+      character: data['character'] != null ? Character.fromMap(data['character']) : Unknown(),
     );
   }
 

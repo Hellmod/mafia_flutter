@@ -6,11 +6,13 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mafia/utils/character/Sailor.dart';
 import 'package:meta/meta.dart';
 import '../../../models/User.dart';
 import '../../../services/FirebaseService.dart';
 import '../../../utils/Utility.dart';
 import '../../../utils/character/Character.dart';
+import '../../../utils/character/Unknown.dart';
 
 part 'lobby_many_phone_event.dart';
 
@@ -119,7 +121,7 @@ class LobbyManyPhoneBloc
       } else {
         emit(LobbyManyPhoneUserListState(
             users: updatedUsers,
-            user: User(name: '', id: ''),
+            user: User(name: '', id: '', character: Unknown()),
             isUserInGame: isUserInGame,
             roomId: idRoom));
       }
@@ -134,7 +136,7 @@ class LobbyManyPhoneBloc
       return;
     }
 
-    User user = User(name: userName, id: deviceIdentifier);
+    User user = User(name: userName, id: deviceIdentifier, character: Unknown());
     try {
       await _firebaseService.addUser(user, _state.roomId);
     } catch (e) {
@@ -196,7 +198,7 @@ class LobbyManyPhoneBloc
       if (availableCharacters.isNotEmpty) {
         user.character = availableCharacters.removeLast();
       } else {
-        user.character = null;
+        user.character = Unknown();
       }
     }
   }

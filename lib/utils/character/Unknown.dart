@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 
 import 'Character.dart'; // Jeśli chcesz używać logów w stylu Fluttera.
 
-class Sailor extends Character {
+class Unknown extends Character {
 
   @override
-  String get name => "Marynarz";
+  String get name => "Unknown";
   @override
   bool get wakeInNight => false;
   @override
@@ -13,15 +13,15 @@ class Sailor extends Character {
   @override
   double get priority => 1.0;
   @override
-  String get instruction => "Marynarz nie ma specjalnej akcji. Wybierz osobę z okularami";
+  String get instruction => "Unknown";
   @override
   String get cardPath => "assets/images/character_sailor.png";
   @override
-  String get description => "Sobry marynarz";
+  String get description => "Unknown";
   @override
   int get rarity => 3;
   @override
-  String get team => "Miasto";
+  String get team => "Unknown";
 
   @override
   bool makeSpecialAction(List<int> idSelectedUsers) {
