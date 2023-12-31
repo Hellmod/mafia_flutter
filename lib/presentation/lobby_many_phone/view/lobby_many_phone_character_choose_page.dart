@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mafia/utils/character/Character.dart';
 import '../../../utils/AppTextStyles.dart';
 import '../../../utils/character/CharacterRepository.dart';
 import '../../wigets/RoleCard.dart';

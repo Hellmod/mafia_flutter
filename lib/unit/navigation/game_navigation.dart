@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../models/User.dart';
 import '../../presentation/game/block/game_bloc.dart';
 import '../../presentation/game/view/game_action_page.dart';
 import '../../presentation/game/view/game_reveal_card_page.dart';
 import '../../presentation/game/view/game_reveal_card_page_card_reviled_page.dart';
-import '../../utils/character/Pirates.dart';
 
 class GameNavigator extends StatelessWidget {
   @override

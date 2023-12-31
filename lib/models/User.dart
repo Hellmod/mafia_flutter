@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:mafia/utils/character/Character.dart';
-import 'package:mafia/utils/character/Sailor.dart';
 import '../utils/character/Unknown.dart';
 
 class User extends Equatable {
