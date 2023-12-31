@@ -27,6 +27,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(GameNightState(user: user!, users: users));
     });
 
+    on<OnMakeActionClicked>((event, emit) async {
+      debugPrint("RMRM OnMakeActionClicked clicked!!! ${event.user}");
+    });
+
     _init();
   }
 

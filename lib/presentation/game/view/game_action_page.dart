@@ -62,8 +62,7 @@ class _GameActionPage extends State<GameActionPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              MainWidget.toolBar(
-                                  "Wybierz gracza"),
+                              MainWidget.toolBar("Wybierz gracza"),
                               const SizedBox(height: 32),
                               Align(
                                 alignment: Alignment.center,
@@ -87,7 +86,12 @@ class _GameActionPage extends State<GameActionPage> {
                       MainWidget.orangeButton(
                           text: 'Dalej',
                           callback: () {
-                            Utility.workingOn();
+                            User? selectedUser = state.users.firstWhere(
+                              (user) => user.name == _selectedUserName,
+                            );
+                           //ToDo dodaj sprawdzenie czy user nie jest null!
+                            myBloc
+                                ?.add(OnMakeActionClicked(user: selectedUser));
                           }),
                     ],
                   )),
