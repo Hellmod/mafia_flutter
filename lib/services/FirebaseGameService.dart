@@ -1,4 +1,5 @@
-
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/User.dart';
 
@@ -24,5 +25,17 @@ class FirebaseGameService {
     } catch (e) {
       throw Exception(e);
     }
+  }
+
+  Future<String?> getDeviceIdentifier() async {
+    final deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.id;
+    } else if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.identifierForVendor;
+    }
+    return 'unknown';
   }
 }

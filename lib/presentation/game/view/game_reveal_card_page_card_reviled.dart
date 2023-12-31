@@ -76,7 +76,7 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
                               MainWidget.toolBar(
                                   "Odsłoń kartę\n i poznaj swoją rolę w rozgrywce"),
                               const SizedBox(height: 40),
-                              pageTitle(),
+                              pageTitle(myBloc?.user?.name ?? 'Marek'),
                               const SizedBox(height: 24),
                               card(),
                             ],
@@ -96,13 +96,13 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
         });
   }
 
-  Widget pageTitle() => Container(
+  Widget pageTitle(String userName) => Container(
         alignment: Alignment.center,
         width: double.infinity,
-        child: const Text(
-          'Marek',
+        child: Text(
+          userName,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Clash Display Variable',
             fontSize: 24,
             fontWeight: FontWeight.w600,
@@ -177,5 +177,4 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
           ),
         ),
       );
-
 }

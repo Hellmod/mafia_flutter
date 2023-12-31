@@ -28,6 +28,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _init() async {
     users = await _firebaseGameService.getUsers();
-    debugPrint("RMRM users: $users");
+    var deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
+    user = users.firstWhere((element) => element.id == deviceIdentifier);
+    debugPrint("RMRM5 user: $user");
   }
 }
