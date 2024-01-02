@@ -85,7 +85,6 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("RMRM1 state $users");
 
     return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
       bloc: myBloc,

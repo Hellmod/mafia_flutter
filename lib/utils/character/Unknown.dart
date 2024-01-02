@@ -25,7 +25,6 @@ class Unknown extends Character {
 
   @override
   bool makeSpecialAction(List<int> idSelectedUsers) {
-    debugPrint("RMRM $name makeSpecialAction() called with: idSelectedUsers = $idSelectedUsers");
     return false;
   }
 

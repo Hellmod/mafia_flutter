@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/User.dart';
+import '../utils/character/PlauerAction.dart';
 
 class FirebaseGameService {
   final String gameId;
@@ -58,5 +59,14 @@ class FirebaseGameService {
     } catch (e) {
       throw Exception(e);
     }
+  }
+
+  Stream<List<PlayerAction>> streamPlayerActions() {
+    return _firebase
+        .collection('rooms')
+        .doc(gameId)
+        .collection('player_actions')
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => PlayerAction.fromDocument(doc)).toList());
   }
 }

@@ -25,7 +25,6 @@ class Pirates extends Character {
 
   @override
   bool makeSpecialAction(List<int> idSelectedUsers) {
-    debugPrint("RMRM $name makeSpecialAction() called with: idSelectedUsers = $idSelectedUsers");
     if (idSelectedUsers.length > 1) return false;
     if (idSelectedUsers.isEmpty) return false;
     killPlayer(idSelectedUsers[0]);
