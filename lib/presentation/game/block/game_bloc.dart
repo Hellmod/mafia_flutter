@@ -21,6 +21,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   User? user;
   int currentDayNightNumber = 0;
   List<ActionDetail> playerActions = [];
+  String deviceIdentifier = "";
 
   GameBloc(this._firebaseGameService) : super(GameInitialState()) {
     on<GameEvent>((event, emit) async {
@@ -40,7 +41,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _init() async {
     users = await _firebaseGameService.getUsers();
-    var deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
+    deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
     currentDayNightNumber =
         await _firebaseGameService.getCurrentDayNightNumber();
     user = users.firstWhere((element) => element.id == deviceIdentifier);
@@ -65,5 +66,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  Future<void> makePlayerAction(User selectedUser) async {}
+  Future<void> makePlayerAction(User selectedUser) async {
+    try {
+      await _firebaseGameService.makePlayerAction(
+        currentDayNightNumber.toString(),
+        ActionDetail(
+          idOwner: deviceIdentifier,
+          idSelected: selectedUser.id,
+        ),
+      );
+    } catch (e) {
+      debugPrint("Error making player action: $e");
+    }
+  }
 }

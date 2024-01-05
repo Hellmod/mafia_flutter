@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import '../models/User.dart';
 import '../utils/character/PlauerAction.dart';
 
@@ -29,14 +28,14 @@ class FirebaseGameService {
     }
   }
 
-  Future<String?> getDeviceIdentifier() async {
+  Future<String> getDeviceIdentifier() async {
     final deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       final androidInfo = await deviceInfo.androidInfo;
       return androidInfo.id;
     } else if (Platform.isIOS) {
       final iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor;
+      return iosInfo.identifierForVendor ?? 'unknown';
     }
     return 'unknown';
   }
@@ -73,5 +72,27 @@ class FirebaseGameService {
         .map((snapshot) => snapshot.docs
             .map((doc) => ActionDetail.fromDocument(doc))
             .toList());
+  }
+
+  Future<void> makePlayerAction(
+      String roundNumber, ActionDetail actionDetail) async {
+    try {
+      DocumentReference actionRef = _firebase
+          .collection('rooms')
+          .doc(gameId)
+          .collection('player_actions')
+          .doc(roundNumber)
+          .collection('actions')
+          .doc(actionDetail.idOwner);
+
+      await actionRef.set({
+        'idOwner': actionDetail.idOwner,
+        'idSelected': actionDetail.idSelected,
+        'createdOn': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      print("Błąd przy dodawaniu akcji: $e");
+      throw Exception("Błąd przy dodawaniu akcji: $e");
+    }
   }
 }

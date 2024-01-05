@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mafia/utils/Utility.dart';
 
 import '../models/User.dart';
@@ -42,7 +41,6 @@ class FirebaseService {
 
   Future<void> addUser(User user, [String gameId = "123123"]) async {
     try {
-      debugPrint("Adding user: ${user.name} to game: $gameId");
       await _firebase
           .collection('rooms')
           .doc(gameId)
@@ -131,7 +129,7 @@ class FirebaseService {
           .collection('users')
           .doc(user.id);
 
-      batch.update(userRef, {'character': user.character?.toMap()});
+      batch.update(userRef, {'character': user.character.toMap()});
     }
 
     await batch.commit();
