@@ -6,7 +6,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mafia/utils/character/Sailor.dart';
 import 'package:meta/meta.dart';
 import '../../../models/User.dart';
 import '../../../services/FirebaseService.dart';
@@ -133,6 +132,7 @@ class LobbyManyPhoneBloc
     String? deviceIdentifier = await getDeviceIdentifier();
     if (deviceIdentifier == null) {
       Utility.somethingWentWrong();
+      debugPrint("Error adding user: deviceIdentifier is null");
       return;
     }
 
@@ -140,6 +140,7 @@ class LobbyManyPhoneBloc
     try {
       await _firebaseService.addUser(user, _state.roomId);
     } catch (e) {
+      debugPrint("Error adding user: $e");
       Utility.somethingWentWrong();
     }
   }

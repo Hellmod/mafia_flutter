@@ -56,14 +56,24 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
       (playerActionsUpdate) {
         playerActions = playerActionsUpdate;
-        playerActions.forEach((element) {
-          debugPrint("RMRM element.toString()" + element.toString());
-        });
+        if(isActionDone()){
+          emit(GameRevealKilledPersonState());
+        }
       },
       onError: (error) {
         debugPrint("Error listening to player actions: $error");
       },
     );
+  }
+
+  isActionDone() {
+    int amountOfUsers = users.length;
+    int amountOfActions = playerActions.length;
+    if (amountOfActions == amountOfUsers) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<void> makePlayerAction(User selectedUser) async {
@@ -78,5 +88,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     } catch (e) {
       debugPrint("Error making player action: $e");
     }
+    emit(GameWaitingForOthersActionsState());
   }
 }

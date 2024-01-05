@@ -5,6 +5,8 @@ import '../../presentation/game/block/game_bloc.dart';
 import '../../presentation/game/view/game_action_page.dart';
 import '../../presentation/game/view/game_reveal_card_page.dart';
 import '../../presentation/game/view/game_reveal_card_page_card_reviled_page.dart';
+import '../../presentation/game/view/game_reveal_killed_page.dart';
+import '../../presentation/game/view/game_waiting_page.dart';
 
 class GameNavigator extends StatelessWidget {
   @override
@@ -20,6 +22,10 @@ class GameNavigator extends StatelessWidget {
           return GameRevealCardReviled();
         } else if (state is GameNightState) {
           return GameActionPage();
+        } else if (state is GameWaitingForOthersActionsState) {
+          return GameWaitingPage();
+        } else if (state is GameRevealKilledPersonState) {
+          return GameRevealKilledPage();
         } else {
           return Container(
               child: const Center(child: CircularProgressIndicator()));

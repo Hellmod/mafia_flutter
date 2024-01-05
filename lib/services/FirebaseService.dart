@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mafia/utils/Utility.dart';
 
 import '../models/User.dart';
@@ -48,7 +49,7 @@ class FirebaseService {
           .doc(user.id)
           .set(user.toMap());
     } catch (e) {
-      print(e.toString());
+      debugPrint("Error adding user in Service: $e user: $user gameId: $gameId");
       Utility.somethingWentWrong();
       return;
     }

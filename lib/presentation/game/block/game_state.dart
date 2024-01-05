@@ -38,3 +38,13 @@ class GameNightState extends GameState {
         users,
       ];
 }
+
+class GameWaitingForOthersActionsState extends GameState {
+  @override
+  List<Object> get props => [];
+}
+
+class GameRevealKilledPersonState extends GameState {
+  @override
+  List<Object> get props => [];
+}

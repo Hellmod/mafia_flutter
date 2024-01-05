@@ -24,7 +24,7 @@ class User extends Equatable {
     return {
       'id': id,
       'name': name,
-      'character': character,
+      'character': character.toMap(),
     };
   }
 
@@ -33,6 +33,6 @@ class User extends Equatable {
 
   @override
   String toString() {
-    return 'User(name: $name, id: $id, character: ${character?.toString() ?? "None"})';
+    return 'User(name: $name, id: $id, character: ${character.toString()})';
   }
 }
