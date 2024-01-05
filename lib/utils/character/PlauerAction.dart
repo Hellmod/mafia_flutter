@@ -1,27 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class PlayerAction {
-  final String id;
-  final DateTime createdOn;
-  final int number;
+class ActionDetail {
+  final String idOwner;
+  final String idSelected;
 
-  PlayerAction({
-    required this.id,
-    required this.createdOn,
-    required this.number,
+  ActionDetail({
+    required this.idOwner,
+    required this.idSelected,
   });
 
-  factory PlayerAction.fromDocument(DocumentSnapshot doc) {
+  factory ActionDetail.fromDocument(DocumentSnapshot doc) {
     var data = doc.data() as Map<String, dynamic>;
-    return PlayerAction(
-      id: doc.id,
-      createdOn: (data['createdOn'] as Timestamp).toDate(),
-      number: data['number'],
+    return ActionDetail(
+      idOwner: data['idOwner'],
+      idSelected: data['idSelected'],
     );
   }
 
+
   @override
   String toString() {
-    return 'PlayerAction(id: $id, createdOn: $createdOn, number: $number)';
+    return 'ActionDetail(idOwner: $idOwner, idSelected: $idSelected)';
   }
 }

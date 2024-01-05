@@ -20,12 +20,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   List<User> users = [];
   User? user;
   int currentDayNightNumber = 0;
-  List<PlayerAction> playerActions = [];
+  List<ActionDetail> playerActions = [];
 
   GameBloc(this._firebaseGameService) : super(GameInitialState()) {
     on<GameEvent>((event, emit) async {
-      if (event is OnRevealCardClicked) {
-      }
+      if (event is OnRevealCardClicked) {}
     });
 
     on<OnRevealNextRevealCardClicked>((event, emit) async {
@@ -34,7 +33,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<OnMakeActionClicked>((event, emit) async {
       makePlayerAction(event.user);
-
     });
 
     _init();
@@ -44,28 +42,27 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     users = await _firebaseGameService.getUsers();
     var deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
     currentDayNightNumber =
-    await _firebaseGameService.getCurrentDayNightNumber();
+        await _firebaseGameService.getCurrentDayNightNumber();
     user = users.firstWhere((element) => element.id == deviceIdentifier);
     _initSteam();
     emit(GameRealCardState(user: user!));
   }
 
-
   Future<void> _initSteam() async {
     await _playerActionsSubscription?.cancel();
-
+    debugPrint("RMRM _initSteam currentDayNightNumber= $currentDayNightNumber");
     _playerActionsSubscription =
-        _firebaseGameService.streamPlayerActions().listen(
-              (playerActionsUpdate) {
-            playerActions = playerActionsUpdate;
-                playerActions.forEach((element) {
-                  debugPrint("RMRM element.toString()" + element.toString());
-                });
-          },
-          onError: (error) {
-            debugPrint("Error listening to player actions: $error");
-          },
-        );
+        _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
+      (playerActionsUpdate) {
+        playerActions = playerActionsUpdate;
+        playerActions.forEach((element) {
+          debugPrint("RMRM element.toString()" + element.toString());
+        });
+      },
+      onError: (error) {
+        debugPrint("Error listening to player actions: $error");
+      },
+    );
   }
 
   Future<void> makePlayerAction(User selectedUser) async {}

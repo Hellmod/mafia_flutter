@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import '../models/User.dart';
 import '../utils/character/PlauerAction.dart';
 
@@ -46,8 +47,8 @@ class FirebaseGameService {
           .collection('rooms')
           .doc(gameId)
           .collection('player_actions')
-          .orderBy('number', descending: true) // Sortowanie w odwrotnej kolejności
-          .limit(1) // Pobranie tylko jednego dokumentu
+          .orderBy('number', descending: true)
+          .limit(1)
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -55,18 +56,22 @@ class FirebaseGameService {
         return currentDayNightNumber;
       }
 
-      return 0; // Domyślna wartość, jeśli kolekcja jest pusta
+      return 0;
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Stream<List<PlayerAction>> streamPlayerActions() {
+  Stream<List<ActionDetail>> streamPlayerActions(int roundNumber) {
     return _firebase
         .collection('rooms')
         .doc(gameId)
         .collection('player_actions')
+        .doc(roundNumber.toString())
+        .collection('actions')
         .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => PlayerAction.fromDocument(doc)).toList());
+        .map((snapshot) => snapshot.docs
+            .map((doc) => ActionDetail.fromDocument(doc))
+            .toList());
   }
 }
