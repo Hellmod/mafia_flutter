@@ -1,3 +1,5 @@
+import 'package:mafia/models/User.dart';
+
 import 'Pirates.dart';
 import 'Sailor.dart';
 
@@ -12,7 +14,7 @@ abstract class Character {
   int get rarity;
   String get description;
 
-  bool makeSpecialAction(List<int> idSelectedUsers);
+  List<User> makeSpecialAction(String idSelectedUsers, List<User> users);
 
   toMap() {
     return {

@@ -22,12 +22,20 @@ class _GameRevealKilledPage extends State<GameRevealKilledPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GameBloc, GameState>(
-        bloc: myBloc,
-        builder: (context, state) {
-          if (state is GameRevealKilledPersonState) {
-            return const Text('GameRevealKilledPage');
-          }
-          return const CircularProgressIndicator();
-        });
+      bloc: myBloc,
+      builder: (context, state) {
+        if (state is GameRevealKilledPersonState) {
+          return ListView.builder(
+            itemCount: state.usersThatChanged.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(state.usersThatChanged[index].name),
+              );
+            },
+          );
+        }
+        return const CircularProgressIndicator();
+      },
+    );
   }
 }

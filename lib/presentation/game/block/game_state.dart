@@ -45,6 +45,12 @@ class GameWaitingForOthersActionsState extends GameState {
 }
 
 class GameRevealKilledPersonState extends GameState {
+  final List<User> usersThatChanged;
+
+  GameRevealKilledPersonState({
+    required this.usersThatChanged,
+  });
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [usersThatChanged];
 }

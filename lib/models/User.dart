@@ -8,15 +8,19 @@ class User extends Equatable {
   final String name;
   final String id;
   Character character;
+  bool isDead = false;
 
-  User({required this.name, required this.id, required this.character});
+  User({required this.name, required this.id, required this.character, this.isDead  = false});
 
   factory User.fromDocument(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
     return User(
       name: data['name'] ?? '',
       id: data['id'] ?? '',
-      character: data['character'] != null ? Character.fromMap(data['character']) : Unknown(),
+      character: data['character'] != null
+          ? Character.fromMap(data['character'])
+          : Unknown(),
+      isDead: false,
     );
   }
 
@@ -28,11 +32,15 @@ class User extends Equatable {
     };
   }
 
-  @override//RM czy tu nie powinno być[name, id, character]
+  @override //RM czy tu nie powinno być[name, id, character]
   List<Object> get props => [name, id];
 
   @override
   String toString() {
-    return 'User(name: $name, id: $id, character: ${character.toString()})';
+    return 'User(name: $name, id: $id, isDead: $isDead, character: ${character.toString()})';
+  }
+
+  User clone() {
+    return User(id: this.id, isDead: this.isDead, character: this.character, name: this.name);
   }
 }

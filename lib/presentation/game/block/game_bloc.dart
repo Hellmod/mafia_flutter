@@ -51,19 +51,43 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _initSteam() async {
     await _playerActionsSubscription?.cancel();
-    debugPrint("RMRM _initSteam currentDayNightNumber= $currentDayNightNumber");
     _playerActionsSubscription =
         _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
       (playerActionsUpdate) {
         playerActions = playerActionsUpdate;
-        if(isActionDone()){
-          emit(GameRevealKilledPersonState());
+        if (isActionDone()) {
+          emit(GameRevealKilledPersonState(usersThatChanged: calculateState()));
         }
       },
       onError: (error) {
         debugPrint("Error listening to player actions: $error");
       },
     );
+  }
+
+  List<User> calculateState() {
+    var usersCopy = users.map((user) => user.clone()).toList();
+    playerActions.forEach((action) {
+      var characterOwner =
+          users.firstWhere((element) => element.id == action.idOwner).character;
+      characterOwner.makeSpecialAction(action.idSelected, users);
+    });
+
+    return getDifferenceBetweenLists(usersCopy, users);
+  }
+
+  List<User> getDifferenceBetweenLists(List<User> oldList, List<User> newList) {
+    List<User> differences = [];
+
+    newList.forEach((userFromNewList) {
+      var userFromOldList =
+          oldList.firstWhere((element) => element.id == userFromNewList.id);
+      if (userFromNewList.isDead != userFromOldList.isDead) {
+        differences.add(userFromNewList);
+      }
+    });
+
+    return differences;
   }
 
   isActionDone() {

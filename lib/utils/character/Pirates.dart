@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../../models/User.dart';
 import 'Character.dart'; // Jeśli chcesz używać logów w stylu Fluttera.
 
 class Pirates extends Character {
@@ -24,14 +25,12 @@ class Pirates extends Character {
   String get team => "Mafia";
 
   @override
-  bool makeSpecialAction(List<int> idSelectedUsers) {
-    if (idSelectedUsers.length > 1) return false;
-    if (idSelectedUsers.isEmpty) return false;
-    killPlayer(idSelectedUsers[0]);
-    return true;
-  }
-
-  void killPlayer(int userId) async {
-    //await initDatabase.updateIsPlayerDead(userId, true);
+  List<User> makeSpecialAction(String idSelectedUsers, List<User> users) {
+    users.forEach((user) {
+      if (user.id == idSelectedUsers) {
+        user.isDead = true;
+      }
+    });
+    return users;
   }
 }
