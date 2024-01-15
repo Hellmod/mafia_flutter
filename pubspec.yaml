@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/images/card.png
     - assets/images/character_sailor.png
+    - assets/images/character_pirates.png
     - assets/images/Facebook.svg
     - assets/images/UserCircle.svg
     - assets/images/DeviceMobile.svg

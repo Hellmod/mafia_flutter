@@ -1,4 +1,5 @@
 import 'package:mafia/models/User.dart';
+import 'package:mafia/utils/character/Unknown.dart';
 
 import 'Pirates.dart';
 import 'Sailor.dart';
@@ -30,6 +31,8 @@ abstract class Character {
         return Pirates();
       case "Marynarz":
         return Sailor();
+        case "Unknown":
+        return Unknown();
       default:
         throw Exception('Unknown character type: $name');
     }

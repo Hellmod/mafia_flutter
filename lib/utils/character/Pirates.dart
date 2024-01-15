@@ -16,7 +16,7 @@ class Pirates extends Character {
   @override
   String get instruction => "Wybierz gracza, którego chcesz zabić.";
   @override
-  String get cardPath => "assets/images/character_sailor.png";
+  String get cardPath => "assets/images/character_pirates.png";
   @override
   String get description => "Zły Pirat";
   @override
