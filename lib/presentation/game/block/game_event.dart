@@ -23,3 +23,17 @@ class OnMakeActionClicked extends GameEvent {
   @override
   List<Object> get props => [user];
 }
+
+class OnDayVoteClicked extends GameEvent {
+  final User user;
+
+  const OnDayVoteClicked({required this.user});
+
+  @override
+  List<Object> get props => [user];
+}
+
+class OnNextInKilledPageClicked extends GameEvent {
+  @override
+  List<Object> get props => [];
+}

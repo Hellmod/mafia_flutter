@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../utils/Wigets.dart';
 import '../block/game_bloc.dart';
 
 class GameRevealKilledPage extends StatefulWidget {
@@ -25,13 +26,24 @@ class _GameRevealKilledPage extends State<GameRevealKilledPage> {
       bloc: myBloc,
       builder: (context, state) {
         if (state is GameRevealKilledPersonState) {
-          return ListView.builder(
-            itemCount: state.usersThatChanged.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(state.usersThatChanged[index].name),
-              );
-            },
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.usersThatChanged.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(state.usersThatChanged[index].name),
+                    );
+                  },
+                ),
+              ),
+              MainWidget.orangeButton(
+                  text: 'Dalej',
+                  callback: () {
+                    myBloc?.add(OnNextInKilledPageClicked());
+                  }),
+            ],
           );
         }
         return const CircularProgressIndicator();

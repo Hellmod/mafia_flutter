@@ -54,3 +54,19 @@ class GameRevealKilledPersonState extends GameState {
   @override
   List<Object> get props => [usersThatChanged];
 }
+
+class GameDayState extends GameState {
+  final User user;
+  final List<User> users;
+
+  GameDayState({
+    required this.user,
+    required this.users,
+  });
+
+  @override
+  List<Object> get props => [
+    user,
+    users,
+  ];
+}

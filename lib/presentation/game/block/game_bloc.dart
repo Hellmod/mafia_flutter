@@ -18,8 +18,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   StreamSubscription? _playerActionsSubscription;
 
   List<User> users = [];
+  List<User> usersState = [];
   User? user;
-  int currentDayNightNumber = 0;
+  int currentDayNightNumber = 1;
   List<ActionDetail> playerActions = [];
   String deviceIdentifier = "";
 
@@ -34,6 +35,22 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<OnMakeActionClicked>((event, emit) async {
       makePlayerAction(event.user);
+    });
+
+    on<OnNextInKilledPageClicked>((event, emit) async {
+      debugPrint("RMRM OnNextInKilledPageClicked usersState: $usersState");
+      if (currentDayNightNumber.isEven) {
+        emit(GameDayState(
+            user: user!,
+            users:
+            usersState.where((element) => element.isDead == false).toList()));
+      } else {
+        emit(GameNightState(
+            user: user!,
+            users:
+            usersState.where((element) => element.isDead == false).toList()));
+      }
+
     });
 
     _init();
@@ -51,13 +68,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _initSteam() async {
     await _playerActionsSubscription?.cancel();
+    debugPrint("RMRM _initSteam currentDayNightNumber: $currentDayNightNumber");
     _playerActionsSubscription =
         _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
       (playerActionsUpdate) {
-        playerActions = playerActionsUpdate;
-        if (isActionDone()) {
-          emit(GameRevealKilledPersonState(usersThatChanged: calculateState()));
-        }
+        onActionChanged(playerActionsUpdate);
       },
       onError: (error) {
         debugPrint("Error listening to player actions: $error");
@@ -65,15 +80,67 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
+  void onActionChanged(List<ActionDetail> newPlayerActions  ) {
+    debugPrint("RMRM onActionChanged newPlayerActions: $newPlayerActions");
+    playerActions = newPlayerActions;
+    if (isActionDone()) {
+      calculateState();
+      emit(GameRevealKilledPersonState(usersThatChanged: usersState));
+      currentDayNightNumber++;
+      _initSteam();
+    }
+  }
+
   List<User> calculateState() {
+    if (currentDayNightNumber.isEven) {
+      return makeDayAction();
+    } else {
+      return makeNightAction();
+    }
+  }
+
+  List<User> makeDayAction() {
+    var idSelectedUser = findMostVoted(playerActions);
+    usersState = usersState.map((user) {
+      if (user.id == idSelectedUser) {
+        user.isDead = true;
+      }
+      return user;
+    }).toList();
+    return usersState;
+  }
+
+  List<User> makeNightAction() {
     var usersCopy = users.map((user) => user.clone()).toList();
     playerActions.forEach((action) {
       var characterOwner =
           users.firstWhere((element) => element.id == action.idOwner).character;
       characterOwner.makeSpecialAction(action.idSelected, users);
     });
+    usersState = users;//czemu tu nie ma usersCopy?
 
     return getDifferenceBetweenLists(usersCopy, users);
+  }
+
+  String? findMostVoted(List<ActionDetail> playerActions) {
+    Map<String, int> voteCounts = {};
+
+    // Zliczanie głosów
+    for (var action in playerActions) {
+      voteCounts[action.idSelected] = (voteCounts[action.idSelected] ?? 0) + 1;
+    }
+
+    // Sortowanie i sprawdzenie, czy jest jeden zwycięzca
+    var sortedVotes = voteCounts.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+
+    if (sortedVotes.length >= 2 &&
+        sortedVotes[0].value == sortedVotes[1].value) {
+      // Jeśli dwie osoby mają tę samą największą liczbę głosów, zwróć null
+      return null;
+    }
+
+    return sortedVotes.isNotEmpty ? sortedVotes.first.key : null;
   }
 
   List<User> getDifferenceBetweenLists(List<User> oldList, List<User> newList) {
@@ -86,7 +153,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         differences.add(userFromNewList);
       }
     });
-
     return differences;
   }
 
@@ -101,6 +167,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   Future<void> makePlayerAction(User selectedUser) async {
+
     try {
       await _firebaseGameService.makePlayerAction(
         currentDayNightNumber.toString(),

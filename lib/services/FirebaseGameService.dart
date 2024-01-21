@@ -55,7 +55,7 @@ class FirebaseGameService {
         return currentDayNightNumber;
       }
 
-      return 0;
+      return 1;
     } catch (e) {
       throw Exception(e);
     }

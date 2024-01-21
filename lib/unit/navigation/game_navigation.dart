@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mafia/presentation/game/view/game_day_page.dart';
 import '../../presentation/game/block/game_bloc.dart';
 import '../../presentation/game/view/game_action_page.dart';
 import '../../presentation/game/view/game_reveal_card_page.dart';
@@ -22,6 +23,8 @@ class GameNavigator extends StatelessWidget {
           return GameRevealCardReviled();
         } else if (state is GameNightState) {
           return GameActionPage();
+        } else if (state is GameDayState) {
+          return GameDayPage();
         } else if (state is GameWaitingForOthersActionsState) {
           return GameWaitingPage();
         } else if (state is GameRevealKilledPersonState) {

@@ -4,14 +4,14 @@ import '../../../models/User.dart';
 import '../../../utils/Wigets.dart';
 import '../block/game_bloc.dart';
 
-class GameActionPage extends StatefulWidget {
-  GameActionPage({Key? key}) : super(key: key);
+class GameDayPage extends StatefulWidget {
+  GameDayPage({Key? key}) : super(key: key);
 
   @override
-  _GameActionPage createState() => _GameActionPage();
+  _GameDayPage createState() => _GameDayPage();
 }
 
-class _GameActionPage extends State<GameActionPage> {
+class _GameDayPage extends State<GameDayPage> {
   GameBloc? myBloc;
   late AnimationController controller;
   String? _selectedUserName;
@@ -46,7 +46,7 @@ class _GameActionPage extends State<GameActionPage> {
     return BlocBuilder<GameBloc, GameState>(
         bloc: myBloc,
         builder: (context, state) {
-          if (state is GameNightState) {
+          if (state is GameDayState) {
             return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
@@ -59,14 +59,14 @@ class _GameActionPage extends State<GameActionPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              MainWidget.toolBar("Wybierz gracza Noc"),
+                              MainWidget.toolBar("Wybierz gracza Dzień"),
                               const SizedBox(height: 32),
-                              Align(
+                              const Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  state.user.character.instruction,
+                                  "Wybierz gracza, który ma zostać powieszony",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,

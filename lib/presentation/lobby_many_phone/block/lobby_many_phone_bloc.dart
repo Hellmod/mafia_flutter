@@ -79,7 +79,6 @@ class LobbyManyPhoneBloc
 
   Future<void> doesRoomExist(String idRoom) async {
     bool isRoomExist = await _firebaseService.doesRoomExist(idRoom);
-    roomId = idRoom;
     if (isRoomExist) {
       loadRoom(idRoom);
     } else {
@@ -93,6 +92,7 @@ class LobbyManyPhoneBloc
   }
 
   Future<void> loadRoom(String idRoom) async {
+    roomId = idRoom;
     await _usersSubscription?.cancel();
     _usersSubscription = _firebaseService
         .streamUsersFromGameRoom(idRoom)
@@ -103,7 +103,6 @@ class LobbyManyPhoneBloc
       bool isGameStarted = await _firebaseService.isGameStarted(idRoom);
       if (isUserInGame) {
         if (isGameStarted) {
-          //TUTAJ NAWIGUJ DO GAME
           emit(NavigateToGamePageState(
             idRoom,
           ));
