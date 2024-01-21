@@ -68,7 +68,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _initSteam() async {
     await _playerActionsSubscription?.cancel();
-    debugPrint("RMRM _initSteam currentDayNightNumber: $currentDayNightNumber");
+    debugPrint("RMRM log _initSteam currentDayNightNumber: $currentDayNightNumber");
     _playerActionsSubscription =
         _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
       (playerActionsUpdate) {
@@ -81,12 +81,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   void onActionChanged(List<ActionDetail> newPlayerActions  ) {
-    debugPrint("RMRM onActionChanged newPlayerActions: $newPlayerActions");
+    debugPrint("RMRM log onActionChanged newPlayerActions: $newPlayerActions");
     playerActions = newPlayerActions;
     if (isActionDone()) {
-      calculateState();
-      emit(GameRevealKilledPersonState(usersThatChanged: usersState));
+      var killedUsers = calculateState();
+      debugPrint("RMRM log killedUsers: $killedUsers");
+      emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
       currentDayNightNumber++;
+      _playerActionsSubscription?.cancel();
       _initSteam();
     }
   }
@@ -100,6 +102,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   List<User> makeDayAction() {
+    debugPrint("RMRM log makeDayAction usersState: $usersState before");
+    var usersStateCopy = usersState.map((user) => user.clone()).toList();
     var idSelectedUser = findMostVoted(playerActions);
     usersState = usersState.map((user) {
       if (user.id == idSelectedUser) {
@@ -107,18 +111,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       }
       return user;
     }).toList();
-    return usersState;
+    debugPrint("RMRM log makeDayAction usersState: $usersState after");
+    return getDifferenceBetweenLists(usersStateCopy, usersState);
   }
 
   List<User> makeNightAction() {
+    debugPrint("RMRM log makeNightAction usersState: $usersState before");
     var usersCopy = users.map((user) => user.clone()).toList();
     playerActions.forEach((action) {
       var characterOwner =
           users.firstWhere((element) => element.id == action.idOwner).character;
-      characterOwner.makeSpecialAction(action.idSelected, users);
+      usersState = characterOwner.makeSpecialAction(action.idSelected, users);
     });
-    usersState = users;//czemu tu nie ma usersCopy?
-
+    debugPrint("RMRM log makeNightAction usersState: $usersState after");
     return getDifferenceBetweenLists(usersCopy, users);
   }
 
