@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/presentation/game/view/game_day_page.dart';
 import '../../presentation/game/block/game_bloc.dart';
-import '../../presentation/game/view/game_action_page.dart';
+import '../../presentation/game/view/game_night_action_page.dart';
 import '../../presentation/game/view/game_reveal_card_page.dart';
 import '../../presentation/game/view/game_reveal_card_page_card_reviled_page.dart';
 import '../../presentation/game/view/game_reveal_killed_page.dart';
@@ -21,8 +21,8 @@ class GameNavigator extends StatelessWidget {
           //return GameRevealCard(characters: []);
         } else if (state is GameRealCardState) {
           return GameRevealCardReviled();
-        } else if (state is GameNightState) {
-          return GameActionPage();
+        } else if (state is GameNightActionState) {
+          return GameNightActionPage();
         } else if (state is GameDayState) {
           return GameDayPage();
         } else if (state is GameWaitingForOthersActionsState) {

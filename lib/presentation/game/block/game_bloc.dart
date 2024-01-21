@@ -30,7 +30,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<OnRevealNextRevealCardClicked>((event, emit) async {
-      emit(GameNightState(user: user!, users: users));
+      emit(GameNightActionState(user: user!, users: users));
     });
 
     on<OnMakeActionClicked>((event, emit) async {
@@ -45,7 +45,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             users:
             usersState.where((element) => element.isDead == false).toList()));
       } else {
-        emit(GameNightState(
+        emit(GameNightActionState(
             user: user!,
             users:
             usersState.where((element) => element.isDead == false).toList()));

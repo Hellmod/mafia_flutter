@@ -4,14 +4,14 @@ import '../../../models/User.dart';
 import '../../../utils/Wigets.dart';
 import '../block/game_bloc.dart';
 
-class GameActionPage extends StatefulWidget {
-  GameActionPage({Key? key}) : super(key: key);
+class GameNightActionPage extends StatefulWidget {
+  GameNightActionPage({Key? key}) : super(key: key);
 
   @override
   _GameActionPage createState() => _GameActionPage();
 }
 
-class _GameActionPage extends State<GameActionPage> {
+class _GameActionPage extends State<GameNightActionPage> {
   GameBloc? myBloc;
   late AnimationController controller;
   String? _selectedUserName;
@@ -46,7 +46,7 @@ class _GameActionPage extends State<GameActionPage> {
     return BlocBuilder<GameBloc, GameState>(
         bloc: myBloc,
         builder: (context, state) {
-          if (state is GameNightState) {
+          if (state is GameNightActionState) {
             return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
