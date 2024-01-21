@@ -179,14 +179,14 @@ class _GameRevealCard extends State<GameRevealCard>
                                   color: Colors.white,
                                 ),
                               ),
-                            ),
+                            ),//kręciołek?
                             const SizedBox(height: 16),
                             const Text(
                               'Naciśnij i przytrzymaj,\naby odsłonić rolę',
                               textAlign: TextAlign.center,
                               style: AppTextStyles.text12_500,
                             ),
-                          ])),
+                          ])),//Obrazek
                           const Align(
                             alignment: Alignment.bottomRight,
                             child: Text(
