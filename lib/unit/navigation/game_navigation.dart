@@ -21,7 +21,7 @@ class GameNavigator extends StatelessWidget {
           //return GameRevealCard(characters: []);
         } else if (state is GameRealCardState) {
           return GameRevealCardReviled();
-        } else if (state is GameNightActionState) {
+        } else if (state is GameNightState) {
           return GameNightActionPage();
         } else if (state is GameDayState) {
           return GameDayPage();

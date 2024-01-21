@@ -23,11 +23,11 @@ class GameRealCardState extends GameState {
       ];
 }
 
-class GameNightActionState extends GameState {
+class GameNightState extends GameState {
   final User user;
   final List<User> users;
 
-  GameNightActionState({
+  GameNightState({
     required this.user,
     required this.users,
   });

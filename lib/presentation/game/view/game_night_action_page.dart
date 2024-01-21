@@ -46,7 +46,7 @@ class _GameActionPage extends State<GameNightActionPage> {
     return BlocBuilder<GameBloc, GameState>(
         bloc: myBloc,
         builder: (context, state) {
-          if (state is GameNightActionState) {
+          if (state is GameNightState) {
             return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
