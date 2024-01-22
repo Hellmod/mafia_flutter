@@ -30,11 +30,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<OnRevealNextRevealCardClicked>((event, emit) async {
-      emit(GameNightState(user: user!, users: users));
+      emit(GameNightState(user: user!, users: usersState));
     });
 
     on<OnMakeActionClicked>((event, emit) async {
-      makePlayerAction(event.user);
+      savePlayerAction(event.user);
+      emit(GameWaitingForOthersActionsState());
     });
 
     on<OnNextInKilledPageClicked>((event, emit) async {
@@ -42,15 +43,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       if (currentDayNightNumber.isEven) {
         emit(GameDayState(
             user: user!,
-            users:
-            usersState.where((element) => element.isDead == false).toList()));
+            users: usersState
+                .where((element) => element.isDead == false)
+                .toList()));
       } else {
         emit(GameNightState(
             user: user!,
-            users:
-            usersState.where((element) => element.isDead == false).toList()));
+            users: usersState
+                .where((element) => element.isDead == false)
+                .toList()));
       }
-
     });
 
     _init();
@@ -58,6 +60,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _init() async {
     users = await _firebaseGameService.getUsers();
+    usersState = users;
     deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
     currentDayNightNumber =
         await _firebaseGameService.getCurrentDayNightNumber();
@@ -68,7 +71,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _initSteam() async {
     await _playerActionsSubscription?.cancel();
-    debugPrint("RMRM log _initSteam currentDayNightNumber: $currentDayNightNumber");
     _playerActionsSubscription =
         _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
       (playerActionsUpdate) {
@@ -80,20 +82,26 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void onActionChanged(List<ActionDetail> newPlayerActions  ) {
-    debugPrint("RMRM log onActionChanged newPlayerActions: $newPlayerActions");
+  void onActionChanged(List<ActionDetail> newPlayerActions) {
+    debugPrint("RMRM log onActionChanged: $currentDayNightNumber  newPlayerActions: $newPlayerActions");
     playerActions = newPlayerActions;
     if (isActionDone()) {
-      var killedUsers = calculateState();
-      debugPrint("RMRM log killedUsers: $killedUsers");
-      emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
-      currentDayNightNumber++;
-      _playerActionsSubscription?.cancel();
-      _initSteam();
+      nextAction();
     }
   }
 
-  List<User> calculateState() {
+  void nextAction() {
+    var killedUsers = calculateAndMakeState();
+
+    debugPrint("RMRM log killedUsers: $killedUsers");
+    currentDayNightNumber++;
+    _playerActionsSubscription?.cancel();
+    _initSteam();
+
+    emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
+  }
+
+  List<User> calculateAndMakeState() {
     if (currentDayNightNumber.isEven) {
       return makeDayAction();
     } else {
@@ -104,33 +112,39 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   List<User> makeDayAction() {
     debugPrint("RMRM log makeDayAction usersState: $usersState before");
     var usersStateCopy = usersState.map((user) => user.clone()).toList();
-    var idSelectedUser = findMostVoted(playerActions);
+    var idSelectedUser = _findMostVoted(playerActions);
+    if (idSelectedUser != null) {
+      _killUser(idSelectedUser);
+    }
+    debugPrint("RMRM log makeDayAction usersState: $usersState after");
+    return getDifferenceBetweenLists(usersStateCopy, usersState);
+  }
+
+  void _killUser(String idSelectedUser) {
     usersState = usersState.map((user) {
       if (user.id == idSelectedUser) {
         user.isDead = true;
       }
       return user;
     }).toList();
-    debugPrint("RMRM log makeDayAction usersState: $usersState after");
-    return getDifferenceBetweenLists(usersStateCopy, usersState);
   }
 
   List<User> makeNightAction() {
     debugPrint("RMRM log makeNightAction usersState: $usersState before");
-    var usersCopy = users.map((user) => user.clone()).toList();
+    var usersStateCopy = usersState.map((user) => user.clone()).toList();
     playerActions.forEach((action) {
       var characterOwner =
           users.firstWhere((element) => element.id == action.idOwner).character;
-      usersState = characterOwner.makeSpecialAction(action.idSelected, users);
+      usersState =
+          characterOwner.makeSpecialAction(action.idSelected, usersState);
     });
     debugPrint("RMRM log makeNightAction usersState: $usersState after");
-    return getDifferenceBetweenLists(usersCopy, users);
+    return getDifferenceBetweenLists(usersStateCopy, usersState);
   }
 
-  String? findMostVoted(List<ActionDetail> playerActions) {
+  String? _findMostVoted(List<ActionDetail> playerActions) {
     Map<String, int> voteCounts = {};
 
-    // Zliczanie głosów
     for (var action in playerActions) {
       voteCounts[action.idSelected] = (voteCounts[action.idSelected] ?? 0) + 1;
     }
@@ -171,8 +185,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  Future<void> makePlayerAction(User selectedUser) async {
-
+  Future<void> savePlayerAction(User selectedUser) async {
     try {
       await _firebaseGameService.makePlayerAction(
         currentDayNightNumber.toString(),
@@ -184,6 +197,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     } catch (e) {
       debugPrint("Error making player action: $e");
     }
-    emit(GameWaitingForOthersActionsState());
+
   }
 }

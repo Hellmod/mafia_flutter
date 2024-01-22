@@ -15,19 +15,21 @@ class GameNavigator extends StatelessWidget {
     return BlocBuilder<GameBloc, GameState>(
       builder: (context, state) {
         if (state is GameInitialState) {
+          debugPrint("MPMP state GameInitialState");
           return GameRevealCard(characters: []);
-          //return GameActionPage(users: [User(name: 'Ala', id: '1'),User(name: 'Mietek', id: '2')],);
-          //return GameRevealCardReviled(character: Pirates(),);
-          //return GameRevealCard(characters: []);
         } else if (state is GameRealCardState) {
           return GameRevealCardReviled();
         } else if (state is GameNightState) {
+          debugPrint("MPMP state GameNightState");
           return GameNightActionPage();
         } else if (state is GameDayState) {
+          debugPrint("MPMP state GameDayState");
           return GameDayPage();
         } else if (state is GameWaitingForOthersActionsState) {
+          debugPrint("MPMP state GameWaitingForOthersActionsState");
           return GameWaitingPage();
         } else if (state is GameRevealKilledPersonState) {
+          debugPrint("MPMP state GameRevealKilledPersonState");
           return GameRevealKilledPage();
         } else {
           return Container(
