@@ -37,7 +37,8 @@ class User extends Equatable {
 
   @override
   String toString() {
-    return 'User(name: $name, isDead: $isDead)';
+    // return 'User(name: $name, isDead: $isDead)';
+    return 'User(name: $name, id: $id, isDead: $isDead, character: ${character.toString()})';
   }
 
   User clone() {

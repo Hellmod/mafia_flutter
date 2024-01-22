@@ -39,8 +39,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     });
 
     on<OnNextInKilledPageClicked>((event, emit) async {
-      debugPrint("RMRM OnNextInKilledPageClicked usersState: $usersState");
-      if (currentDayNightNumber.isEven) {
+      if (usersState.any((element) =>
+          element.id == deviceIdentifier &&
+          element.isDead == true)
+      ) {
+        emit(GameWaitingForOthersActionsState());
+      } else if (currentDayNightNumber.isEven) {
         emit(GameDayState(
             user: user!,
             users: usersState
@@ -63,7 +67,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     usersState = users;
     deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
     currentDayNightNumber =
-    await _firebaseGameService.getCurrentDayNightNumber();
+        await _firebaseGameService.getCurrentDayNightNumber();
     user = users.firstWhere((element) => element.id == deviceIdentifier);
     _initSteam();
     emit(GameRealCardState(user: user!));
@@ -73,13 +77,13 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     await _playerActionsSubscription?.cancel();
     _playerActionsSubscription =
         _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
-              (playerActionsUpdate) {
-            onActionChanged(playerActionsUpdate);
-          },
-          onError: (error) {
-            debugPrint("Error listening to player actions: $error");
-          },
-        );
+      (playerActionsUpdate) {
+        onActionChanged(playerActionsUpdate);
+      },
+      onError: (error) {
+        debugPrint("Error listening to player actions: $error");
+      },
+    );
   }
 
   void onActionChanged(List<ActionDetail> newPlayerActions) {
@@ -99,29 +103,35 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     debugPrint("RMRM log makeAction usersState: $usersState after");
     debugPrint("RMRM log killedUsers: $killedUsers");
 
-   if(_isGameFinished()) {
-     debugPrint("RMRM log game finished");
+    if (_isGameFinished()) {
+      debugPrint("RMRM log game finished");
       return;
-    }else{
-     currentDayNightNumber++;
-     _playerActionsSubscription?.cancel();//ToDo check if it is needed
-     _initSteam();
+    } else {
+      currentDayNightNumber++;
+      _playerActionsSubscription?.cancel(); //ToDo check if it is needed
+      _initSteam();
 
-     emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
+      emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
     }
   }
 
   bool _isGameFinished() {
-    var amountOfAlivePlayers = usersState.where((element) => element.isDead == false).length;
-    var amountOfAliveMafia = usersState.where((element) => element.isDead == false && element.character.isMafia).length;
-    var amountOfAliveCitizens = usersState.where((element) => element.isDead == false && !element.character.isMafia).length;
-    if(amountOfAliveMafia == 0){
+    //return false; //ToDo delete this line becore commit
+    var amountOfAliveMafia = usersState
+        .where(
+            (element) => element.isDead == false && element.character.isMafia)
+        .length;
+    var amountOfAliveCitizens = usersState
+        .where(
+            (element) => element.isDead == false && !element.character.isMafia)
+        .length;
+    if (amountOfAliveMafia == 0) {
       emit(GameFinishedState(isMafiaWon: false));
       return true;
-    }else if(amountOfAliveMafia >= amountOfAliveCitizens){
+    } else if (amountOfAliveMafia >= amountOfAliveCitizens) {
       emit(GameFinishedState(isMafiaWon: true));
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -153,9 +163,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void makeNightAction() {
     playerActions.forEach((action) {
       var characterOwner =
-          users
-              .firstWhere((element) => element.id == action.idOwner)
-              .character;
+          users.firstWhere((element) => element.id == action.idOwner).character;
       usersState =
           characterOwner.makeSpecialAction(action.idSelected, usersState);
     });
@@ -186,7 +194,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     newList.forEach((userFromNewList) {
       var userFromOldList =
-      oldList.firstWhere((element) => element.id == userFromNewList.id);
+          oldList.firstWhere((element) => element.id == userFromNewList.id);
       if (userFromNewList.isDead != userFromOldList.isDead) {
         differences.add(userFromNewList);
       }
@@ -195,9 +203,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   isActionDone() {
-    int amountOfUsers = users.length;
+    int amountOfAliveUsers =
+        usersState.where((element) => element.isDead == false).toList().length;
     int amountOfActions = playerActions.length;
-    if (amountOfActions == amountOfUsers) {
+    if (amountOfActions == amountOfAliveUsers) {
       return true;
     } else {
       return false;
@@ -217,5 +226,4 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       debugPrint("Error making player action: $e");
     }
   }
-
 }
