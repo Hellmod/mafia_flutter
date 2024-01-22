@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/presentation/game/view/game_day_page.dart';
 import '../../presentation/game/block/game_bloc.dart';
+import '../../presentation/game/view/game_finish_page.dart';
 import '../../presentation/game/view/game_night_action_page.dart';
 import '../../presentation/game/view/game_reveal_card_page.dart';
 import '../../presentation/game/view/game_reveal_card_page_card_reviled_page.dart';
@@ -31,6 +32,9 @@ class GameNavigator extends StatelessWidget {
         } else if (state is GameRevealKilledPersonState) {
           debugPrint("MPMP state GameRevealKilledPersonState");
           return GameRevealKilledPage();
+        }else if (state is GameFinishedState) {
+          debugPrint("MPMP state GameFinishedState");
+          return GameFinishPage();
         } else {
           return Container(
               child: const Center(child: CircularProgressIndicator()));
