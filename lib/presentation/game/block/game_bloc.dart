@@ -94,18 +94,39 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void nextAction() {
     debugPrint("RMRM log makeAction usersState: $usersState before");
     var usersStateCopy = usersState.map((user) => user.clone()).toList();
-    calculateAndMakeState();
+    recalculateState();
     var killedUsers = getDifferenceBetweenLists(usersStateCopy, usersState);
     debugPrint("RMRM log makeAction usersState: $usersState after");
     debugPrint("RMRM log killedUsers: $killedUsers");
-    currentDayNightNumber++;
-    _playerActionsSubscription?.cancel();
-    _initSteam();
 
-    emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
+   if(_isGameFinished()) {
+     debugPrint("RMRM log game finished");
+      return;
+    }else{
+     currentDayNightNumber++;
+     _playerActionsSubscription?.cancel();//ToDo check if it is needed
+     _initSteam();
+
+     emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
+    }
   }
 
-  void calculateAndMakeState() {
+  bool _isGameFinished() {
+    var amountOfAlivePlayers = usersState.where((element) => element.isDead == false).length;
+    var amountOfAliveMafia = usersState.where((element) => element.isDead == false && element.character.isMafia).length;
+    var amountOfAliveCitizens = usersState.where((element) => element.isDead == false && !element.character.isMafia).length;
+    if(amountOfAliveMafia == 0){
+      emit(GameFinishedState(isMafiaWon: false));
+      return true;
+    }else if(amountOfAliveMafia >= amountOfAliveCitizens){
+      emit(GameFinishedState(isMafiaWon: true));
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  void recalculateState() {
     if (currentDayNightNumber.isEven) {
       makeDayAction();
     } else {
@@ -114,7 +135,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   void makeDayAction() {
-    var usersStateCopy = usersState.map((user) => user.clone()).toList();
     var idSelectedUser = _findMostVoted(playerActions);
     if (idSelectedUser != null) {
       _killUser(idSelectedUser);
@@ -197,4 +217,5 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       debugPrint("Error making player action: $e");
     }
   }
+
 }

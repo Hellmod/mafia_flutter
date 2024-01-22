@@ -10,7 +10,7 @@ class Unknown extends Character {
   @override
   bool get wakeInNight => false;
   @override
-  bool get isEvil => false;
+  bool get isMafia => false;
   @override
   double get priority => 1.0;
   @override

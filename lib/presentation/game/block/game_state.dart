@@ -70,3 +70,15 @@ class GameDayState extends GameState {
     users,
   ];
 }
+
+class GameFinishedState extends GameState {
+  final bool isMafiaWon;
+
+  GameFinishedState({
+    required this.isMafiaWon,
+  });
+
+  @override
+  List<Object> get props => [isMafiaWon];
+}
+

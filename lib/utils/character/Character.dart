@@ -7,7 +7,7 @@ import 'Sailor.dart';
 abstract class Character {
   String get name;
   bool get wakeInNight;
-  bool get isEvil;
+  bool get isMafia;
   double get priority;
   String get instruction;
   String get cardPath;

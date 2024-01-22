@@ -10,7 +10,7 @@ class Pirates extends Character {
   @override
   bool get wakeInNight => true;
   @override
-  bool get isEvil => true;
+  bool get isMafia => true;
   @override
   double get priority => 1.0;
   @override
