@@ -63,7 +63,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     usersState = users;
     deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
     currentDayNightNumber =
-        await _firebaseGameService.getCurrentDayNightNumber();
+    await _firebaseGameService.getCurrentDayNightNumber();
     user = users.firstWhere((element) => element.id == deviceIdentifier);
     _initSteam();
     emit(GameRealCardState(user: user!));
@@ -73,17 +73,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     await _playerActionsSubscription?.cancel();
     _playerActionsSubscription =
         _firebaseGameService.streamPlayerActions(currentDayNightNumber).listen(
-      (playerActionsUpdate) {
-        onActionChanged(playerActionsUpdate);
-      },
-      onError: (error) {
-        debugPrint("Error listening to player actions: $error");
-      },
-    );
+              (playerActionsUpdate) {
+            onActionChanged(playerActionsUpdate);
+          },
+          onError: (error) {
+            debugPrint("Error listening to player actions: $error");
+          },
+        );
   }
 
   void onActionChanged(List<ActionDetail> newPlayerActions) {
-    debugPrint("RMRM log onActionChanged: $currentDayNightNumber  newPlayerActions: $newPlayerActions");
+    debugPrint(
+        "RMRM log onActionChanged: $currentDayNightNumber  newPlayerActions: $newPlayerActions");
     playerActions = newPlayerActions;
     if (isActionDone()) {
       nextAction();
@@ -91,8 +92,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   void nextAction() {
-    var killedUsers = calculateAndMakeState();
-
+    debugPrint("RMRM log makeAction usersState: $usersState before");
+    var usersStateCopy = usersState.map((user) => user.clone()).toList();
+    calculateAndMakeState();
+    var killedUsers = getDifferenceBetweenLists(usersStateCopy, usersState);
+    debugPrint("RMRM log makeAction usersState: $usersState after");
     debugPrint("RMRM log killedUsers: $killedUsers");
     currentDayNightNumber++;
     _playerActionsSubscription?.cancel();
@@ -101,23 +105,20 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(GameRevealKilledPersonState(usersThatChanged: killedUsers));
   }
 
-  List<User> calculateAndMakeState() {
+  void calculateAndMakeState() {
     if (currentDayNightNumber.isEven) {
-      return makeDayAction();
+      makeDayAction();
     } else {
-      return makeNightAction();
+      makeNightAction();
     }
   }
 
-  List<User> makeDayAction() {
-    debugPrint("RMRM log makeDayAction usersState: $usersState before");
+  void makeDayAction() {
     var usersStateCopy = usersState.map((user) => user.clone()).toList();
     var idSelectedUser = _findMostVoted(playerActions);
     if (idSelectedUser != null) {
       _killUser(idSelectedUser);
     }
-    debugPrint("RMRM log makeDayAction usersState: $usersState after");
-    return getDifferenceBetweenLists(usersStateCopy, usersState);
   }
 
   void _killUser(String idSelectedUser) {
@@ -129,17 +130,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }).toList();
   }
 
-  List<User> makeNightAction() {
-    debugPrint("RMRM log makeNightAction usersState: $usersState before");
-    var usersStateCopy = usersState.map((user) => user.clone()).toList();
+  void makeNightAction() {
     playerActions.forEach((action) {
       var characterOwner =
-          users.firstWhere((element) => element.id == action.idOwner).character;
+          users
+              .firstWhere((element) => element.id == action.idOwner)
+              .character;
       usersState =
           characterOwner.makeSpecialAction(action.idSelected, usersState);
     });
-    debugPrint("RMRM log makeNightAction usersState: $usersState after");
-    return getDifferenceBetweenLists(usersStateCopy, usersState);
   }
 
   String? _findMostVoted(List<ActionDetail> playerActions) {
@@ -167,7 +166,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     newList.forEach((userFromNewList) {
       var userFromOldList =
-          oldList.firstWhere((element) => element.id == userFromNewList.id);
+      oldList.firstWhere((element) => element.id == userFromNewList.id);
       if (userFromNewList.isDead != userFromOldList.isDead) {
         differences.add(userFromNewList);
       }
@@ -197,6 +196,5 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     } catch (e) {
       debugPrint("Error making player action: $e");
     }
-
   }
 }
