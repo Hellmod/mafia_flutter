@@ -97,6 +97,7 @@ class LobbyManyPhoneBloc
     _usersSubscription = _firebaseService
         .streamUsersFromGameRoom(idRoom)
         .listen((updatedUsers) async {
+
       users = updatedUsers;
 
       bool isUserInGame = await checkIsYourIdIsInGame(updatedUsers);

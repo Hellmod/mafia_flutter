@@ -11,12 +11,9 @@ import '../block/game_bloc.dart';
 import 'dart:math' as math;
 
 class GameRevealCard extends StatefulWidget {
-  final List<Character> characters;
-
-  GameRevealCard({Key? key, required this.characters}) : super(key: key);
 
   @override
-  _GameRevealCard createState() => _GameRevealCard(characters);
+  _GameRevealCard createState() => _GameRevealCard([]);//To do clear []
 }
 
 class _GameRevealCard extends State<GameRevealCard>
