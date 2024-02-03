@@ -33,7 +33,7 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
       removeUser();
     });
 
-    on<OnNextInLobbyClick>((event, emit) async {
+    on<LobbyUserListStartClick>((event, emit) async {
       emit(LobbyManyPhoneCharacterChooseState(
           characters: [], charactersToChoose: users.length));
     });

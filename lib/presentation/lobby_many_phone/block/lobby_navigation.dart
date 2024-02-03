@@ -26,7 +26,7 @@ class LobbyNavigator extends StatelessWidget {
           } else if (state is LoadingState) {
             debugPrint("MPMP state LoadingState");
             return LobbyLoadingPage();
-          } else if (state is State) {
+          } else if (state is LobbyManyPhoneCharacterChooseState) {
             debugPrint("MPMP state LobbyManyPhoneCharacterChooseState");
             return LobbyCharacterChoosePage();
           } else {

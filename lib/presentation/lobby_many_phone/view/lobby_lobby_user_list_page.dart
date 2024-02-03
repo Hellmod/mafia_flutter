@@ -279,7 +279,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: () {
-                          myBloc?.add(OnNextInLobbyClick());
+                          myBloc?.add(LobbyUserListStartClick());
                         },
                         child: Container(
                           decoration: BoxDecoration(

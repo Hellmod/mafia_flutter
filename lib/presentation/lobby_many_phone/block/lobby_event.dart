@@ -10,7 +10,7 @@ class OnRemoveUserClick extends LobbyEvent {
   List<Object> get props => [];
 }
 
-class OnNextInLobbyClick extends LobbyEvent {
+class LobbyUserListStartClick extends LobbyEvent {
   @override
   List<Object> get props => [];
 }
