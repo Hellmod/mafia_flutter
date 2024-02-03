@@ -9,12 +9,11 @@ import '../../../utils/Wigets.dart';
 import '../block/game_bloc.dart';
 
 class GameRevealCard extends StatefulWidget {
-  final List<Character> characters;
 
-  GameRevealCard({Key? key, required this.characters}) : super(key: key);
+  GameRevealCard({Key? key}) : super(key: key);
 
   @override
-  _GameRevealCard createState() => _GameRevealCard(characters);
+  _GameRevealCard createState() => _GameRevealCard();
 }
 
 class _GameRevealCard extends State<GameRevealCard>
@@ -22,10 +21,7 @@ class _GameRevealCard extends State<GameRevealCard>
   GameBloc? myBloc;
   late AnimationController controller;
 
-  final List<Character> characters;
   String userNick = '';
-
-  _GameRevealCard(this.characters);
 
   void startLoading() {
     controller.forward().then(

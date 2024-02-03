@@ -19,8 +19,6 @@ class LobbyUserListPage extends StatefulWidget {
 class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
   LobbyBloc? myBloc;
 
-  String userNick = '';
-
   @override
   void initState() {
     super.initState();
@@ -31,50 +29,6 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
     if (roomId == null) return "000 - 000";
     if (roomId.length != 6) return roomId;
     return roomId.substring(0, 3) + " - " + roomId.substring(3, 6);
-  }
-
-  Widget yourUserListWidget(List<User> users) {
-    return Container(
-        height: 50,
-        child: ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (BuildContext context, int index) {
-            return SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${index + 1}.",
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0x99ffffff),
-                    ),
-                  ),
-                  Text(
-                    users[index].name,
-                    style: const TextStyle(
-                      fontFamily: 'Clash Display Variable',
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xffffffff),
-                    ),
-                  ),
-                  IconButton(
-                    //ToDo usuń
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      Utility.workingOn();
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
-        ));
   }
 
   @override
@@ -172,7 +126,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      formatRoomId(state.roomId), //ToDo
+                                      formatRoomId(state.roomId),
                                       style: const TextStyle(
                                         fontFamily: 'Inter',
                                         fontSize: 38,
@@ -361,4 +315,49 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
         return const CircularProgressIndicator();
       });
   }
+
+  Widget yourUserListWidget(List<User> users) {
+    return Container(
+        height: 50,
+        child: ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (BuildContext context, int index) {
+            return SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${index + 1}.",
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0x99ffffff),
+                    ),
+                  ),
+                  Text(
+                    users[index].name,
+                    style: const TextStyle(
+                      fontFamily: 'Clash Display Variable',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                  IconButton(
+                    //ToDo usuń
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      Utility.workingOn();
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ));
+  }
+
 }

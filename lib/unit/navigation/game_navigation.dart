@@ -17,7 +17,7 @@ class GameNavigator extends StatelessWidget {
       builder: (context, state) {
         if (state is GameInitialState) {
           debugPrint("MPMP state GameInitialState");
-          return GameRevealCard(characters: []);
+          return GameRevealCard();
         } else if (state is GameRealCardState) {
           return GameRevealCardReviled();
         } else if (state is GameNightState) {

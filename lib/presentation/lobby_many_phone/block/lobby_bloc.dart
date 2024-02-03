@@ -16,8 +16,7 @@ part 'lobby_event.dart';
 
 part 'lobby_state.dart';
 
-class LobbyBloc
-    extends Bloc<LobbyEvent, LobbyState> {
+class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
   final LobbyService _lobbyService;
 
   String roomId = "";
@@ -30,18 +29,18 @@ class LobbyBloc
   StreamSubscription? _usersSubscription;
 
   LobbyBloc(this._lobbyService) : super(LoadingState()) {
-    on<LobbyEvent>((event, emit) async {
-      if (event is OnSaveUserClick) {
-        addUser(event.userName);
-      } else if (event is OnNextInLobbyClick) {
-        emit(LobbyManyPhoneCharacterChooseState(
-            characters: [], charactersToChoose: users.length));
-      } else if (event is OnRemoveUserClick) {
-        removeUser();
-      }
+    on<OnRemoveUserClick>((event, emit) async {
+      removeUser();
     });
 
-    //-----
+    on<OnNextInLobbyClick>((event, emit) async {
+      emit(LobbyManyPhoneCharacterChooseState(
+          characters: [], charactersToChoose: users.length));
+    });
+
+    on<OnSaveUserClick>((event, emit) async {
+      addUser(event.userName);
+    });
 
     on<OnLobbyUserListBackClick>((event, emit) async {
       emit(LobbyUserListState(
@@ -72,20 +71,22 @@ class LobbyBloc
       emit(NavigateToGamePageState(roomId));
       return;
     }
-    debugPrint("RMRM deviceIdentifier: $deviceIdentifier, isUserInGame: $isUserInGame, users: $users, user: $user, roomId: $roomId");
+    debugPrint(
+        "RMRM deviceIdentifier: $deviceIdentifier, isUserInGame: $isUserInGame, users: $users, user: $user, roomId: $roomId");
     _usersSubscription?.cancel();
     _usersSubscription =
         _lobbyService.streamUsersFromGameRoom().listen((updatedUsers) {
-          onUsersChanged(updatedUsers);
-        });
-    debugPrint("RMRM deviceIdentifier: $deviceIdentifier, isUserInGame: $isUserInGame, users: $users, user: $user, roomId: $roomId");
+      onUsersChanged(updatedUsers);
+    });
+    debugPrint(
+        "RMRM deviceIdentifier: $deviceIdentifier, isUserInGame: $isUserInGame, users: $users, user: $user, roomId: $roomId");
   }
 
   void onUsersChanged(List<User> updatedUsers) {
-    debugPrint(
-        "RMRM log users: $users  updatedUsers: $updatedUsers");
+    debugPrint("RMRM log users: $users  updatedUsers: $updatedUsers");
     users = updatedUsers;
-    user = users.firstWhere((element) => element.id == deviceIdentifier);//RM Poprawić
+    user = users
+        .firstWhere((element) => element.id == deviceIdentifier); //RM Poprawić
 
     emit(LobbyUserListState(
         users: users, user: user, isUserInGame: isUserInGame, roomId: roomId));
@@ -114,8 +115,6 @@ class LobbyBloc
     _lobbyService.updateUsersWithCharacters(users);
     _lobbyService.startGame();
   }
-
-
 
   Future<void> addUser(String userName) async {
     if (deviceIdentifier == null) {
