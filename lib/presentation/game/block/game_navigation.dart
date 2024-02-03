@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/presentation/game/view/game_day_page.dart';
-import '../../presentation/game/block/game_bloc.dart';
-import '../../presentation/game/view/game_finish_page.dart';
-import '../../presentation/game/view/game_night_action_page.dart';
-import '../../presentation/game/view/game_reveal_card_page.dart';
-import '../../presentation/game/view/game_reveal_card_page_card_reviled_page.dart';
-import '../../presentation/game/view/game_reveal_killed_page.dart';
-import '../../presentation/game/view/game_waiting_page.dart';
+import 'game_bloc.dart';
+import '../view/game_finish_page.dart';
+import '../view/game_night_action_page.dart';
+import '../view/game_reveal_card_page.dart';
+import '../view/game_reveal_card_page_card_reviled_page.dart';
+import '../view/game_reveal_killed_page.dart';
+import '../view/game_waiting_page.dart';
 
 class GameNavigator extends StatelessWidget {
   @override

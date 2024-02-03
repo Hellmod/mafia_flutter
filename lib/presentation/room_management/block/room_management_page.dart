@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/services/FirebaseService.dart';
 
-import '../../../unit/navigation/room_management_navigation.dart';
+import 'room_management_navigation.dart';
 import 'room_management_bloc.dart';
 
 class RoomManagementPage extends StatelessWidget {

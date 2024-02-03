@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../presentation/home/block/home_bloc.dart';
-import '../../presentation/home/view/home_page.dart';
+import 'home_bloc.dart';
+import '../view/home_page.dart';
 
 class HomeNavigator extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../services/FirebaseGameService.dart';
-import '../../../unit/navigation/game_navigation.dart';
+import 'game_navigation.dart';
 import 'game_bloc.dart';
 
 class GamePage extends StatelessWidget {

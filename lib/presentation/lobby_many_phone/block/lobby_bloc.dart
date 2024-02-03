@@ -42,7 +42,7 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
       addUser(event.userName);
     });
 
-    on<OnLobbyUserListBackClick>((event, emit) async {
+    on<LobbyCharacterChooseBackClick>((event, emit) async {
       emit(LobbyUserListState(
           users: users,
           user: user,

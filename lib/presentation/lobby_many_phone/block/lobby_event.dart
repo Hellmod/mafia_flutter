@@ -15,7 +15,7 @@ class LobbyUserListStartClick extends LobbyEvent {
   List<Object> get props => [];
 }
 
-class OnLobbyUserListBackClick extends LobbyEvent {
+class LobbyCharacterChooseBackClick extends LobbyEvent {
   @override
   List<Object> get props => [];
 }

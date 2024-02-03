@@ -146,7 +146,7 @@ class _LobbyManyPhoneCharacterChoose
             child: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
-                Navigator.pop(context);
+                myBloc?.add(LobbyCharacterChooseBackClick());
               },
             ),
           ),

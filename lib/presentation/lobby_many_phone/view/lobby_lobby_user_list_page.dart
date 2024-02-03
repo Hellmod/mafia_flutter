@@ -64,8 +64,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
                                   icon: Icon(
                                       Icons.arrow_back, color: Colors.white),
                                   onPressed: () {
-                                    myBloc?.add(OnLobbyUserListBackClick());
-                                    //ToDo
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ),
