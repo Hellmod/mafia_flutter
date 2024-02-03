@@ -1,16 +1,16 @@
-part of 'lobby_many_phone_bloc.dart';
+part of 'lobby_bloc.dart';
 
 @immutable
-abstract class LobbyManyPhoneState extends Equatable {
-  const LobbyManyPhoneState();
+abstract class LobbyState extends Equatable {
+  const LobbyState();
 }
 
-class Lobbynitial extends LobbyManyPhoneState {
+class Lobbynitial extends LobbyState {
   @override
   List<Object> get props => [];
 }
 
-class LobbyUserListState extends LobbyManyPhoneState {//RM
+class LobbyUserListState extends LobbyState {//RM
   final List<User> users;
   final User user;
   final String roomId;
@@ -26,7 +26,7 @@ class LobbyUserListState extends LobbyManyPhoneState {//RM
   List<Object> get props => [users, user, roomId, isUserInGame];
 }
 
-class LobbyManyPhoneCharacterChooseState extends LobbyManyPhoneState {
+class LobbyManyPhoneCharacterChooseState extends LobbyState {
   final List<Character> characters;
   final int charactersToChoose;
 
@@ -37,7 +37,7 @@ class LobbyManyPhoneCharacterChooseState extends LobbyManyPhoneState {
   List<Object> get props => [characters, charactersToChoose];
 }
 
-class NavigateToGamePageState extends LobbyManyPhoneState {
+class NavigateToGamePageState extends LobbyState {
   final String roomId;
 
   NavigateToGamePageState(this.roomId);
@@ -46,7 +46,7 @@ class NavigateToGamePageState extends LobbyManyPhoneState {
   List<Object> get props => [roomId];
 }
 
-class LoadingState extends LobbyManyPhoneState {
+class LoadingState extends LobbyState {
   @override
   List<Object> get props => [];
 }

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../utils/AppTextStyles.dart';
 import '../../utils/character/Character.dart';
-import '../lobby_many_phone/block/lobby_many_phone_bloc.dart';
+import '../lobby_many_phone/block/lobby_bloc.dart';
 
 class RoleCardWidget extends StatefulWidget {
   final Character character;
@@ -18,7 +18,7 @@ class RoleCardWidget extends StatefulWidget {
 }
 
 class _RoleCardState extends State<RoleCardWidget> {
-  LobbyManyPhoneBloc? myBloc;
+  LobbyBloc? myBloc;
 
   final Character character;
   int amount = 0;
@@ -26,7 +26,7 @@ class _RoleCardState extends State<RoleCardWidget> {
   @override
   void initState() {
     super.initState();
-    myBloc = context.read<LobbyManyPhoneBloc>();
+    myBloc = context.read<LobbyBloc>();
   }
 
   _RoleCardState(this.character);

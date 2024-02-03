@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../lobby_many_phone/block/lobby_many_phone_bloc.dart';
+import '../lobby_many_phone/block/lobby_bloc.dart';
 
 class UserInputOrDisplay extends StatelessWidget {
-  final LobbyManyPhoneBloc? myBloc;
+  final LobbyBloc? myBloc;
 
   UserInputOrDisplay({
     required this.myBloc,

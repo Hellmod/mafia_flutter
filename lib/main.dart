@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mafia/presentation/game/block/game_page.dart';
 import 'package:mafia/presentation/home/block/home_page.dart';
-import 'package:mafia/presentation/lobby_many_phone/block/lobby_many_phone_page.dart';
+import 'package:mafia/presentation/lobby_many_phone/block/lobby_page.dart';
 import 'package:mafia/presentation/room_management/block/room_management_page.dart';
 
 void main() async {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         '/lobby': (context) {
           final routeArgs = ModalRoute.of(context)?.settings.arguments
               as Map<String, dynamic>?;
-          return LobbyManyPhonePage(
+          return LobbyPage(
             roomId: routeArgs?['roomId'],
           );
         },

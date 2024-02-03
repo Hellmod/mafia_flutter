@@ -4,7 +4,7 @@ import 'package:mafia/presentation/room_management/block/room_management_bloc.da
 import 'package:pinput/pinput.dart';
 
 import '../../../utils/Utility.dart';
-import '../../lobby_many_phone/block/lobby_many_phone_bloc.dart';
+import '../../lobby_many_phone/block/lobby_bloc.dart';
 
 class RoomManagementTokenPage extends StatefulWidget {
 

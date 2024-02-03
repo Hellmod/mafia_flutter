@@ -12,12 +12,12 @@ import '../../../utils/Utility.dart';
 import '../../../utils/character/Character.dart';
 import '../../../utils/character/Unknown.dart';
 
-part 'lobby_many_phone_event.dart';
+part 'lobby_event.dart';
 
-part 'lobby_many_phone_state.dart';
+part 'lobby_state.dart';
 
-class LobbyManyPhoneBloc
-    extends Bloc<LobbyManyPhoneEvent, LobbyManyPhoneState> {
+class LobbyBloc
+    extends Bloc<LobbyEvent, LobbyState> {
   final LobbyService _lobbyService;
 
   String roomId = "";
@@ -29,8 +29,8 @@ class LobbyManyPhoneBloc
   Map<Character, int> characterAmountMap = {};
   StreamSubscription? _usersSubscription;
 
-  LobbyManyPhoneBloc(this._lobbyService) : super(LoadingState()) {
-    on<LobbyManyPhoneEvent>((event, emit) async {
+  LobbyBloc(this._lobbyService) : super(LoadingState()) {
+    on<LobbyEvent>((event, emit) async {
       if (event is OnSaveUserClick) {
         addUser(event.userName);
       } else if (event is OnNextInLobbyClick) {

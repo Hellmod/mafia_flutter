@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/Wigets.dart';
-import '../block/lobby_many_phone_bloc.dart';
+import '../block/lobby_bloc.dart';
 
 class LobbyLoadingPage extends StatefulWidget {
   const LobbyLoadingPage({Key? key}) : super(key: key);
@@ -12,18 +12,18 @@ class LobbyLoadingPage extends StatefulWidget {
 }
 
 class _LobbyLoadingPage extends State<LobbyLoadingPage> {
-  LobbyManyPhoneBloc? myBloc;
+  LobbyBloc? myBloc;
   late AnimationController controller;
 
   @override
   void initState() {
     super.initState();
-    myBloc = context.read<LobbyManyPhoneBloc>();
+    myBloc = context.read<LobbyBloc>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
+    return BlocBuilder<LobbyBloc, LobbyState>(
         bloc: myBloc,
         builder: (context, state) {
           if (state is LoadingState) {

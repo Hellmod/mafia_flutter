@@ -1,26 +1,26 @@
-part of 'lobby_many_phone_bloc.dart';
+part of 'lobby_bloc.dart';
 
 @immutable
-abstract class LobbyManyPhoneEvent extends Equatable {
-  const LobbyManyPhoneEvent();
+abstract class LobbyEvent extends Equatable {
+  const LobbyEvent();
 }
 
-class OnRemoveUserClick extends LobbyManyPhoneEvent {
+class OnRemoveUserClick extends LobbyEvent {
   @override
   List<Object> get props => [];
 }
 
-class OnNextInLobbyClick extends LobbyManyPhoneEvent {
+class OnNextInLobbyClick extends LobbyEvent {
   @override
   List<Object> get props => [];
 }
 
-class OnLobbyUserListBackClick extends LobbyManyPhoneEvent {
+class OnLobbyUserListBackClick extends LobbyEvent {
   @override
   List<Object> get props => [];
 }
 
-class OnSaveUserClick extends LobbyManyPhoneEvent {
+class OnSaveUserClick extends LobbyEvent {
   final String userName;
 
   const OnSaveUserClick({required this.userName});
@@ -29,7 +29,7 @@ class OnSaveUserClick extends LobbyManyPhoneEvent {
   List<Object> get props => [userName];
 }
 
-class OnIncreaseAmountCharacterClick extends LobbyManyPhoneEvent {
+class OnIncreaseAmountCharacterClick extends LobbyEvent {
   final int amount;
   final Character character;
 
@@ -39,7 +39,7 @@ class OnIncreaseAmountCharacterClick extends LobbyManyPhoneEvent {
   List<Object> get props => [amount, character];
 }
 
-class AddUser extends LobbyManyPhoneEvent {
+class AddUser extends LobbyEvent {
   final User user;
 
   const AddUser({required this.user});
@@ -49,7 +49,7 @@ class AddUser extends LobbyManyPhoneEvent {
 }
 
 //Character choose page
-class OnStartClick extends LobbyManyPhoneEvent {
+class OnStartClick extends LobbyEvent {
   final int amount;
   final String jakistekst;
 

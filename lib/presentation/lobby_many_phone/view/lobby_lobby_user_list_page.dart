@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/User.dart';
 import '../../../utils/Utility.dart';
 import '../../wigets/yourNickName.dart';
-import '../block/lobby_many_phone_bloc.dart';
+import '../block/lobby_bloc.dart';
 
-class LobbyUserList extends StatefulWidget {
+class LobbyUserListPage extends StatefulWidget {
 
 
   @override
@@ -16,15 +16,15 @@ class LobbyUserList extends StatefulWidget {
       _LobbyManyPhoneLobbyUserList();
 }
 
-class _LobbyManyPhoneLobbyUserList extends State<LobbyUserList> {
-  LobbyManyPhoneBloc? myBloc;
+class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
+  LobbyBloc? myBloc;
 
   String userNick = '';
 
   @override
   void initState() {
     super.initState();
-    myBloc = context.read<LobbyManyPhoneBloc>();
+    myBloc = context.read<LobbyBloc>();
   }
 
   String formatRoomId(String? roomId) {
@@ -80,7 +80,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserList> {
   @override
   Widget build(BuildContext context) {
 
-    return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
+    return BlocBuilder<LobbyBloc, LobbyState>(
       bloc: myBloc,
       builder: (context, state) {
         if (state is LobbyUserListState) {
@@ -299,8 +299,8 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserList> {
                               child: Column(
                                 children: [
                                   BlocBuilder<
-                                      LobbyManyPhoneBloc,
-                                      LobbyManyPhoneState>(
+                                      LobbyBloc,
+                                      LobbyState>(
                                     builder: (context, state) {
                                       if (state is LobbyUserListState) {
                                         return Expanded(
