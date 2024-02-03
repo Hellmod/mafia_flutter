@@ -5,7 +5,6 @@ import '../../../utils/Wigets.dart';
 import '../block/game_bloc.dart';
 
 class GameDayPage extends StatefulWidget {
-  GameDayPage({Key? key}) : super(key: key);
 
   @override
   _GameDayPage createState() => _GameDayPage();
@@ -13,23 +12,7 @@ class GameDayPage extends StatefulWidget {
 
 class _GameDayPage extends State<GameDayPage> {
   GameBloc? myBloc;
-  late AnimationController controller;
   String? _selectedUserName;
-
-  void startLoading() {
-    controller.forward().then(
-      (_) {
-        if (controller.status == AnimationStatus.completed) {
-          onLoadingComplete();
-        }
-      },
-    );
-  }
-
-  void stopLoadingAndReset() {
-    controller.stop();
-    controller.reset();
-  }
 
   void onLoadingComplete() {
     myBloc?.add(OnRevealCardClicked());

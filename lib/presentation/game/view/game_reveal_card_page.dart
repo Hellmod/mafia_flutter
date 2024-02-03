@@ -1,14 +1,12 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/utils/character/Character.dart';
 
 import '../../../utils/AppTextStyles.dart';
-import '../../../utils/Utility.dart';
 import '../../../utils/Wigets.dart';
-import '../../../utils/character/CharacterRepository.dart';
-import '../../wigets/RoleCard.dart';
 import '../block/game_bloc.dart';
-import 'dart:math' as math;
 
 class GameRevealCard extends StatefulWidget {
   final List<Character> characters;

@@ -15,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   void navManyPhone() {
-    Navigator.pushNamed(context, '/many_phone');
+    Navigator.pushNamed(context, '/room_management');
   }
 
   @override

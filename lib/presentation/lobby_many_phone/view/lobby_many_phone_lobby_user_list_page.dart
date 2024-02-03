@@ -8,10 +8,10 @@ import '../../../utils/Utility.dart';
 import '../../wigets/yourNickName.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
-class LobbyManyPhoneLobbyUserList extends StatefulWidget {
+class LobbyUserList extends StatefulWidget {
   final List<User> users;
 
-  LobbyManyPhoneLobbyUserList({Key? key, required this.users})
+  LobbyUserList({Key? key, required this.users})
       : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class LobbyManyPhoneLobbyUserList extends StatefulWidget {
       _LobbyManyPhoneLobbyUserList(users);
 }
 
-class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
+class _LobbyManyPhoneLobbyUserList extends State<LobbyUserList> {
   LobbyManyPhoneBloc? myBloc;
 
   final List<User> users;
@@ -89,7 +89,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
     return BlocBuilder<LobbyManyPhoneBloc, LobbyManyPhoneState>(
       bloc: myBloc,
       builder: (context, state) {
-        if (state is LobbyManyPhoneUserListState) {
+        if (state is LobbyUserListState) {
           return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
@@ -116,7 +116,8 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                                   icon: Icon(
                                       Icons.arrow_back, color: Colors.white),
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    myBloc?.add(OnLobbyUserListBackClick());
+                                    //ToDo
                                   },
                                 ),
                               ),
@@ -307,7 +308,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyManyPhoneLobbyUserList> {
                                       LobbyManyPhoneBloc,
                                       LobbyManyPhoneState>(
                                     builder: (context, state) {
-                                      if (state is LobbyManyPhoneUserListState) {
+                                      if (state is LobbyUserListState) {
                                         return Expanded(
                                           child: yourUserListWidget(
                                               state.users),

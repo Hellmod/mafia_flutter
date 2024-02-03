@@ -1,14 +1,13 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
+
 import 'package:bloc/bloc.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
+
 import '../../../models/User.dart';
-import '../../../services/FirebaseService.dart';
+import '../../../services/LobbyService.dart';
 import '../../../utils/Utility.dart';
 import '../../../utils/character/Character.dart';
 import '../../../utils/character/Unknown.dart';
@@ -19,18 +18,21 @@ part 'lobby_many_phone_state.dart';
 
 class LobbyManyPhoneBloc
     extends Bloc<LobbyManyPhoneEvent, LobbyManyPhoneState> {
-  final FirebaseService _firebaseService;
+  final LobbyService _firebaseService;
 
-  String? roomId;
+  String roomId = "";
+  bool isUserInGame = false;
+  bool isGameStarted = false;
   List<User> users = [];
+  User user = User(name: '', id: '', character: Unknown());
+  String deviceIdentifier = "";
+
   Map<Character, int> characterAmountMap = {};
   StreamSubscription? _usersSubscription;
 
-  LobbyManyPhoneBloc(this._firebaseService) : super(LobbyManyPhoneInitial()) {
+  LobbyManyPhoneBloc(this._firebaseService) : super(Lobbynitial()) {
     on<LobbyManyPhoneEvent>((event, emit) async {
-      if (event is OnNewGameClick) {
-        createNewRoom();
-      } else if (event is OnSaveUserClick) {
+      if (event is OnSaveUserClick) {
         addUser(event.userName);
       } else if (event is OnNextInLobbyClick) {
         emit(LobbyManyPhoneCharacterChooseState(
@@ -40,9 +42,19 @@ class LobbyManyPhoneBloc
       }
     });
 
-    on<CheckIdExists>((event, emit) async {
-      await doesRoomExist(event.idRoom);
+    //-----
+
+    on<OnLobbyUserListBackClick>((event, emit) async {
+      emit(LobbyUserListState(
+          users: users,
+          user: user,
+          isUserInGame: isUserInGame,
+          roomId: roomId));
     });
+
+/*    on<TokenPageConnectClick>((event, emit) async {
+      await connectToRoomIfExist(event.idRoom);
+    });*/
 
     on<OnIncreaseAmountCharacterClick>((event, emit) async {
       incriseAmount(event.amount, event.character);
@@ -51,6 +63,8 @@ class LobbyManyPhoneBloc
     on<OnStartClick>((event, emit) async {
       onStartClick(event.amount, event.jakistekst);
     });
+
+    _init();
   }
 
   int sumAmountOfCharacterMap() {
@@ -73,71 +87,70 @@ class LobbyManyPhoneBloc
   Future<void> onStartClick(int amount, String character) async {
     List<User> usersWitchCharacter = users;
     assignCharactersToUsersRandomly(usersWitchCharacter, characterAmountMap);
-    _firebaseService.updateUsersWithCharacters(roomId!, users);
-    _firebaseService.startGame(roomId!);
+    _firebaseService.updateUsersWithCharacters(users);
+    _firebaseService.startGame();
   }
 
-  Future<void> doesRoomExist(String idRoom) async {
-    bool isRoomExist = await _firebaseService.doesRoomExist(idRoom);
-    if (isRoomExist) {
-      loadRoom(idRoom);
-    } else {
-      Utility.missingRoom();
-    }
+  Future<void> connectToRoomIfExist(String idRoom) async {
+    loadRoom(idRoom);
   }
 
-  Future<void> createNewRoom() async {
-    String roomId = await _firebaseService.createNewRoom();
-    loadRoom(roomId);
+  Future<void> _init() async {
+    deviceIdentifier = await _firebaseService.getDeviceIdentifier();
   }
 
   Future<void> loadRoom(String idRoom) async {
-    roomId = idRoom;
-    await _usersSubscription?.cancel();
-    _usersSubscription = _firebaseService
-        .streamUsersFromGameRoom(idRoom)
-        .listen((updatedUsers) async {
-      users = updatedUsers;
+    print("RMRM1 loadRoom");
+    isGameStarted = await _firebaseService.isGameStarted();
+    print("RMRM2 loadRoom");
+    isUserInGame = await checkIsYourIdIsInGame(users);
+    print("RMRM3 loadRoom");
 
-      bool isUserInGame = await checkIsYourIdIsInGame(updatedUsers);
-      bool isGameStarted = await _firebaseService.isGameStarted(idRoom);
-      if (isUserInGame) {
-        if (isGameStarted) {
-          emit(NavigateToGamePageState(
-            idRoom,
-          ));
-          return;
-        }
-        String? deviceIdentifier = await getDeviceIdentifier();
-        User user = updatedUsers
-            .firstWhere((element) => element.id == deviceIdentifier);
-        emit(LobbyManyPhoneUserListState(
-            users: updatedUsers,
-            user: user,
-            isUserInGame: isUserInGame,
-            roomId: idRoom));
-      } else {
-        emit(LobbyManyPhoneUserListState(
-            users: updatedUsers,
-            user: User(name: '', id: '', character: Unknown()),
-            isUserInGame: isUserInGame,
-            roomId: idRoom));
-      }
+    debugPrint(
+        "RMRM isGameStarted: $isGameStarted, isUserInGame: $isUserInGame, user: $user, users: $users, roomId: $idRoom");
+
+    await _usersSubscription?.cancel();
+    _usersSubscription =
+        _firebaseService.streamUsersFromGameRoom().listen((updatedUsers) async {
+      onUsersChanged(updatedUsers);
     });
   }
 
+  Future<void> onUsersChanged(List<User> updatedUsers) async {
+    users = updatedUsers;
+    user = users.firstWhere((element) => element.id == deviceIdentifier);
+    if (isUserInGame) {
+      if (isGameStarted) {
+        emit(NavigateToGamePageState(
+          roomId,
+        ));
+        return;
+      }
+      emit(LobbyUserListState(
+          users: updatedUsers,
+          user: user,
+          isUserInGame: isUserInGame,
+          roomId: roomId));
+    } else {
+      emit(LobbyUserListState(
+          users: updatedUsers,
+          user: User(name: '', id: '', character: Unknown()),
+          isUserInGame: isUserInGame,
+          roomId: roomId));
+    }
+  }
+
   Future<void> addUser(String userName) async {
-    LobbyManyPhoneUserListState _state = state as LobbyManyPhoneUserListState;
-    String? deviceIdentifier = await getDeviceIdentifier();
     if (deviceIdentifier == null) {
       Utility.somethingWentWrong();
       debugPrint("Error adding user: deviceIdentifier is null");
       return;
     }
 
-    User user = User(name: userName, id: deviceIdentifier, character: Unknown());
+    User user =
+        User(name: userName, id: deviceIdentifier, character: Unknown());
     try {
-      await _firebaseService.addUser(user, _state.roomId);
+      await _firebaseService.addUser(user);
     } catch (e) {
       debugPrint("Error adding user: $e");
       Utility.somethingWentWrong();
@@ -145,34 +158,19 @@ class LobbyManyPhoneBloc
   }
 
   Future<void> removeUser() async {
-    LobbyManyPhoneUserListState _state = state as LobbyManyPhoneUserListState;
-    String? deviceIdentifier = await getDeviceIdentifier();
     if (deviceIdentifier == null) {
       Utility.somethingWentWrong();
       return;
     }
 
     try {
-      await _firebaseService.removeUser(deviceIdentifier, _state.roomId);
+      await _firebaseService.removeUser(deviceIdentifier);
     } catch (e) {
       Utility.somethingWentWrong();
     }
   }
 
-  Future<String?> getDeviceIdentifier() async {
-    final deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      return androidInfo.id;
-    } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor;
-    }
-    return 'unknown';
-  }
-
   Future<bool> checkIsYourIdIsInGame(List<User> userList) async {
-    String? deviceIdentifier = await getDeviceIdentifier();
     if (deviceIdentifier == null) {
       Utility.somethingWentWrong();
       return false;

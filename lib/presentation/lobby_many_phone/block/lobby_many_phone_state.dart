@@ -5,18 +5,18 @@ abstract class LobbyManyPhoneState extends Equatable {
   const LobbyManyPhoneState();
 }
 
-class LobbyManyPhoneInitial extends LobbyManyPhoneState {
+class Lobbynitial extends LobbyManyPhoneState {
   @override
   List<Object> get props => [];
 }
 
-class LobbyManyPhoneUserListState extends LobbyManyPhoneState {
+class LobbyUserListState extends LobbyManyPhoneState {
   final List<User> users;
   final User user;
   final String roomId;
   final bool isUserInGame;
 
-  LobbyManyPhoneUserListState(
+  LobbyUserListState(
       {required this.users,
       required this.user,
       required this.roomId,

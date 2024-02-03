@@ -12,8 +12,8 @@ class UserInputOrDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LobbyManyPhoneUserListState? state =
-        myBloc?.state as LobbyManyPhoneUserListState?;
+    LobbyUserListState? state =
+        myBloc?.state as LobbyUserListState?;
     bool isUserInGame = state?.isUserInGame ?? false;
 
     if (isUserInGame) {

@@ -5,8 +5,8 @@ import '../../../utils/character/CharacterRepository.dart';
 import '../../wigets/RoleCard.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
-class LobbyManyPhoneCharacterChoose extends StatefulWidget {
-  LobbyManyPhoneCharacterChoose({Key? key}) : super(key: key);
+class LobbyPhoneCharacterChoose extends StatefulWidget {
+  LobbyPhoneCharacterChoose({Key? key}) : super(key: key);
 
   @override
   _LobbyManyPhoneCharacterChoose createState() =>
@@ -14,7 +14,7 @@ class LobbyManyPhoneCharacterChoose extends StatefulWidget {
 }
 
 class _LobbyManyPhoneCharacterChoose
-    extends State<LobbyManyPhoneCharacterChoose> {
+    extends State<LobbyPhoneCharacterChoose> {
   LobbyManyPhoneBloc? myBloc;
 
   void navGame() {

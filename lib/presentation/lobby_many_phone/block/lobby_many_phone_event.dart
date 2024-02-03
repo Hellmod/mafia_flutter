@@ -5,17 +5,17 @@ abstract class LobbyManyPhoneEvent extends Equatable {
   const LobbyManyPhoneEvent();
 }
 
-class OnNewGameClick extends LobbyManyPhoneEvent {
-  @override
-  List<Object> get props => [];
-}
-
 class OnRemoveUserClick extends LobbyManyPhoneEvent {
   @override
   List<Object> get props => [];
 }
 
 class OnNextInLobbyClick extends LobbyManyPhoneEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class OnLobbyUserListBackClick extends LobbyManyPhoneEvent {
   @override
   List<Object> get props => [];
 }
@@ -37,15 +37,6 @@ class OnIncreaseAmountCharacterClick extends LobbyManyPhoneEvent {
 
   @override
   List<Object> get props => [amount, character];
-}
-
-class CheckIdExists extends LobbyManyPhoneEvent {
-  final String idRoom;
-
-  const CheckIdExists({required this.idRoom});
-
-  @override
-  List<Object> get props => [idRoom];
 }
 
 class AddUser extends LobbyManyPhoneEvent {

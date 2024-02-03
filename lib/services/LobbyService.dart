@@ -9,10 +9,13 @@ import 'package:mafia/utils/Utility.dart';
 
 import '../models/User.dart';
 
-class FirebaseService {
+class LobbyService {
+  final String gameId;
   final FirebaseFirestore _firebase = FirebaseFirestore.instance;
 
-  Future<List<User>> getUsersFromGameRoom(String gameId) async {
+  LobbyService(this.gameId);
+
+  Future<List<User>> getUsersFromGameRoom() async {
     try {
       QuerySnapshot querySnapshot = await _firebase
           .collection('rooms')
@@ -30,7 +33,7 @@ class FirebaseService {
     }
   }
 
-  Stream<List<User>> streamUsersFromGameRoom(String gameId) {
+  Stream<List<User>> streamUsersFromGameRoom() {
     return _firebase
         .collection('rooms')
         .doc(gameId)
@@ -40,7 +43,7 @@ class FirebaseService {
             snapshot.docs.map((doc) => User.fromDocument(doc)).toList());
   }
 
-  Future<void> addUser(User user, [String gameId = "123123"]) async {
+  Future<void> addUser(User user) async {
     try {
       await _firebase
           .collection('rooms')
@@ -55,7 +58,7 @@ class FirebaseService {
     }
   }
 
-  Future<void> removeUser(String userId, [String gameId = "123123"]) async {
+  Future<void> removeUser(String userId) async {
     await FirebaseFirestore.instance
         .collection('rooms')
         .doc(gameId)
@@ -64,35 +67,9 @@ class FirebaseService {
         .delete();
   }
 
-  Future<bool> doesRoomExist(String roomId) async {
+  Future<void> startGame() async {
     try {
-      DocumentSnapshot roomSnapshot = await _firebase.collection('rooms').doc(roomId).get();
-      return roomSnapshot.exists;
-    } catch (e) {
-      print("Error checking room existence: $e");
-      return false;
-    }
-  }
-
-  Future<String> createNewRoom() async {
-    String roomId = _generateRoomId();
-    bool roomExists = await doesRoomExist(roomId);
-    while (roomExists) {
-      roomId = _generateRoomId();
-      roomExists = await doesRoomExist(roomId);
-    }
-
-    await _firebase.collection('rooms').doc(roomId).set({
-      "createdOn": FieldValue.serverTimestamp(),
-      "deviceId":  await getDeviceIdentifier(),
-      "isGameStarted":  false,
-    });
-    return roomId;
-  }
-
-  Future<void> startGame(String roomId) async {
-    try {
-      DocumentReference roomRef = _firebase.collection('rooms').doc(roomId);
+      DocumentReference roomRef = _firebase.collection('rooms').doc(gameId);
 
       await roomRef.update({
         'isGameStarted': true,
@@ -100,12 +77,6 @@ class FirebaseService {
     } catch (e) {
       print("Błąd przy aktualizacji stanu gry: $e");
     }
-  }
-
-  String _generateRoomId() {
-    final random = Random();
-    final values = List<int>.generate(6, (i) => random.nextInt(10));
-    return values.join();
   }
 
   Future<String> getDeviceIdentifier() async {
@@ -120,7 +91,7 @@ class FirebaseService {
     return 'unknown';
   }
 
-  Future<void> updateUsersWithCharacters(String gameId, List<User> users) async {
+  Future<void> updateUsersWithCharacters(List<User> users) async {
     WriteBatch batch = _firebase.batch();
 
     for (User user in users) {
@@ -136,9 +107,9 @@ class FirebaseService {
     await batch.commit();
   }
 
-  Future<bool> isGameStarted(String roomId) async {
+  Future<bool> isGameStarted() async {
     try {
-      DocumentSnapshot roomSnapshot = await _firebase.collection('rooms').doc(roomId).get();
+      DocumentSnapshot roomSnapshot = await _firebase.collection('rooms').doc(gameId).get();
       if (roomSnapshot.exists && roomSnapshot.data() != null) {
         Map<String, dynamic> roomData = roomSnapshot.data() as Map<String, dynamic>;
         return roomData['isGameStarted'] ?? false;
