@@ -121,4 +121,7 @@ class LobbyService {
     }
   }
 
+  String getGameId() {
+    return gameId;
+  }
 }

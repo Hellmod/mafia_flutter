@@ -61,35 +61,42 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
     _init();
   }
 
+  void printState() {
+    debugPrint(
+        "RMRM blockState: deviceIdentifier: $deviceIdentifier, isUserInGame: $isUserInGame, user: $user, roomId: $roomId");
+    debugPrint("RMRM blockState: users: $users");
+  }
+
   Future<void> _init() async {
-    print("RMRM1 init");
+    _initSteam();
     deviceIdentifier = await _lobbyService.getDeviceIdentifier();
-    print("RMRM2 init");
-    isUserInGame = await checkIsYourIdIsInGame();
-    print("RMRM3 init");
+    roomId = _lobbyService.getGameId();
     if (await _lobbyService.isGameStarted()) {
       emit(NavigateToGamePageState(roomId));
       return;
     }
-    debugPrint(
-        "RMRM deviceIdentifier: $deviceIdentifier, isUserInGame: $isUserInGame, users: $users, user: $user, roomId: $roomId");
-    _usersSubscription?.cancel();
-    _usersSubscription =
-        _lobbyService.streamUsersFromGameRoom().listen((updatedUsers) {
+
+    emit(LobbyUserListState(
+        users: users, user: user, isUserInGame: isUserInGame, roomId: roomId));
+  }
+
+  Future<void> _initSteam() async {
+    await _usersSubscription?.cancel();
+    _usersSubscription = _lobbyService.streamUsersFromGameRoom().listen((updatedUsers) {
       onUsersChanged(updatedUsers);
     });
-    debugPrint(
-        "RMRM deviceIdentifier: $deviceIdentifier, isUserInGame: $isUserInGame, users: $users, user: $user, roomId: $roomId");
   }
 
   void onUsersChanged(List<User> updatedUsers) {
     debugPrint("RMRM log users: $users  updatedUsers: $updatedUsers");
     users = updatedUsers;
-    user = users
-        .firstWhere((element) => element.id == deviceIdentifier); //RM Poprawić
 
-    emit(LobbyUserListState(
-        users: users, user: user, isUserInGame: isUserInGame, roomId: roomId));
+    isUserInGame = checkIsYourIdIsInGame();
+    user = users
+        .firstWhere((element) => element.id == deviceIdentifier);
+
+
+    printState();
   }
 
   int sumAmountOfCharacterMap() {
@@ -141,7 +148,7 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
     }
   }
 
-  Future<bool> checkIsYourIdIsInGame() async {
+  bool checkIsYourIdIsInGame() {
     return users.any((element) => element.id == deviceIdentifier);
   }
 
