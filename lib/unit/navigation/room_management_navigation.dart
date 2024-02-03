@@ -15,21 +15,23 @@ import '../../presentation/room_management/view/room_management_token_page.dart'
 class RoomManagementNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RoomManagementBloc, RoomManagementState>(
-      builder: (context, state) {
-        if (state is InitialState) {
-          debugPrint("MPMP state InitialState");
-          return RoomManagementTokenPage();
-        }else if (state is NavToLobbyManyPhoneState) {
-          debugPrint("MPMP state NavToLobbyManyPhoneState");
+    return BlocListener<RoomManagementBloc, RoomManagementState>(
+      listener: (context, state) {
+        if (state is NavToLobbyManyPhoneState) {
           Navigator.pushNamed(context, '/lobby', arguments: {'roomId': state.roomId});
-          return Container();
-        }
-        else {
-          return Container(
-              child: const Center(child: CircularProgressIndicator()));
         }
       },
+      child: BlocBuilder<RoomManagementBloc, RoomManagementState>(
+        builder: (context, state) {
+          if (state is RoomManagementTokenState) {
+            debugPrint("MPMP state RoomManagementTokenState");
+            return RoomManagementTokenPage();
+          }else {
+            return Container(
+                child: const Center(child: CircularProgressIndicator()));
+          }
+        },
+      ),
     );
   }
 }

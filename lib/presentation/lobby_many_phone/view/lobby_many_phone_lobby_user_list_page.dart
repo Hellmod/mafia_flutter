@@ -9,23 +9,17 @@ import '../../wigets/yourNickName.dart';
 import '../block/lobby_many_phone_bloc.dart';
 
 class LobbyUserList extends StatefulWidget {
-  final List<User> users;
 
-  LobbyUserList({Key? key, required this.users})
-      : super(key: key);
 
   @override
   _LobbyManyPhoneLobbyUserList createState() =>
-      _LobbyManyPhoneLobbyUserList(users);
+      _LobbyManyPhoneLobbyUserList();
 }
 
 class _LobbyManyPhoneLobbyUserList extends State<LobbyUserList> {
   LobbyManyPhoneBloc? myBloc;
 
-  final List<User> users;
   String userNick = '';
-
-  _LobbyManyPhoneLobbyUserList(this.users);
 
   @override
   void initState() {

@@ -10,7 +10,7 @@ class Lobbynitial extends LobbyManyPhoneState {
   List<Object> get props => [];
 }
 
-class LobbyUserListState extends LobbyManyPhoneState {
+class LobbyUserListState extends LobbyManyPhoneState {//RM
   final List<User> users;
   final User user;
   final String roomId;
@@ -44,4 +44,9 @@ class NavigateToGamePageState extends LobbyManyPhoneState {
 
   @override
   List<Object> get props => [roomId];
+}
+
+class LoadingState extends LobbyManyPhoneState {
+  @override
+  List<Object> get props => [];
 }

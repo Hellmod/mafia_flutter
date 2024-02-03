@@ -17,7 +17,7 @@ class RoomManagementBloc
     extends Bloc<RoomManagementEvent, RoomManagementState> {
   final FirebaseService _firebaseService;
 
-  RoomManagementBloc(this._firebaseService) : super(InitialState()) {
+  RoomManagementBloc(this._firebaseService) : super(RoomManagementTokenState()) {
     on<TokenPageConnectClick>((event, emit) async {
       await connectToRoomIfExist(event.idRoom);
     });
