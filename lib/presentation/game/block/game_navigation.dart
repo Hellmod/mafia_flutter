@@ -36,6 +36,7 @@ class GameNavigator extends StatelessWidget {
           debugPrint("MPMP state GameFinishedState");
           return GameFinishPage();
         } else {
+          debugPrint("MPMP state else in GameNavigator");
           return Container(
               child: const Center(child: CircularProgressIndicator()));
         }

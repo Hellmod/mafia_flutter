@@ -12,6 +12,7 @@ class HomeNavigator extends StatelessWidget {
         if (state is HomeInitial) {
           return MyHomePage();
         } else {
+          debugPrint("MPMP state else in HomeNavigator");
           return Container(child: const Center(child: CircularProgressIndicator()));
         }
       },

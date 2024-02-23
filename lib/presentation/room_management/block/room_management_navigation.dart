@@ -27,6 +27,7 @@ class RoomManagementNavigator extends StatelessWidget {
             debugPrint("MPMP state RoomManagementTokenState");
             return RoomManagementTokenPage();
           }else {
+            debugPrint("MPMP state else in RoomManagementNavigator");
             return Container(
                 child: const Center(child: CircularProgressIndicator()));
           }
