@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/AppTextStyles.dart';
+import '../../../utils/Wigets.dart';
 import '../../../utils/character/CharacterRepository.dart';
 import '../../wigets/RoleCard.dart';
 import '../block/lobby_bloc.dart';
@@ -71,7 +72,7 @@ class _LobbyManyPhoneCharacterChoose
               ),
             );
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Lobby character  loading...");
         });
   }
 

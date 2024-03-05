@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/presentation/lobby_many_phone/block/lobby_bloc.dart';
 
+import '../../../utils/Wigets.dart';
 import '../view/lobby_character_choose_page.dart';
 import '../view/lobby_lobby_user_list_page.dart';
 import '../../room_management/view/room_management_token_page.dart';
@@ -30,8 +31,7 @@ class LobbyNavigator extends StatelessWidget {
             debugPrint("MPMP state LobbyManyPhoneCharacterChooseState");
             return LobbyCharacterChoosePage();
           } else {
-            return Container(
-                child: const Center(child: CircularProgressIndicator()));
+            return MainWidget.loadingWidget("LobbyNavigator loading...");
           }
         },
       ),

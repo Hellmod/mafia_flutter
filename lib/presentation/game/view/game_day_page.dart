@@ -77,7 +77,7 @@ class _GameDayPage extends State<GameDayPage> {
                   )),
             );
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Game day page loading...");
         });
   }
 

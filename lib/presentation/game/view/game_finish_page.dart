@@ -62,7 +62,7 @@ class _GameFinishPage extends State<GameFinishPage> {
             );
 
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Game finish page loading...");
         });
   }
 

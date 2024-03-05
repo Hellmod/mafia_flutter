@@ -71,7 +71,7 @@ class _GameRevealKilledPage extends State<GameRevealKilledPage> {
                 )),
           );
         }
-        return const CircularProgressIndicator();
+        return MainWidget.loadingWidget("Game reveal killed loading...");
       },
     );
   }

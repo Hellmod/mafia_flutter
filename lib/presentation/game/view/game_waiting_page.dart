@@ -56,7 +56,7 @@ class _GameWaitingPage extends State<GameWaitingPage> {
             );
 
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Game wating loading...");
         });
   }
 

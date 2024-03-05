@@ -53,7 +53,7 @@ class _LobbyLoadingPage extends State<LobbyLoadingPage> {
               ),
             );
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Lobby loading loading...");
         });
   }
 }

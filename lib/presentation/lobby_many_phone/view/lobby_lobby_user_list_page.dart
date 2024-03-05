@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/User.dart';
 import '../../../utils/Utility.dart';
+import '../../../utils/Wigets.dart';
 import '../../wigets/yourNickName.dart';
 import '../block/lobby_bloc.dart';
 
@@ -261,7 +262,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
                                               state.users),
                                         );
                                       } else {
-                                        return const CircularProgressIndicator();
+                                        return MainWidget.loadingWidget("Lobby user list loading...");
                                       }
                                     },
                                   ),
@@ -311,7 +312,7 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
               ),
             );
         }
-        return const CircularProgressIndicator();
+        return MainWidget.loadingWidget("Lobby user list2 loading...");
       });
   }
 

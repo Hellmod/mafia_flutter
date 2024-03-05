@@ -4,6 +4,7 @@ import 'package:mafia/presentation/room_management/block/room_management_bloc.da
 import 'package:pinput/pinput.dart';
 
 import '../../../utils/Utility.dart';
+import '../../../utils/Wigets.dart';
 import '../../lobby_many_phone/block/lobby_bloc.dart';
 
 class RoomManagementTokenPage extends StatefulWidget {
@@ -201,7 +202,7 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
               ),
             );
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Room management loading...");
         });
 
 

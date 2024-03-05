@@ -94,7 +94,7 @@ class _GameActionPage extends State<GameNightActionPage> {
                   )),
             );
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Game night action loading...");
         });
   }
 

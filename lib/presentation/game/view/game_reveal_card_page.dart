@@ -92,7 +92,7 @@ class _GameRevealCard extends State<GameRevealCard>
               ),
             );
           }
-          return const CircularProgressIndicator();
+          return MainWidget.loadingWidget("Game reveal card loading...");
         });
   }
 

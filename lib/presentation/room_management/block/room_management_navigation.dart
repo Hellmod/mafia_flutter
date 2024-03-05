@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafia/presentation/game/view/game_day_page.dart';
 import 'package:mafia/presentation/room_management/block/room_management_bloc.dart';
+import '../../../utils/Wigets.dart';
 import '../../game/block/game_bloc.dart';
 import '../../game/view/game_finish_page.dart';
 import '../../game/view/game_night_action_page.dart';
@@ -28,8 +29,7 @@ class RoomManagementNavigator extends StatelessWidget {
             return RoomManagementTokenPage();
           }else {
             debugPrint("MPMP state else in RoomManagementNavigator");
-            return Container(
-                child: const Center(child: CircularProgressIndicator()));
+            return MainWidget.loadingWidget("RoomManagementNavigator loading...");
           }
         },
       ),
