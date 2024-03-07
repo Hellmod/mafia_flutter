@@ -124,7 +124,7 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
   }
 
   Future<void> addUser(String userName) async {
-    if (deviceIdentifier == null) {
+    if (deviceIdentifier == "") {
       Utility.somethingWentWrong();
       debugPrint("Error adding user: deviceIdentifier is null");
       return;

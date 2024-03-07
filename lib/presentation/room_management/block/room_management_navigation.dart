@@ -25,11 +25,11 @@ class RoomManagementNavigator extends StatelessWidget {
       child: BlocBuilder<RoomManagementBloc, RoomManagementState>(
         builder: (context, state) {
           if (state is RoomManagementTokenState) {
-            debugPrint("MPMP state RoomManagementTokenState");
+            debugPrint("MPMP state RoomManagementNavigator RoomManagementTokenState");
             return RoomManagementTokenPage();
           }else {
-            debugPrint("MPMP state else in RoomManagementNavigator");
-            return MainWidget.loadingWidget("RoomManagementNavigator loading...");
+            debugPrint("MPMP state RoomManagementNavigator else: ${state.toString()}");
+            return MainWidget.loadingWidget("RoomManagementNavigator loading... ${state.toString()}");//RM
           }
         },
       ),

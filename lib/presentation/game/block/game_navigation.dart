@@ -17,27 +17,28 @@ class GameNavigator extends StatelessWidget {
     return BlocBuilder<GameBloc, GameState>(
       builder: (context, state) {
         if (state is GameInitialState) {
-          debugPrint("MPMP state GameInitialState");
+          debugPrint("MPMP state GameNavigator GameInitialState");
           return GameRevealCard();
         } else if (state is GameRealCardState) {
+          debugPrint("MPMP state GameNavigator GameRealCardState");
           return GameRevealCardReviled();
         } else if (state is GameNightState) {
-          debugPrint("MPMP state GameNightState");
+          debugPrint("MPMP state GameNavigator GameNightState");
           return GameNightActionPage();
         } else if (state is GameDayState) {
-          debugPrint("MPMP state GameDayState");
+          debugPrint("MPMP state GameNavigator GameDayState");
           return GameDayPage();
         } else if (state is GameWaitingForOthersActionsState) {
-          debugPrint("MPMP state GameWaitingForOthersActionsState");
+          debugPrint("MPMP state GameNavigator GameWaitingForOthersActionsState");
           return GameWaitingPage();
         } else if (state is GameRevealKilledPersonState) {
-          debugPrint("MPMP state GameRevealKilledPersonState");
+          debugPrint("MPMP state GameNavigator GameRevealKilledPersonState");
           return GameRevealKilledPage();
         }else if (state is GameFinishedState) {
-          debugPrint("MPMP state GameFinishedState");
+          debugPrint("MPMP state GameNavigator GameFinishedState");
           return GameFinishPage();
         } else {
-          debugPrint("MPMP state else in GameNavigator");
+          debugPrint("MPMP state else in GameNavigator: ${state.toString()}");
           return MainWidget.loadingWidget("GameNavigator loading...");
         }
       },

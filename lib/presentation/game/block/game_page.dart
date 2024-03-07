@@ -10,12 +10,19 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:  BlocProvider(
-        create: (context) => GameBloc(
-          FirebaseGameService(roomId),
-        ),
-        child: GameNavigator()
-    ));
+    return PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) {
+          print("MPMP onBackPressed GamePage");
+          Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (Route<dynamic> route) => false);
+        },
+        child: Scaffold(
+            body: BlocProvider(
+                create: (context) => GameBloc(
+                      FirebaseGameService(roomId),
+                    ),
+                child: GameNavigator())
+        )
+    );
   }
 }
-

@@ -22,16 +22,17 @@ class LobbyNavigator extends StatelessWidget {
       child: BlocBuilder<LobbyBloc, LobbyState>(
         builder: (context, state) {
           if (state is LobbyUserListState) {
-            debugPrint("MPMP state LobbyUserListState");
+            debugPrint("MPMP state LobbyNavigator LobbyUserListState");
             return LobbyUserListPage();
           } else if (state is LoadingState) {
-            debugPrint("MPMP state LoadingState");
+            debugPrint("MPMP state LobbyNavigator LoadingState");
             return LobbyLoadingPage();
           } else if (state is LobbyManyPhoneCharacterChooseState) {
-            debugPrint("MPMP state LobbyManyPhoneCharacterChooseState");
+            debugPrint("MPMP state LobbyNavigator LobbyManyPhoneCharacterChooseState");
             return LobbyCharacterChoosePage();
           } else {
-            return MainWidget.loadingWidget("LobbyNavigator loading...");
+            debugPrint("MPMP state LobbyNavigator else: ${state.toString()}");
+            return MainWidget.loadingWidget("LobbyNavigator loading... ${state.toString()}");
           }
         },
       ),

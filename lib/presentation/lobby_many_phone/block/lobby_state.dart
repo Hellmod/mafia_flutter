@@ -5,7 +5,7 @@ abstract class LobbyState extends Equatable {
   const LobbyState();
 }
 
-class Lobbynitial extends LobbyState {
+class LobbyInitial extends LobbyState {
   @override
   List<Object> get props => [];
 }
