@@ -116,7 +116,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   bool _isGameFinished() {
-    //return false; //ToDo delete this line becore commit
+    return false; //ToDo delete this line becore commit
     var amountOfAliveMafia = usersState
         .where(
             (element) => element.isDead == false && element.character.isMafia)
@@ -190,11 +190,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   var sortedVotes = voteCounts.entries.toList()
     ..sort((a, b) => b.value.compareTo(a.value));
-
-  if (sortedVotes.length >= 2 &&
-      sortedVotes[0].value == sortedVotes[1].value) {
-    return null;
-  }
 
   return sortedVotes.isNotEmpty ? sortedVotes.first.key : null;
 }
