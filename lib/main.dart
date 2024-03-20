@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mafia/presentation/beta_lock/block/beta_lock_page.dart';
 import 'package:mafia/presentation/game/block/game_page.dart';
 import 'package:mafia/presentation/home/block/home_page.dart';
 import 'package:mafia/presentation/lobby_many_phone/block/lobby_page.dart';
@@ -23,9 +24,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: BetaLockPage(),
       routes: {
         '/dashboard': (context) => HomePage(),
+        '/beta_lock': (context) => BetaLockPage(),
         '/lobby': (context) {
           final routeArgs = ModalRoute.of(context)?.settings.arguments
               as Map<String, dynamic>?;

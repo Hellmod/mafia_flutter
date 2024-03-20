@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mafia/presentation/room_management/block/room_management_bloc.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../utils/Utility.dart';
 import '../../../utils/Wigets.dart';
 import '../../lobby_many_phone/block/lobby_bloc.dart';
+import '../block/beta_lock_bloc.dart';
 
-class RoomManagementTokenPage extends StatefulWidget {
+class BetaLockPage extends StatefulWidget {
 
   @override
-  _RoomManagementTokenPage createState() => _RoomManagementTokenPage();
+  _BetaLockPage createState() => _BetaLockPage();
 }
 
-class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
-  RoomManagementBloc? myBloc;
+class _BetaLockPage extends State<BetaLockPage>  {
+  BetaLockBloc? myBloc;
 
   String roomId = '';
 
   @override
   void initState() {
     super.initState();
-    myBloc = context.read<RoomManagementBloc>();
+    myBloc = context.read<BetaLockBloc>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RoomManagementBloc, RoomManagementState>(
+    return BlocBuilder<BetaLockBloc, BetaLockState>(
         bloc: myBloc,
         builder: (context, state) {
           if (state is InitState) {
@@ -41,26 +41,11 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: IconButton(
-                                  icon: Icon(Icons.arrow_back, color: Colors.white),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
-                              const Text(
-                                'Rozgrywka niemoderowana',
+                              Text(
+                                'Blokada aplikacji',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 14,
@@ -69,27 +54,11 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
                                   color: Color(0xffa3a3a3),
                                 ),
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: IconButton(
-                                  icon: const Icon(Icons.qr_code,
-                                      color: Colors.white),
-                                  onPressed: () {
-                                    Utility.workingOn();
-                                  },
-                                ),
-                              ),
                             ],
                           ),
                           const SizedBox(height: 40),
                           const Text(
-                            'Token gry',
+                            'Klucz gry',
                             style: TextStyle(
                               fontFamily: 'Clash Display Variable',
                               fontSize: 24,
@@ -100,7 +69,7 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
                           ),
                           const SizedBox(height: 8),
                           const Text(
-                            'Wpisz token gry aby dołączyć do rozgrywki',
+                            'Wpisz klucz gry aby uruchomić aplikację',
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 14,
@@ -114,7 +83,7 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
                             width: double.infinity,
                             child: Pinput(
                               onCompleted: (pin) => {
-                                myBloc!.add(TokenPageConnectClick(idRoom: pin))
+                                myBloc!.add(CheckGameKeyClick(gameKey: pin))
                               },
                               onChanged: (value) => {
                                 roomId = value
@@ -123,40 +92,6 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
                               defaultPinTheme: defaultPinTheme,
                             ),
                           ),
-                          const SizedBox(height: 32),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                              MaterialStateProperty.all(Color(0x7f595959)),
-                              shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                              padding: MaterialStateProperty.all(
-                                  EdgeInsets.fromLTRB(16, 12, 16, 16)),
-                            ),
-                            onPressed: () {
-                              myBloc!.add(OnNewGameClick());
-                            },
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Stwórz rozgrywkę',
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Icon(Icons.add, size: 20)
-                              ],
-                            ),
-                          )
                         ],
                       )),
                   Positioned(
@@ -169,7 +104,7 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: () {
-                          myBloc?.add(TokenPageConnectClick(idRoom: roomId));
+                          myBloc?.add(CheckGameKeyClick(gameKey: roomId));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -184,7 +119,7 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
                             child: Padding(
                               padding: EdgeInsets.all(16.0),
                               child: Text(
-                                'Dalej',
+                                'Ok',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 16,
@@ -202,7 +137,7 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
               ),
             );
           }
-          return MainWidget.loadingWidget("Room management loading...");
+          return MainWidget.loadingWidget("beta lock loading...");
         });
   }
 
@@ -218,25 +153,4 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
       borderRadius: BorderRadius.circular(20),
     ),
   );
-
-  Widget tokenBox(String text) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Color(0x33ffffff)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontFamily: 'Clash Display Variable',
-            fontSize: 48,
-            fontWeight: FontWeight.w600,
-            height: 1.2575,
-            color: Color(0xffffffff),
-          ),
-        ),
-      ),
-    );
-  }
 }

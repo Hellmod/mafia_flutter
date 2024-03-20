@@ -34,4 +34,14 @@ class Utility {
         textColor: Colors.white,
         fontSize: 16.0);
   }
+  static void gameKeyIncorrect() {
+    Fluttertoast.showToast(
+        msg: "Klucz gry nie poprawny",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 }
