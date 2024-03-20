@@ -5,6 +5,11 @@ abstract class RoomManagementEvent extends Equatable {
   const RoomManagementEvent();
 }
 
+class RestartBlock extends RoomManagementEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class TokenPageConnectClick extends RoomManagementEvent {
   final String idRoom;
 

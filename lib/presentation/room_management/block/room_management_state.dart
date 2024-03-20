@@ -5,7 +5,7 @@ abstract class RoomManagementState extends Equatable {
   const RoomManagementState();
 }
 
-class RoomManagementTokenState extends RoomManagementState {
+class InitState extends RoomManagementState {
   @override
   List<Object> get props => [];
 }

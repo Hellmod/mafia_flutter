@@ -19,12 +19,16 @@ class RoomManagementNavigator extends StatelessWidget {
     return BlocListener<RoomManagementBloc, RoomManagementState>(
       listener: (context, state) {
         if (state is NavToLobbyManyPhoneState) {
-          Navigator.pushNamed(context, '/lobby', arguments: {'roomId': state.roomId});
+          Navigator.pushNamed(context, '/lobby', arguments: {
+            'roomId': state.roomId
+          }).then((value) => {
+                BlocProvider.of<RoomManagementBloc>(context).add(RestartBlock())
+              });
         }
       },
       child: BlocBuilder<RoomManagementBloc, RoomManagementState>(
         builder: (context, state) {
-          if (state is RoomManagementTokenState) {
+          if (state is InitState) {
             debugPrint("MPMP state RoomManagementNavigator RoomManagementTokenState");
             return RoomManagementTokenPage();
           }else {

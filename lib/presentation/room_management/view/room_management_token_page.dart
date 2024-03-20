@@ -29,7 +29,7 @@ class _RoomManagementTokenPage extends State<RoomManagementTokenPage>  {
     return BlocBuilder<RoomManagementBloc, RoomManagementState>(
         bloc: myBloc,
         builder: (context, state) {
-          if (state is RoomManagementTokenState) {
+          if (state is InitState) {
             return Container(
               width: double.infinity,
               color: const Color(0xff1e1e1e),
