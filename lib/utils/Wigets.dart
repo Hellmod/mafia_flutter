@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MainWidget {
   static Widget toolBar(String title) => Row(
         children: [
-          Container(
+         /* Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               border: Border.all(
@@ -15,7 +15,7 @@ class MainWidget {
               icon: Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {},
             ),
-          ),
+          ),*/
           SizedBox(width: 16), // Spacja między przyciskiem a tekstem
           Flexible(
             // Flexible pozwala tekstu rozszerzyć się w dostępnej przestrzeni
