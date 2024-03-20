@@ -5,6 +5,11 @@ abstract class LobbyEvent extends Equatable {
   const LobbyEvent();
 }
 
+class RestartBlock extends LobbyEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class OnRemoveUserClick extends LobbyEvent {
   @override
   List<Object> get props => [];

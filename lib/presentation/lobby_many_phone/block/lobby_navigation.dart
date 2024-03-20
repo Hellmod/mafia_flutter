@@ -15,8 +15,12 @@ class LobbyNavigator extends StatelessWidget {
     return BlocListener<LobbyBloc, LobbyState>(
       listener: (context, state) {
         if (state is NavigateToGamePageState) {
-          debugPrint("MPMP state NavigateToGamePageState");
-          Navigator.pushNamed(context, '/game', arguments: {'roomId': state.roomId});
+          debugPrint("MPMP state LobbyNavigator NavigateToGamePageState");
+          Navigator.pushNamed(context, '/game', arguments: {'roomId': state.roomId})
+              .then((value) => {
+                BlocProvider.of<LobbyBloc>(context).add(RestartBlock())
+              }
+          );
         }
       },
       child: BlocBuilder<LobbyBloc, LobbyState>(

@@ -58,6 +58,10 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
       onStartClick(event.amount, event.jakistekst);
     });
 
+    on<RestartBlock>((event, emit) async {
+      restartBlock();
+    });
+
     _init();
   }
 
@@ -172,5 +176,9 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
         user.character = Unknown();
       }
     }
+  }
+
+  void restartBlock() {
+    _init();
   }
 }

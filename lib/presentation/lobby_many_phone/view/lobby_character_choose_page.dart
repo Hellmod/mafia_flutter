@@ -34,47 +34,54 @@ class _LobbyManyPhoneCharacterChoose
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LobbyBloc, LobbyState>(
-        bloc: myBloc,
-        builder: (context, state) {
-          if (state is LobbyManyPhoneCharacterChooseState) {
-            return Container(
-              width: double.infinity,
-              color: const Color(0xff1e1e1e),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Stack(
-                        fit: StackFit.loose,
+    return PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) {
+          myBloc?.add(LobbyCharacterChooseBackClick());
+        },
+        child: BlocBuilder<LobbyBloc, LobbyState>(
+            bloc: myBloc,
+            builder: (context, state) {
+              if (state is LobbyManyPhoneCharacterChooseState) {
+                return body(state);
+              }
+              return MainWidget.loadingWidget("Lobby character  loading...");
+            }));
+  }
+
+  Widget body(LobbyManyPhoneCharacterChooseState state) => Container(
+        width: double.infinity,
+        color: const Color(0xff1e1e1e),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Stack(
+                  fit: StackFit.loose,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                toolBar(),
-                                const SizedBox(height: 40),
-                                pageTitle(),
-                                const SizedBox(height: 24),
-                                villageSeparator(),
-                                const SizedBox(height: 24),
-                                CharacterGrid(),
-                              ],
-                            ),
-                          ),
+                          toolBar(),
+                          const SizedBox(height: 40),
+                          pageTitle(),
+                          const SizedBox(height: 24),
+                          villageSeparator(),
+                          const SizedBox(height: 24),
+                          CharacterGrid(),
                         ],
                       ),
                     ),
-                  ),
-                  bottomBar(state.charactersToChoose),
-                ],
+                  ],
+                ),
               ),
-            );
-          }
-          return MainWidget.loadingWidget("Lobby character  loading...");
-        });
-  }
+            ),
+            bottomBar(state.charactersToChoose),
+          ],
+        ),
+      );
 
   Widget bottomBar(int amount) => Container(
         decoration: const BoxDecoration(
