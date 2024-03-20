@@ -164,10 +164,40 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     playerActions.forEach((action) {
       var characterOwner =
           users.firstWhere((element) => element.id == action.idOwner).character;
-      usersState =
-          characterOwner.makeSpecialAction(action.idSelected, usersState);
+      if(characterOwner.name == "Pirat"){//ToDo make as enum
+        var idSelectedUser = _findMostVotedForPirat(playerActions);
+        if (idSelectedUser != null) {
+          _killUser(idSelectedUser);
+        }
+      }
+      else{
+        usersState =
+            characterOwner.makeSpecialAction(action.idSelected, usersState);
+      }
+
     });
   }
+
+  String? _findMostVotedForPirat(List<ActionDetail> playerActions) {
+  Map<String, int> voteCounts = {};
+
+  for (var action in playerActions) {
+    var owner = users.firstWhere((element) => element.id == action.idOwner);
+    if (owner.character.name == "Pirat") {
+      voteCounts[action.idSelected] = (voteCounts[action.idSelected] ?? 0) + 1;
+    }
+  }
+
+  var sortedVotes = voteCounts.entries.toList()
+    ..sort((a, b) => b.value.compareTo(a.value));
+
+  if (sortedVotes.length >= 2 &&
+      sortedVotes[0].value == sortedVotes[1].value) {
+    return null;
+  }
+
+  return sortedVotes.isNotEmpty ? sortedVotes.first.key : null;
+}
 
   String? _findMostVoted(List<ActionDetail> playerActions) {
     Map<String, int> voteCounts = {};
