@@ -99,8 +99,6 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
     user = users
         .firstWhere((element) => element.id == deviceIdentifier);
 
-    emit(LobbyUserListState(
-        users: users, user: user, isUserInGame: isUserInGame, roomId: roomId));
     printState();
   }
 

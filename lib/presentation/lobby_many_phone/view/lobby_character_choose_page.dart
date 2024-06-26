@@ -116,7 +116,6 @@ class _LobbyManyPhoneCharacterChoose
                 flex: 7,
                 child: InkWell(
                   onTap: () {
-                    //RM
                     navGame();
                     // Utility.workingOn();
                   },

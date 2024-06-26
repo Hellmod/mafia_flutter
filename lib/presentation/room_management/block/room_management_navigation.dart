@@ -33,7 +33,7 @@ class RoomManagementNavigator extends StatelessWidget {
             return RoomManagementTokenPage();
           }else {
             debugPrint("MPMP state RoomManagementNavigator else: ${state.toString()}");
-            return MainWidget.loadingWidget("RoomManagementNavigator loading... ${state.toString()}");//RM
+            return MainWidget.loadingWidget("RoomManagementNavigator loading... ${state.toString()}");
           }
         },
       ),

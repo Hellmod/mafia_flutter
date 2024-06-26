@@ -10,7 +10,7 @@ class LobbyInitial extends LobbyState {
   List<Object> get props => [];
 }
 
-class LobbyUserListState extends LobbyState {//RM
+class LobbyUserListState extends LobbyState {
   final List<User> users;
   final User user;
   final String roomId;

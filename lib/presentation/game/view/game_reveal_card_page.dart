@@ -66,7 +66,6 @@ class _GameRevealCard extends State<GameRevealCard>
                   Expanded(
                     child: SingleChildScrollView(
                       child: Stack(
-                        //RM
                         fit: StackFit.loose,
                         children: [
                           Padding(

@@ -26,7 +26,7 @@ class BetaLockNavigator extends StatelessWidget {
             debugPrint(
                 "MPMP state BetaLockNavigator else: ${state.toString()}");
             return MainWidget.loadingWidget(
-                "BetaLockNavigator loading... ${state.toString()}"); //RM
+                "BetaLockNavigator loading... ${state.toString()}");
           }
         },
       ),
