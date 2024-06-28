@@ -86,7 +86,9 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
 
   Future<void> _initSteam() async {
     await _usersSubscription?.cancel();
-    _usersSubscription = _lobbyService.streamUsersFromGameRoom().listen((updatedUsers) {
+    _usersSubscription = _lobbyService
+        .streamUsersFromGameRoom()
+        .listen((updatedUsers) {
       onUsersChanged(updatedUsers);
     });
   }
@@ -96,8 +98,13 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
     users = updatedUsers;
 
     isUserInGame = checkIsYourIdIsInGame();
-    user = users
-        .firstWhere((element) => element.id == deviceIdentifier);
+    user = users.firstWhere(
+      (element) => element.id == deviceIdentifier,
+      orElse: () => User(name: '', id: '', character: Unknown()),
+    );
+
+    emit(LobbyUserListState(
+        users: users, user: user, isUserInGame: isUserInGame, roomId: roomId));
 
     printState();
   }
