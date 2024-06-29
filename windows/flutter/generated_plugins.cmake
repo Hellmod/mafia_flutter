@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   cloud_firestore
   file_selector_windows
   firebase_core
+  platform_device_id_windows
   smart_auth
 )
 

@@ -1,16 +1,11 @@
 import 'dart:io';
 
+import 'package:custom_platform_device_id/platform_device_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 
   Future<String> getDeviceIdentifier() async {
-    final deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      return androidInfo.id;
-    } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor ?? 'unknown';
-    }
-    return 'unknown';
+
+    String? deviceId = await PlatformDeviceId.getDeviceId;
+    return deviceId ?? 'unknown';
   }
