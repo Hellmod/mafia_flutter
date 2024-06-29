@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/User.dart';
 import '../../../services/LobbyService.dart';
+import '../../../services/Utils.dart';
 import '../../../utils/Utility.dart';
 import '../../../utils/character/Character.dart';
 import '../../../utils/character/Unknown.dart';
@@ -27,6 +28,7 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
 
   Map<Character, int> characterAmountMap = {};
   StreamSubscription? _usersSubscription;
+  StreamSubscription? _isGameStartedSubscription;
 
   LobbyBloc(this._lobbyService) : super(LoadingState()) {
     on<OnRemoveUserClick>((event, emit) async {
@@ -72,8 +74,9 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
   }
 
   Future<void> _init() async {
-    _initSteam();
-    deviceIdentifier = await _lobbyService.getDeviceIdentifier();
+    _initSteamUsers();
+    _initSteamIsGameStarted();
+    deviceIdentifier = await getDeviceIdentifier();
     roomId = _lobbyService.getGameId();
     if (await _lobbyService.isGameStarted()) {
       emit(NavigateToGamePageState(roomId));
@@ -84,13 +87,28 @@ class LobbyBloc extends Bloc<LobbyEvent, LobbyState> {
         users: users, user: user, isUserInGame: isUserInGame, roomId: roomId));
   }
 
-  Future<void> _initSteam() async {
+  Future<void> _initSteamUsers() async {
     await _usersSubscription?.cancel();
     _usersSubscription = _lobbyService
         .streamUsersFromGameRoom()
         .listen((updatedUsers) {
       onUsersChanged(updatedUsers);
     });
+  }
+
+  Future<void> _initSteamIsGameStarted() async {
+    await _isGameStartedSubscription?.cancel();
+    _isGameStartedSubscription = _lobbyService
+        .streamIsGameStarted()
+        .listen((isGameStarted) {
+      onGameStartedChanged(isGameStarted);
+    });
+  }
+
+  void onGameStartedChanged(bool isGameStarted) {
+    if (isGameStarted) {
+      emit(NavigateToGamePageState(roomId));
+    }
   }
 
   void onUsersChanged(List<User> updatedUsers) {

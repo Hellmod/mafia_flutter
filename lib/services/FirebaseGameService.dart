@@ -28,18 +28,6 @@ class FirebaseGameService {
     }
   }
 
-  Future<String> getDeviceIdentifier() async {
-    final deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      return androidInfo.serialNumber;
-    } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor ?? 'unknown';
-    }
-    return 'unknown';
-  }
-
   Future<int> getCurrentDayNightNumber() async {
     try {
       QuerySnapshot querySnapshot = await _firebase

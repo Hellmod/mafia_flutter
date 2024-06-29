@@ -1,9 +1,6 @@
 
-import 'dart:io';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mafia/utils/Utility.dart';
 
@@ -43,6 +40,21 @@ class LobbyService {
             snapshot.docs.map((doc) => User.fromDocument(doc)).toList());
   }
 
+  Stream<bool> streamIsGameStarted() {
+    return _firebase
+        .collection('rooms')
+        .doc(gameId)
+        .snapshots()
+        .map((DocumentSnapshot snapshot) {
+      if (snapshot.exists && snapshot.data() != null) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        return data['isGameStarted'] ?? false;
+      } else {
+        return false;
+      }
+    });
+  }
+
   Future<void> addUser(User user) async {
     try {
       await _firebase
@@ -77,18 +89,6 @@ class LobbyService {
     } catch (e) {
       print("Błąd przy aktualizacji stanu gry: $e");
     }
-  }
-
-  Future<String> getDeviceIdentifier() async {
-    final deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      return androidInfo.serialNumber;
-    } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor ?? 'unknown';
-    }
-    return 'unknown';
   }
 
   Future<void> updateUsersWithCharacters(List<User> users) async {

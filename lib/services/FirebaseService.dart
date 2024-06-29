@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mafia/utils/Utility.dart';
 
 import '../models/User.dart';
+import 'Utils.dart';
 
 class FirebaseService {
   final FirebaseFirestore _firebase = FirebaseFirestore.instance;
@@ -106,18 +107,6 @@ class FirebaseService {
     final random = Random();
     final values = List<int>.generate(6, (i) => random.nextInt(10));
     return values.join();
-  }
-
-  Future<String> getDeviceIdentifier() async {
-    final deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      return androidInfo.serialNumber;
-    } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      return iosInfo.identifierForVendor ?? 'unknown';
-    }
-    return 'unknown';
   }
 
   Future<void> updateUsersWithCharacters(String gameId, List<User> users) async {

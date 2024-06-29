@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../models/User.dart';
 import '../../../services/FirebaseGameService.dart';
+import '../../../services/Utils.dart';
 import '../../../utils/character/PlauerAction.dart';
 
 part 'game_event.dart';
@@ -65,7 +66,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   Future<void> _init() async {
     users = await _firebaseGameService.getUsers();
     usersState = users;
-    deviceIdentifier = await _firebaseGameService.getDeviceIdentifier();
+    deviceIdentifier = await getDeviceIdentifier();
     currentDayNightNumber =
         await _firebaseGameService.getCurrentDayNightNumber();
     user = users.firstWhere((element) => element.id == deviceIdentifier);
