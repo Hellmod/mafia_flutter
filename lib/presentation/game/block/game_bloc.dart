@@ -116,7 +116,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   bool _isGameFinished() {
-    return false; //ToDo delete this line becore commit
+   // return false; //ToDo delete this line before release
     var amountOfAliveMafia = usersState
         .where(
             (element) => element.isDead == false && element.character.isMafia)

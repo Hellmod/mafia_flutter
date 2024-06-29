@@ -346,13 +346,22 @@ class _LobbyManyPhoneLobbyUserList extends State<LobbyUserListPage> {
                       color: Color(0xffffffff),
                     ),
                   ),
-                  IconButton(
+                  const Text(
+                    "",
+                    style: TextStyle(
+                      fontFamily: 'Clash Display Variable',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                /*  IconButton(
                     //ToDo usuń
                     icon: const Icon(Icons.delete, color: Colors.red),
                     onPressed: () {
                       Utility.workingOn();
                     },
-                  ),
+                  ),*/
                 ],
               ),
             );
