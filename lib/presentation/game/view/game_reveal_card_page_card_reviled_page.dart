@@ -145,25 +145,23 @@ class _GameRevealCardReviled extends State<GameRevealCardReviled>
                     width: 1.0,
                   ),
                 ),
-                child: const Stack(
+                child: Stack(
                   fit: StackFit.expand,
                   children: [
                     Padding(
                       padding: EdgeInsets.all(16),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // Dodano, aby rozłożyć dzieci równomiernie
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        // Zmieniono na CrossAxisAlignment.start
                         children: [
                           Text(
-                            'Mafia',
+                            character.name,
                             style: AppTextStyles.text_C_14_600,
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
                             child: Text(
-                              'Mafia',
+                              character.name,
                               style: AppTextStyles.text_C_14_600,
                             ),
                           ),
